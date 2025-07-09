@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApprenticeshipApp.Domain.IdentityEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,14 +27,14 @@ namespace ApprenticeshipApp.Domain.Entities
         public int DurationInHours { get; set; }
 
         [Required]
-        [ForeignKey("User")]
+        [ForeignKey("ApplicationUser")]
         public Guid InstructorId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-        public User Instructor { get; set; }
-        public ICollection<Session> Sessions { get; set; }
+        public ApplicationUser Instructor { get; set; } = null!;
+        public ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

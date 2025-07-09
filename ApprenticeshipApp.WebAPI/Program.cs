@@ -11,9 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = builder.Configuration.GetConnectionString("Default");
+var password = builder.Configuration["DB_PASSWORD"];
+connectionString = connectionString?.Replace("{DB_PASSWORD}", password);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    options.UseSqlServer(connectionString);
 });
 
 var app = builder.Build();
@@ -24,11 +28,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    using (var scope = app.Services.CreateScope())
-    {
-        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        db.Database.Migrate();
-    }
+    //using (var scope = app.Services.CreateScope())
+    //{
+    //    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    //    db.Database.Migrate();
+    //}
 }
 
 app.UseHttpsRedirection();

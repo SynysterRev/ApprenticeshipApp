@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ApprenticeshipApp.WebAPI/Dockerfile
     depends_on:
-      - db
+      - dev-db
     networks:
       - backend
     environment:
@@ -14,8 +14,8 @@ services:
     volumes:
       - ./AppreniceshipApp:/app
 
-  db:
-    container_name: db
+  dev-db:
+    container_name: dev-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y

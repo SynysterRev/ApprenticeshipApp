@@ -27,4 +27,4 @@ RUN dotnet publish "./ApprenticeshipApp.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "watch", "run"]
+ENTRYPOINT ["dotnet", "ApprenticeshipApp.dll"]

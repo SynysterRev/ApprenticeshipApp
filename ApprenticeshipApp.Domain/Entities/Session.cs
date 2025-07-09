@@ -33,6 +33,6 @@ namespace ApprenticeshipApp.Domain.Entities
 
         public int CurrentParticipants { get; set; } = 0;
 
-        public Course Course { get; set; }
+        public Course Course { get; set; } = null!;
     }
 }

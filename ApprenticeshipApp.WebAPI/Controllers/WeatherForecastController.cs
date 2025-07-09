@@ -42,10 +42,10 @@ namespace ApprenticeshipApp.Controllers
             return Ok(new { DatabaseConnected = canConnect });
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get(int potato)
-        //{
-        //    return Ok("Salut frère");
-        //}
+        [HttpGet("{sessionID}")]
+        public async Task<IActionResult> Get(int sessionID)
+        {
+            return Ok("Salut mon bro");
+        }
     }
 }
