@@ -29,8 +29,8 @@ namespace ApprenticeshipApp.Domain.Entities
 
         public string? Description { get; set; }
 
-        public ApplicationUser Apprentice { get; set; } = null!;
+        public virtual ApplicationUser Apprentice { get; set; } = null!;
 
-        public Session Session { get; set; } = null!;
+        public virtual Session Session { get; set; } = null!;
     }
 }

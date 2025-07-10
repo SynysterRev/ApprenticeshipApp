@@ -34,7 +34,7 @@ namespace ApprenticeshipApp.Domain.Entities
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-        public ApplicationUser Instructor { get; set; } = null!;
-        public ICollection<Session> Sessions { get; set; } = new List<Session>();
+        public virtual ApplicationUser Instructor { get; set; } = null!;
+        public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }
