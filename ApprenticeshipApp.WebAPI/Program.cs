@@ -1,4 +1,5 @@
 using ApprenticeshipApp.Infrastructure.DatabaseContext;
+using ApprenticeshipApp.WebAPI.StartupExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.ConfigureServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,12 +30,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-    //using (var scope = app.Services.CreateScope())
-    //{
-    //    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    //    db.Database.Migrate();
-    //}
 }
 
 app.UseHttpsRedirection();
