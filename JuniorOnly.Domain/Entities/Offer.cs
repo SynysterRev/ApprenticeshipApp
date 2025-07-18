@@ -30,6 +30,17 @@ namespace JuniorOnly.Domain.Entities
         public int ExperienceRequired { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue)]
+        public int SalaryMin {  get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int SalaryMax { get; set; }
+
+        [Required]
+        public SalaryPeriod SalaryPeriod { get; set; } = SalaryPeriod.Year;
+
+        [Required]
         public RemoteType RemoteType { get; set; }
 
         public DateTime PublishedAt { get; set; } = DateTime.UtcNow;
@@ -43,5 +54,20 @@ namespace JuniorOnly.Domain.Entities
         public virtual Company Company { get; set; } = null!;
         public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
         public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
+
+        public string SalaryRangeDisplay
+        {
+            get
+            {
+                string period = SalaryPeriod switch
+                {
+                    SalaryPeriod.Year => "/year",
+                    SalaryPeriod.Month => "/month",
+                    SalaryPeriod.Day => "/day",
+                    _ => string.Empty
+                };
+                return $"{SalaryMin:N0} - {SalaryMax:N0} {period}";
+            }
+        }
     }
 }

@@ -12,6 +12,5 @@ namespace JuniorOnly.Application.DTO.Application
         public string? Message { get; set; }
         public DateTime ApplieddAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public Guid? CandidateProfileId { get; set; }
     }
 }

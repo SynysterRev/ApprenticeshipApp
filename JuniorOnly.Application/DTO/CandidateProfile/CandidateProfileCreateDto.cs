@@ -1,4 +1,3 @@
-using System;
 using JuniorOnly.Domain.Enums;
 
 namespace JuniorOnly.Application.DTO.CandidateProfile
