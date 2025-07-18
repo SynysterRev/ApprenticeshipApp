@@ -18,6 +18,5 @@ namespace JuniorOnly.Application.DTO.Company
         [StringLength(200)]
         public string? Website { get; set; }
         public bool? IsReconversionFriendly { get; set; }
-        public Guid? CreatedByUserId { get; set; }
     }
 }
