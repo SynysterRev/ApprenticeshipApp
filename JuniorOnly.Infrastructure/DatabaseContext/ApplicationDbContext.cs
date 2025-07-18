@@ -99,6 +99,9 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
                     v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)
                 )
                 .Metadata.SetValueComparer(stringArrayComparer);
+
+            modelBuilder.Entity<Offer>()
+                .ToTable(t => t.HasCheckConstraint("CK_Offer_SalaryRange", "[SalaryMax] > [SalaryMin]"));
         }
 
     }

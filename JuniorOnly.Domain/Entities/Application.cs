@@ -24,7 +24,7 @@ namespace JuniorOnly.Domain.Entities
         [StringLength(1000)]
         public string? Message { get; set; }
 
-        public DateTime ApplieddAt { get; set; } = DateTime.UtcNow;
+        public DateTime AppliedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
