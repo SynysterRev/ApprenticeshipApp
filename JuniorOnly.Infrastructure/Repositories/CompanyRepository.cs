@@ -59,5 +59,10 @@ namespace JuniorOnly.Infrastructure.Repositories
         {
             return await _dbContext.Offers.Where(o => o.CompanyId == companyId).ToListAsync();
         }
+
+        public async Task<List<Company>> GetReconversionFriendlyCompaniesAsync()
+        {
+            return await _dbContext.Companies.Where(c => c.IsReconversionFriendly).ToListAsync();
+        }
     }
 }

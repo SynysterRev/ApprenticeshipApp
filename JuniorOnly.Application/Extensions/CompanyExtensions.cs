@@ -58,10 +58,6 @@ namespace JuniorOnly.Application.Extensions
             {
                 company.IsReconversionFriendly = updateDto.IsReconversionFriendly.Value;
             }
-            if (updateDto.CreatedByUserId.HasValue)
-            {
-                company.CreatedByUserId = updateDto.CreatedByUserId.Value;
-            }
             company.UpdatedAt = DateTime.UtcNow;
         }
     }
