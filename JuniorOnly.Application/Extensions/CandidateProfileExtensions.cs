@@ -6,7 +6,7 @@ namespace JuniorOnly.Application.Extensions
 {
     public static class CandidateProfileExtensions
     {
-        public static CandidateProfileDto FromEntity(this CandidateProfile profile)
+        public static CandidateProfileDto ToDto(this CandidateProfile profile)
         {
             return new CandidateProfileDto
             {

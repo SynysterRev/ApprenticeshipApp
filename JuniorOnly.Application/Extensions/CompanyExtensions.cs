@@ -5,7 +5,7 @@ namespace JuniorOnly.Application.Extensions
 {
     public static class CompanyExtensions
     {
-        public static CompanyDto FromEntity(this Company company)
+        public static CompanyDto ToDto(this Company company)
         {
             return new CompanyDto()
             {

@@ -30,7 +30,7 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            services.AddScoped<IOffersRepository, OffersRepository>();
+            services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<ICandidateProfileRepository, CandidateProfileRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();

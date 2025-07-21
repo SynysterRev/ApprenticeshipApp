@@ -2,7 +2,7 @@ using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface IOffersRepository
+    public interface IOfferRepository
     {
         /// <summary>
         /// Get all job offers in the database
@@ -58,5 +58,14 @@ namespace JuniorOnly.Domain.Repositories
         /// <param name="favoriteId">The ID of the favorite to remove</param>
         /// <returns>True if deleted, false otherwise</returns>
         public Task<bool> RemoveFavoriteAsync(Guid favoriteId);
+
+        /// <summary>
+        /// Search job offers by a search term in the title or description,
+        /// and optionally filter by maximum required experience.
+        /// </summary>
+        /// <param name="searchTerm">The term to search for in the title or description.</param>
+        /// <param name="experienceMax">Optional maximum years of experience required.</param>
+        /// <returns>A list of job offers matching the criteria.</returns>
+        public Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null);
     }
 }

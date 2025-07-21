@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class OffersRepository : IOffersRepository
+    public class OfferRepository : IOfferRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public OffersRepository(ApplicationDbContext dbContext)
+        public OfferRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -77,6 +77,24 @@ namespace JuniorOnly.Infrastructure.Repositories
             _dbContext.Favorites.Remove(favorite);
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
+        {
+            var query = _dbContext.Offers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.Trim().ToLower();
+                query = query.Where(o => o.Title.ToLower().Contains(searchTerm) || o.Description.ToLower().Contains(searchTerm));
+            }
+
+            if (experienceMax.HasValue && experienceMax >= 0)
+            {
+                query = query.Where(o => o.ExperienceRequired <= experienceMax.Value);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

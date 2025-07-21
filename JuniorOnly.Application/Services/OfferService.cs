@@ -1,4 +1,5 @@
 ﻿using JuniorOnly.Application.DTO.Offer;
+using JuniorOnly.Application.Exceptions;
 using JuniorOnly.Application.Extensions;
 using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Domain.Entities;
@@ -9,11 +10,17 @@ namespace JuniorOnly.Application.Services
 {
     public class OfferService : IOfferService
     {
-        private readonly IOffersRepository _offersRepository;
+        private readonly IOfferRepository _offerRepository;
+        private readonly ICompanyRepository _companyRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public OfferService(IOffersRepository offersRepository)
+        public OfferService(IOfferRepository offersRepository,
+            ICompanyRepository companyRepository,
+            ITagRepository tagRepository)
         {
-            _offersRepository = offersRepository;
+            _offerRepository = offersRepository;
+            _companyRepository = companyRepository;
+            _tagRepository = tagRepository;
         }
 
         public async Task<OfferDto> CreateOfferAsync(OfferCreateDto offerDto)
@@ -23,42 +30,87 @@ namespace JuniorOnly.Application.Services
                 throw new ValidationException("The minimal salary cannot be greater than the maximum salary.");
             }
 
+            var company = await _companyRepository.GetCompanyByIdAsync(offerDto.CompanyId);
+
+            if (company == null)
+            {
+                throw new NotFoundException($"Company with ID {offerDto.CompanyId} not found");
+            }
+
+            var tags = await _tagRepository.GetTagsByIdsAsync(offerDto.TagIds);
+
             Offer offer = offerDto.ToEntity();
             offer.Id = Guid.NewGuid();
+            offer.Tags = tags;
 
-            await _offersRepository.AddOfferAsync(offer);
+            await _offerRepository.AddOfferAsync(offer);
 
             return offer.ToDto();
         }
 
-        public Task<bool> DeleteOfferAsync(Guid id)
+        public async Task<bool> DeleteOfferAsync(Guid offerId)
         {
-            throw new NotImplementedException();
+            var offer = await _offerRepository.GetOfferByIdAsync(offerId);
+
+            if (offer == null)
+            {
+                throw new NotFoundException($"Offer with ID {offerId} not found");
+            }
+
+            return await _offerRepository.DeleteOfferAsync(offerId);
         }
 
-        public Task<List<OfferDto>> GetAllOffersAsync()
+        public async Task<List<OfferDto>> GetAllOffersAsync()
         {
-            throw new NotImplementedException();
+            var offers = await _offerRepository.GetAllOffersAsync();
+            return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public Task<OfferDto?> GetOfferByIdAsync(Guid id)
+        public async Task<OfferDto?> GetOfferByIdAsync(Guid offerId)
         {
-            throw new NotImplementedException();
+            var offer = await _offerRepository.GetOfferByIdAsync(offerId);
+
+            if (offer == null)
+            {
+                throw new NotFoundException($"Offer with ID {offerId} not found");
+            }
+
+            return offer.ToDto();
         }
 
-        public Task<List<OfferDto>> GetOffersByCompanyAsync(Guid companyId)
+        public async Task<List<OfferDto>> GetOffersByCompanyAsync(Guid companyId)
         {
-            throw new NotImplementedException();
+            var company = await _companyRepository.GetCompanyByIdAsync(companyId);
+
+            if (company == null)
+            {
+                throw new NotFoundException($"Company with ID {companyId} not found");
+            }
+
+            var offers = await _offerRepository.GetOffersByCompanyAsync(companyId);
+            return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public Task<List<OfferDto>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
+        public async Task<List<OfferDto>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
         {
-            throw new NotImplementedException();
+            var offers = await _offerRepository.SearchOffersAsync(searchTerm, experienceMax);
+
+            return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public Task<OfferDto?> UpdateOfferAsync(Guid id, OfferUpdateDto offerDto)
+        public async Task<OfferDto?> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto)
         {
-            throw new NotImplementedException();
+            var offer = await _offerRepository.GetOfferByIdAsync(offerId);
+
+            if (offer == null)
+            {
+                throw new NotFoundException($"Offer with ID {offerId} not found");
+            }
+
+            offer.UpdateFrom(offerDto);
+
+            await _offerRepository.UpdateOfferAsync(offer);
+            return offer.ToDto();
         }
     }
 }

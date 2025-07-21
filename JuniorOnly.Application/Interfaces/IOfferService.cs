@@ -18,7 +18,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the job offer.</param>
         /// <returns>OfferDto if found, otherwise null.</returns>
-        public Task<OfferDto?> GetOfferByIdAsync(Guid id);
+        public Task<OfferDto?> GetOfferByIdAsync(Guid offerId);
 
         /// <summary>
         /// Gets all job offers for a specific company.
@@ -40,14 +40,14 @@ namespace JuniorOnly.Application.Interfaces
         /// <param name="id">Guid of the offer to update.</param>
         /// <param name="offerDto">OfferUpdateDto with updated data.</param>
         /// <returns>The updated OfferDto if found, otherwise null.</returns>
-        public Task<OfferDto?> UpdateOfferAsync(Guid id, OfferUpdateDto offerDto);
+        public Task<OfferDto?> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto);
 
         /// <summary>
         /// Deletes a job offer.
         /// </summary>
         /// <param name="id">Guid of the offer to delete.</param>
         /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteOfferAsync(Guid id);
+        public Task<bool> DeleteOfferAsync(Guid offerId);
 
         /// <summary>
         /// Searches job offers by keyword and maximum experience.

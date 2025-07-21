@@ -32,7 +32,7 @@ namespace JuniorOnly.Application.Services
 
             await _companyRepository.AddCompanyAsync(company);
 
-            return company.FromEntity();
+            return company.ToDto();
         }
 
         public async Task<bool> DeleteCompanyAsync(Guid id)
@@ -41,7 +41,7 @@ namespace JuniorOnly.Application.Services
 
             if (company == null)
             {
-                throw new NotFoundException($"Company with ID {id} was not found.");
+                throw new NotFoundException($"Company with ID {id} not found.");
             }
 
             return await _companyRepository.DeleteCompanyAsync(id);
@@ -50,7 +50,7 @@ namespace JuniorOnly.Application.Services
         public async Task<List<CompanyDto>> GetAllCompaniesAsync()
         {
             var companies = await _companyRepository.GetAllCompaniesAsync();
-            return companies.Select(company => company.FromEntity()).ToList();
+            return companies.Select(company => company.ToDto()).ToList();
         }
 
         public async Task<CompanyDto?> GetCompanyByIdAsync(Guid id)
@@ -62,14 +62,14 @@ namespace JuniorOnly.Application.Services
                 throw new NotFoundException($"Company with ID {id} was not found.");
             }
 
-            return company.FromEntity();
+            return company.ToDto();
         }
 
         public async Task<List<CompanyDto>> GetReconversionFriendlyCompaniesAsync()
         {
             var friendlyCompanies = await _companyRepository.GetReconversionFriendlyCompaniesAsync();
 
-            return friendlyCompanies.Select(c => c.FromEntity()).ToList();
+            return friendlyCompanies.Select(c => c.ToDto()).ToList();
         }
 
         public async Task<CompanyDto?> UpdateCompanyAsync(Guid id, CompanyUpdateDto companyDto)
@@ -85,7 +85,7 @@ namespace JuniorOnly.Application.Services
 
             await _companyRepository.UpdateCompanyAsync(company);
 
-            return company.FromEntity();
+            return company.ToDto();
         }
     }
 }
