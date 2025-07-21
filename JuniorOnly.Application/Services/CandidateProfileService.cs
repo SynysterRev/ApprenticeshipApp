@@ -46,7 +46,7 @@ namespace JuniorOnly.Application.Services
             return profiles.Select(p => p.ToDto()).ToList();
         }
 
-        public async Task<CandidateProfileDto?> GetProfileByIdAsync(Guid profileId)
+        public async Task<CandidateProfileDto> GetProfileByIdAsync(Guid profileId)
         {
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
             if (profile == null)
@@ -57,7 +57,7 @@ namespace JuniorOnly.Application.Services
             return profile.ToDto();
         }
 
-        public async Task<CandidateProfileDto?> GetProfileByUserIdAsync(Guid userId)
+        public async Task<CandidateProfileDto> GetProfileByUserIdAsync(Guid userId)
         {
             var profile = await _profileRepository.GetProfileByUserIdAsync(userId);
             if (profile == null)
@@ -73,7 +73,7 @@ namespace JuniorOnly.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task<CandidateProfileDto?> UpdateProfileAsync(Guid profileId, CandidateProfileUpdateDto profileDto)
+        public async Task<CandidateProfileDto> UpdateProfileAsync(Guid profileId, CandidateProfileUpdateDto profileDto)
         {
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
             if (profile == null)

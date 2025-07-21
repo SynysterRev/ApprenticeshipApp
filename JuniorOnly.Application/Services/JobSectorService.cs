@@ -54,7 +54,7 @@ namespace JuniorOnly.Application.Services
             return jobSectors.Select(j => j.ToDto()).ToList();
         }
 
-        public async Task<JobSectorDto?> GetSectorByIdAsync(Guid sectorId)
+        public async Task<JobSectorDto> GetSectorByIdAsync(Guid sectorId)
         {
             var jobSector = await _jobSectorRepository.GetJobSectorByIdAsync(sectorId);
 

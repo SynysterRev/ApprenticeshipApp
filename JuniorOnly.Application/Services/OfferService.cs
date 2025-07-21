@@ -67,7 +67,7 @@ namespace JuniorOnly.Application.Services
             return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public async Task<OfferDto?> GetOfferByIdAsync(Guid offerId)
+        public async Task<OfferDto> GetOfferByIdAsync(Guid offerId)
         {
             var offer = await _offerRepository.GetOfferByIdAsync(offerId);
 
@@ -92,7 +92,7 @@ namespace JuniorOnly.Application.Services
             return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public async Task<OfferDto?> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto)
+        public async Task<OfferDto> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto)
         {
             var offer = await _offerRepository.GetOfferByIdAsync(offerId);
 

@@ -1,4 +1,6 @@
-﻿using JuniorOnly.Domain.IdentityEntities;
+﻿using JuniorOnly.Application.Interfaces;
+using JuniorOnly.Application.Services;
+using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
 using JuniorOnly.Infrastructure.DatabaseContext;
 using JuniorOnly.Infrastructure.Repositories;
@@ -19,6 +21,7 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             {
                 options.UseSqlServer(connectionString);
             });
+
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequiredLength = 6;
@@ -30,10 +33,19 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            // Repositories
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IApplicationRepository, ApplicationRepository>();
             services.AddScoped<ICandidateProfileRepository, CandidateProfileRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IJobSectorRepository, JobSectorRepository>();
+
+            // Services
+            services.AddScoped<IOfferService, OfferService>();
+            services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<ICandidateProfileService, CandidateProfileService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IJobSectorService, JobSectorService>();
         }
     }
 }

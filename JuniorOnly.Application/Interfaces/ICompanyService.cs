@@ -14,8 +14,8 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets a company by its unique identifier.
         /// </summary>
         /// <param name="id">Guid of the company.</param>
-        /// <returns>CompanyDto if found, otherwise null.</returns>
-        public Task<CompanyDto?> GetCompanyByIdAsync(Guid companyId);
+        /// <returns>CompanyDto if found, otherwise throw a not found exception.</returns>
+        public Task<CompanyDto> GetCompanyByIdAsync(Guid companyId);
 
         /// <summary>
         /// Creates a new company.
@@ -29,8 +29,8 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the company to update.</param>
         /// <param name="companyDto">CompanyUpdateDto with updated data.</param>
-        /// <returns>The updated CompanyDto if found, otherwise null.</returns>
-        public Task<CompanyDto?> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto);
+        /// <returns>The updated CompanyDto if found, otherwise throw a not found exception.</returns>
+        public Task<CompanyDto> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto);
 
         /// <summary>
         /// Deletes a company.

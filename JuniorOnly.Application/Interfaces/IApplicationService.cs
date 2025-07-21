@@ -14,8 +14,8 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets an application by its unique identifier.
         /// </summary>
         /// <param name="id">Guid of the application.</param>
-        /// <returns>ApplicationDto if found, otherwise null.</returns>
-        public Task<ApplicationDto?> GetApplicationByIdAsync(Guid applicationId);
+        /// <returns>ApplicationDto if found, otherwise throw a not found exception.</returns>
+        public Task<ApplicationDto> GetApplicationByIdAsync(Guid applicationId);
 
         /// <summary>
         /// Gets all applications for a specific candidate.
@@ -43,8 +43,8 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the application to update.</param>
         /// <param name="applicationDto">ApplicationUpdateDto with updated data.</param>
-        /// <returns>The updated ApplicationDto if found, otherwise null.</returns>
-        public Task<ApplicationDto?> UpdateApplicationAsync(Guid applicationId, ApplicationUpdateDto applicationDto);
+        /// <returns>The updated ApplicationDto if found, otherwise throw a not found exception.</returns>
+        public Task<ApplicationDto> UpdateApplicationAsync(Guid applicationId, ApplicationUpdateDto applicationDto);
 
         /// <summary>
         /// Deletes an application.

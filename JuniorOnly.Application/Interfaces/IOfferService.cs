@@ -15,8 +15,8 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets a job offer by its unique identifier.
         /// </summary>
         /// <param name="id">Guid of the job offer.</param>
-        /// <returns>OfferDto if found, otherwise null.</returns>
-        public Task<OfferDto?> GetOfferByIdAsync(Guid offerId);
+        /// <returns>OfferDto if found, otherwise throw a not found exception.</returns>
+        public Task<OfferDto> GetOfferByIdAsync(Guid offerId);
 
         /// <summary>
         /// Gets all job offers for a specific company.
@@ -37,8 +37,8 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the offer to update.</param>
         /// <param name="offerDto">OfferUpdateDto with updated data.</param>
-        /// <returns>The updated OfferDto if found, otherwise null.</returns>
-        public Task<OfferDto?> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto);
+        /// <returns>The updated OfferDto if found, otherwise throw a not found exception.</returns>
+        public Task<OfferDto> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto);
 
         /// <summary>
         /// Deletes a job offer.

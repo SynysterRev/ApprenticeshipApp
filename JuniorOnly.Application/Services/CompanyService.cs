@@ -53,7 +53,7 @@ namespace JuniorOnly.Application.Services
             return companies.Select(company => company.ToDto()).ToList();
         }
 
-        public async Task<CompanyDto?> GetCompanyByIdAsync(Guid companyId)
+        public async Task<CompanyDto> GetCompanyByIdAsync(Guid companyId)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(companyId);
 
@@ -72,7 +72,7 @@ namespace JuniorOnly.Application.Services
             return friendlyCompanies.Select(c => c.ToDto()).ToList();
         }
 
-        public async Task<CompanyDto?> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto)
+        public async Task<CompanyDto> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(companyId);
 

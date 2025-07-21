@@ -15,15 +15,15 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets a candidate profile by its unique identifier.
         /// </summary>
         /// <param name="id">Guid of the candidate profile.</param>
-        /// <returns>CandidateProfileDto if found, otherwise null.</returns>
-        public Task<CandidateProfileDto?> GetProfileByIdAsync(Guid profileId);
+        /// <returns>CandidateProfileDto if found, otherwise throw a not found exception.</returns>
+        public Task<CandidateProfileDto> GetProfileByIdAsync(Guid profileId);
 
         /// <summary>
         /// Gets a candidate profile by the user's unique identifier.
         /// </summary>
         /// <param name="userId">Guid of the user.</param>
-        /// <returns>CandidateProfileDto if found, otherwise null.</returns>
-        public Task<CandidateProfileDto?> GetProfileByUserIdAsync(Guid userId);
+        /// <returns>CandidateProfileDto if found, otherwise throw a not found exception.</returns>
+        public Task<CandidateProfileDto> GetProfileByUserIdAsync(Guid userId);
 
         /// <summary>
         /// Creates a new candidate profile.
@@ -37,8 +37,8 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the profile to update.</param>
         /// <param name="profileDto">CandidateProfileUpdateDto with updated data.</param>
-        /// <returns>The updated CandidateProfileDto if found, otherwise null.</returns>
-        public Task<CandidateProfileDto?> UpdateProfileAsync(Guid id, CandidateProfileUpdateDto profileDto);
+        /// <returns>The updated CandidateProfileDto if found, otherwise throw a not found exception.</returns>
+        public Task<CandidateProfileDto> UpdateProfileAsync(Guid id, CandidateProfileUpdateDto profileDto);
 
         /// <summary>
         /// Deletes a candidate profile.

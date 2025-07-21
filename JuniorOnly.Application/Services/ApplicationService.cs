@@ -67,7 +67,7 @@ namespace JuniorOnly.Application.Services
             return applications.Select(a => a.ToDto()).ToList();
         }
 
-        public async Task<ApplicationDto?> GetApplicationByIdAsync(Guid applicationId)
+        public async Task<ApplicationDto> GetApplicationByIdAsync(Guid applicationId)
         {
             var application = await _applicationRepository.GetApplicationByIdAsync(applicationId);
             if (application == null)
@@ -90,7 +90,7 @@ namespace JuniorOnly.Application.Services
             return applications.Select(a => a.ToDto()).ToList();
         }
 
-        public async Task<ApplicationDto?> UpdateApplicationAsync(Guid applicationId, ApplicationUpdateDto applicationDto)
+        public async Task<ApplicationDto> UpdateApplicationAsync(Guid applicationId, ApplicationUpdateDto applicationDto)
         {
             var application = await _applicationRepository.GetApplicationByIdAsync(applicationId);
             if (application == null)

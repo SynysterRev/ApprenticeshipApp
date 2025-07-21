@@ -15,7 +15,7 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets a sector by its unique identifier.
         /// </summary>
         /// <param name="id">Guid of the sector.</param>
-        /// <returns>SectorDto if found, otherwise null.</returns>
+        /// <returns>SectorDto if found, otherwise throw a not found exception.</returns>
         public Task<JobSectorDto?> GetSectorByIdAsync(Guid sectorId);
 
         /// <summary>
