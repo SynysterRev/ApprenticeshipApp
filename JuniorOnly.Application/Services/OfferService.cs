@@ -80,13 +80,6 @@ namespace JuniorOnly.Application.Services
 
         public async Task<List<OfferDto>> GetOffersByCompanyAsync(Guid companyId)
         {
-            var company = await _companyRepository.GetCompanyByIdAsync(companyId);
-
-            if (company == null)
-            {
-                throw new NotFoundException($"Company with ID {companyId} not found");
-            }
-
             var offers = await _offerRepository.GetOffersByCompanyAsync(companyId);
             return offers.Select(o => o.ToDto()).ToList();
         }

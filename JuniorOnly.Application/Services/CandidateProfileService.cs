@@ -12,12 +12,10 @@ namespace JuniorOnly.Application.Services
     public class CandidateProfileService : ICandidateProfileService
     {
         private readonly ICandidateProfileRepository _profileRepository;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CandidateProfileService(ICandidateProfileRepository profileRepository, UserManager<ApplicationUser> userManager)
+        public CandidateProfileService(ICandidateProfileRepository profileRepository)
         {
             _profileRepository = profileRepository;
-            _userManager = userManager;
         }
 
         public async Task<CandidateProfileDto> CreateProfileAsync(CandidateProfileCreateDto profileDto)
@@ -61,13 +59,6 @@ namespace JuniorOnly.Application.Services
 
         public async Task<CandidateProfileDto?> GetProfileByUserIdAsync(Guid userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-
-            if (user == null)
-            {
-                throw new NotFoundException($"User with ID {userId.ToString()} not found");
-            }
-
             var profile = await _profileRepository.GetProfileByUserIdAsync(userId);
             if (profile == null)
             {
