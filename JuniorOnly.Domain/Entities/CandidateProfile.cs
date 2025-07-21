@@ -34,6 +34,8 @@ namespace JuniorOnly.Domain.Entities
 
         [StringLength(1000)]
         public string? Bio { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
         public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();

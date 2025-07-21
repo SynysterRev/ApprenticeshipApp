@@ -50,9 +50,13 @@ namespace JuniorOnly.Domain.Entities
         [ForeignKey("Company")]
         public Guid CompanyId { get; set; }
 
+        [Required]
+        [ForeignKey("JobSector")]
+        public Guid JobSectorId { get; set; }
+       
         public virtual Company Company { get; set; } = null!;
         public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
-        public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public virtual JobSector JobSector { get; set; } = null!;
 
         public string SalaryRangeDisplay
         {

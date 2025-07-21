@@ -11,17 +11,17 @@ namespace JuniorOnly.Infrastructure.Repositories
 
         public async Task<List<Offer>> GetAllOffersAsync()
         {
-            return await _dbContext.Offers.Include(o => o.Company).Include(o => o.Tags).ToListAsync();
+            return await _dbContext.Offers.Include(o => o.Company).ToListAsync();
         }
 
         public async Task<List<Offer>> GetOffersByCompanyAsync(Guid companyId)
         {
-            return await _dbContext.Offers.Where(o => o.CompanyId == companyId).Include(o => o.Tags).ToListAsync();
+            return await _dbContext.Offers.Where(o => o.CompanyId == companyId).ToListAsync();
         }
 
         public async Task<Offer?> GetOfferByIdAsync(Guid offerId)
         {
-            return await _dbContext.Offers.Include(o => o.Company).Include(o => o.Tags).FirstOrDefaultAsync(o => o.Id == offerId);
+            return await _dbContext.Offers.Include(o => o.Company).FirstOrDefaultAsync(o => o.Id == offerId);
         }
 
         public async Task<Offer> AddOfferAsync(Offer newOffer)
@@ -61,7 +61,6 @@ namespace JuniorOnly.Infrastructure.Repositories
                 .Where(f => f.CandidateProfileId == candidateId)
                 .Select(f => f.JobOffer)
                 .Include(o => o.Company)
-                .Include(o => o.Tags)
                 .ToListAsync();
         }
 

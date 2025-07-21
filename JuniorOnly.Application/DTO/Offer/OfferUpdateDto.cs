@@ -22,7 +22,7 @@ namespace JuniorOnly.Application.DTO.Offer
         public SalaryPeriod? SalaryPeriod { get; set; }
         public RemoteType? RemoteType { get; set; }
         public Guid? CompanyId { get; set; }
-        public List<Guid>? TagIds { get; set; }
+        public Guid? JobSectorId { get; set; }
     }
 
 

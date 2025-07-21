@@ -26,9 +26,11 @@ namespace JuniorOnly.Application.DTO.Offer
 
         [Range(0, int.MaxValue)]
         public int SalaryMax { get; set; }
+
+        [Required]
+        public Guid JobSectorId { get; set; }
         public SalaryPeriod SalaryPeriod { get; set; } = SalaryPeriod.Year;
         public RemoteType RemoteType { get; set; }
         public Guid CompanyId { get; set; }
-        public List<Guid> TagIds { get; set; } = new();
     }
 }

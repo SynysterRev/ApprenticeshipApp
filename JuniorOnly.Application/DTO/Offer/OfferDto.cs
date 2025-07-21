@@ -17,7 +17,7 @@ namespace JuniorOnly.Application.DTO.Offer
         public DateTime PublishedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public Guid CompanyId { get; set; }
-        public List<Guid> TagIds { get; set; } = new();
+        public Guid JobSectorId { get; set; }
 
         public string SalaryRangeDisplay
         {

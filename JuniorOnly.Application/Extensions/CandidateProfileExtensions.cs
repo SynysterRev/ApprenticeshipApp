@@ -16,7 +16,9 @@ namespace JuniorOnly.Application.Extensions
                 DesiredJobTitles = profile.DesiredJobTitles,
                 ExperienceLevel = profile.ExperienceLevel,
                 ResumeUrl = profile.ResumeUrl,
-                Bio = profile.Bio
+                Bio = profile.Bio,
+                CreatedAt = profile.CreatedAt,
+                UpdatedAt = profile.UpdatedAt,
             };
         }
 
@@ -29,7 +31,9 @@ namespace JuniorOnly.Application.Extensions
                 DesiredJobTitles = createDto.DesiredJobTitles,
                 ExperienceLevel = createDto.ExperienceLevel,
                 ResumeUrl = createDto.ResumeUrl,
-                Bio = createDto.Bio
+                Bio = createDto.Bio,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
             };
         }
 
@@ -59,6 +63,7 @@ namespace JuniorOnly.Application.Extensions
             {
                 profile.Bio = updateDto.Bio;
             }
+            profile.UpdatedAt = DateTime.UtcNow;
         }
     }
 }

@@ -12,5 +12,7 @@ namespace JuniorOnly.Application.DTO.CandidateProfile
         public ExperienceLevel ExperienceLevel { get; set; }
         public string? ResumeUrl { get; set; }
         public string? Bio { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -20,17 +20,19 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CandidateProfile> CandidateProfiles { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<JobSector> JobSectors { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure Many-to-Many: Offer <-> Tag
+            // Configure One-to-Many: Offer <-> JobSector
             modelBuilder.Entity<Offer>()
-                .HasMany(o => o.Tags)
-                .WithMany(t => t.Offers);
+                .HasOne(o => o.JobSector)
+                .WithMany(j => j.Offers)
+                .HasForeignKey(o => o.JobSectorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Configure Company -> JobOffers relationship
             modelBuilder.Entity<Company>()
@@ -99,6 +101,14 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
 
             modelBuilder.Entity<Offer>()
                 .ToTable(t => t.HasCheckConstraint("CK_Offer_SalaryRange", "[SalaryMax] > [SalaryMin]"));
+
+            modelBuilder.Entity<JobSector>()
+                .Property(js => js.Name)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<JobSector>()
+                .HasIndex(js => js.Name)
+                .IsUnique();
         }
 
     }

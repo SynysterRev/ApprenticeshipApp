@@ -22,7 +22,7 @@ namespace JuniorOnly.Application.Extensions
                 RemoteType = offer.RemoteType,
                 SalaryPeriod = offer.SalaryPeriod,
                 UpdatedAt = offer.UpdatedAt,
-                TagIds = offer.Tags?.Select(t => t.Id).ToList() ?? new List<Guid>()
+                JobSectorId = offer.JobSectorId
             };
         }
 
@@ -40,9 +40,9 @@ namespace JuniorOnly.Application.Extensions
                 SalaryPeriod = createDto.SalaryPeriod,
                 RemoteType = createDto.RemoteType,
                 CompanyId = createDto.CompanyId,
+                JobSectorId = createDto.JobSectorId,
                 PublishedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
-                // Tags will be set separately if needed
             };
         }
 
@@ -96,6 +96,11 @@ namespace JuniorOnly.Application.Extensions
             if (updateDto.CompanyId.HasValue)
             {
                 offer.CompanyId = updateDto.CompanyId.Value;
+            }
+
+            if (updateDto.JobSectorId.HasValue)
+            {
+                offer.JobSectorId = updateDto.JobSectorId.Value;
             }
 
             offer.UpdatedAt = DateTime.UtcNow;

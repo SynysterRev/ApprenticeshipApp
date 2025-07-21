@@ -14,11 +14,11 @@ namespace JuniorOnly.Application.Services
         private readonly IOfferRepository _offerRepository;
         private readonly ICandidateProfileRepository _profileRepository;
         private readonly ICompanyRepository _companyRepository;
-        private readonly ITagRepository _tagRepository;
+        private readonly IJobSectorRepository _tagRepository;
 
         public OfferService(IOfferRepository offersRepository,
             ICompanyRepository companyRepository,
-            ITagRepository tagRepository,
+            IJobSectorRepository tagRepository,
             ICandidateProfileRepository profileRepository)
         {
             _offerRepository = offersRepository;
@@ -41,11 +41,8 @@ namespace JuniorOnly.Application.Services
                 throw new NotFoundException($"Company with ID {offerDto.CompanyId} not found");
             }
 
-            var tags = await _tagRepository.GetTagsByIdsAsync(offerDto.TagIds);
-
             Offer offer = offerDto.ToEntity();
             offer.Id = Guid.NewGuid();
-            offer.Tags = tags;
 
             await _offerRepository.AddOfferAsync(offer);
 
