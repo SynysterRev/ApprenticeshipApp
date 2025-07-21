@@ -5,9 +5,6 @@ namespace JuniorOnly.Domain.Entities
 {
     public class Favorite
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
         [ForeignKey("CandidateProfile")]
         public Guid CandidateProfileId { get; set; }

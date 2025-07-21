@@ -1,3 +1,4 @@
+using JuniorOnly.Application.DTO.Favorite;
 using JuniorOnly.Application.DTO.Offer;
 
 namespace JuniorOnly.Application.Interfaces
@@ -52,5 +53,35 @@ namespace JuniorOnly.Application.Interfaces
         /// <param name="experienceMax">Optional maximum experience filter.</param>
         /// <returns>List of matching OfferDto.</returns>
         public Task<List<OfferDto>> SearchOffersAsync(string searchTerm, int? experienceMax = null);
+
+        /// <summary>
+        /// Get all favorite job offers for a specific candidate
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <returns>A list of favorite job offers as DTOs</returns>
+        public Task<List<OfferDto>> GetFavoriteOffersAsync(Guid candidateId);
+
+        /// <summary>
+        /// Check if a job offer is marked as favorite by a candidate
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <param name="offerId">The ID of the job offer</param>
+        /// <returns>True if the offer is a favorite, false otherwise</returns>
+        public Task<bool> IsFavoriteAsync(Guid candidateId, Guid offerId);
+
+        /// <summary>
+        /// Add a job offer to a candidate's favorites
+        /// </summary>
+        /// <param name="createDto">FavoriteCreateDto containing the favorite data</param>
+        /// <returns>The created favorite if not already existing</returns>
+        public Task<FavoriteDto?> AddToFavoritesAsync(FavoriteCreateDto createDto);
+
+        /// <summary>
+        /// Remove a job offer from a candidate's favorites
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <param name="offerId">The ID of the job offer</param>
+        /// <returns>Task representing the asynchronous operation</returns>
+        public Task RemoveFromFavoritesAsync(Guid candidateId, Guid offerId);
     }
 }

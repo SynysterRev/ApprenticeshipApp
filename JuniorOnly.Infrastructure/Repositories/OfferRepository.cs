@@ -31,22 +31,9 @@ namespace JuniorOnly.Infrastructure.Repositories
             return newOffer;
         }
 
-        public async Task<Favorite> AddFavoriteAsync(Favorite favorite)
-        {
-            _dbContext.Favorites.Add(favorite);
-            await _dbContext.SaveChangesAsync();
-            return favorite;
-        }
-
         public async Task DeleteOfferAsync(Offer offer)
         {
             _dbContext.Offers.Remove(offer);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task RemoveFavoriteAsync(Favorite favorite)
-        {
-            _dbContext.Favorites.Remove(favorite);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -66,6 +53,40 @@ namespace JuniorOnly.Infrastructure.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<List<Offer>> GetFavoriteOffersByCandidateAsync(Guid candidateId)
+        {
+            return await _dbContext.Favorites
+                .Where(f => f.CandidateProfileId == candidateId)
+                .Select(f => f.JobOffer)
+                .Include(o => o.Company)
+                .Include(o => o.Tags)
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsFavoriteAsync(Guid candidateId, Guid offerId)
+        {
+            return await _dbContext.Favorites
+                .AnyAsync(f => f.CandidateProfileId == candidateId && f.JobOfferId == offerId);
+        }
+
+        public async Task<Favorite> AddFavoriteAsync(Favorite favorite)
+        {
+            _dbContext.Favorites.Add(favorite);
+            await _dbContext.SaveChangesAsync();
+            return favorite;
+        }
+
+        public async Task RemoveFavoriteAsync(Guid candidateId, Guid offerId)
+        {
+            var favorite = await _dbContext.Favorites
+                .FirstOrDefaultAsync(f => f.CandidateProfileId == candidateId && f.JobOfferId == offerId);
+
+            if (favorite == null) return;
+
+            _dbContext.Favorites.Remove(favorite);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

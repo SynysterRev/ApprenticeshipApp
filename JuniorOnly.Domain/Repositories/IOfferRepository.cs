@@ -32,23 +32,10 @@ namespace JuniorOnly.Domain.Repositories
         public Task<Offer> AddOfferAsync(Offer newOffer);
 
         /// <summary>
-        /// Add a new favorite for an offer
-        /// </summary>
-        /// <param name="favorite">The favorite to add</param>
-        /// <returns>The new favorite added</returns>
-        public Task<Favorite> AddFavoriteAsync(Favorite favorite);
-
-        /// <summary>
         /// Delete the job offer with the matching ID
         /// </summary>
         /// <param name="offerId">The job offer object to delete</param>
         public Task DeleteOfferAsync(Offer offer);
-
-        /// <summary>
-        /// Remove a favorite from an offer
-        /// </summary>
-        /// <param name="favoriteId">The favorite object to remove</param>
-        public Task RemoveFavoriteAsync(Favorite favorite);
 
         /// <summary>
         /// Search job offers by a search term in the title or description,
@@ -58,5 +45,34 @@ namespace JuniorOnly.Domain.Repositories
         /// <param name="experienceMax">Optional maximum years of experience required.</param>
         /// <returns>A list of job offers matching the criteria.</returns>
         public Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null);
+
+        /// <summary>
+        /// Get all favorite job offers for a specific candidate
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <returns>A list of favorite job offers</returns>
+        public Task<List<Offer>> GetFavoriteOffersByCandidateAsync(Guid candidateId);
+
+        /// <summary>
+        /// Check if a job offer is marked as favorite by a candidate
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <param name="offerId">The ID of the job offer</param>
+        /// <returns>True if the offer is a favorite, false otherwise</returns>
+        public Task<bool> IsFavoriteAsync(Guid candidateId, Guid offerId);
+
+        /// <summary>
+        /// Add a job offer to a candidate's favorites
+        /// </summary>
+        /// <param name="favorite">The favorite object</param>
+        public Task<Favorite> AddFavoriteAsync(Favorite favorite);
+
+        /// <summary>
+        /// Remove a job offer from a candidate's favorites
+        /// </summary>
+        /// <param name="candidateId">The ID of the candidate</param>
+        /// <param name="offerId">The ID of the job offer</param>
+        public Task RemoveFavoriteAsync(Guid candidateId, Guid offerId);
+
     }
 }

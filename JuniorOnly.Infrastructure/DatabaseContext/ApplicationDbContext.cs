@@ -68,6 +68,9 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
 
             // Configure Favorite relationships
             modelBuilder.Entity<Favorite>()
+                .HasKey(f => new { f.CandidateProfileId, f.JobOfferId });
+
+            modelBuilder.Entity<Favorite>()
                 .HasOne(f => f.JobOffer)
                 .WithMany()
                 .HasForeignKey(f => f.JobOfferId)

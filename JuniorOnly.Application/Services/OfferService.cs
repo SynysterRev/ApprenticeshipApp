@@ -1,4 +1,5 @@
-﻿using JuniorOnly.Application.DTO.Offer;
+﻿using JuniorOnly.Application.DTO.Favorite;
+using JuniorOnly.Application.DTO.Offer;
 using JuniorOnly.Application.Exceptions;
 using JuniorOnly.Application.Extensions;
 using JuniorOnly.Application.Interfaces;
@@ -11,16 +12,19 @@ namespace JuniorOnly.Application.Services
     public class OfferService : IOfferService
     {
         private readonly IOfferRepository _offerRepository;
+        private readonly ICandidateProfileRepository _profileRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly ITagRepository _tagRepository;
 
         public OfferService(IOfferRepository offersRepository,
             ICompanyRepository companyRepository,
-            ITagRepository tagRepository)
+            ITagRepository tagRepository,
+            ICandidateProfileRepository profileRepository)
         {
             _offerRepository = offersRepository;
             _companyRepository = companyRepository;
             _tagRepository = tagRepository;
+            _profileRepository = profileRepository;
         }
 
         public async Task<OfferDto> CreateOfferAsync(OfferCreateDto offerDto)
@@ -105,5 +109,43 @@ namespace JuniorOnly.Application.Services
             await _offerRepository.SaveChangesAsync();
             return offer.ToDto();
         }
+        public async Task<List<OfferDto>> GetFavoriteOffersAsync(Guid candidateId)
+        {
+            var favorites = await _offerRepository.GetFavoriteOffersByCandidateAsync(candidateId);
+            return favorites.Select(f => f.ToDto()).ToList();
+        }
+
+        public async Task<FavoriteDto?> AddToFavoritesAsync(FavoriteCreateDto createDto)
+        {
+            var candidate = await _profileRepository.GetProfileByIdAsync(createDto.CandidateProfileId);
+            if (candidate == null)
+                throw new NotFoundException($"Candidate with ID {createDto.CandidateProfileId} not found");
+
+            var offer = await _offerRepository.GetOfferByIdAsync(createDto.JobOfferId);
+            if (offer == null)
+                throw new NotFoundException($"Offer with ID {createDto.JobOfferId} not found");
+
+            // Check favorite does not already exist
+            var alreadyFavorite = await _offerRepository.IsFavoriteAsync(createDto.CandidateProfileId, createDto.JobOfferId);
+            if (alreadyFavorite)
+                return null;
+
+            var favorite = createDto.ToEntity();
+
+            await _offerRepository.AddFavoriteAsync(favorite);
+
+            return favorite.ToDto();
+        }
+
+        public async Task<bool> IsFavoriteAsync(Guid candidateId, Guid offerId)
+        {
+            return await _offerRepository.IsFavoriteAsync(candidateId, offerId);
+        }
+
+        public async Task RemoveFromFavoritesAsync(Guid candidateId, Guid offerId)
+        {
+            await _offerRepository.RemoveFavoriteAsync(candidateId, offerId);
+        }
+
     }
 }
