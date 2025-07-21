@@ -2,7 +2,7 @@ using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface ICandidateProfileRepository
+    public interface ICandidateProfileRepository : IBaseRepository
     {
         /// <summary>
         /// Get all candidate profiles in the database
@@ -39,18 +39,10 @@ namespace JuniorOnly.Domain.Repositories
         public Task<CandidateProfile> AddProfileAsync(CandidateProfile profile);
 
         /// <summary>
-        /// Update an existing candidate profile
-        /// </summary>
-        /// <param name="updatedProfile">The profile to update</param>
-        /// <returns>The updated profile or null if not found</returns>
-        public Task<CandidateProfile?> UpdateProfileAsync(CandidateProfile updatedProfile);
-
-        /// <summary>
         /// Delete a candidate profile
         /// </summary>
-        /// <param name="profileId">The ID of the profile to delete</param>
-        /// <returns>True if deleted, false otherwise</returns>
-        public Task<bool> DeleteProfileAsync(Guid profileId);
+        /// <param name="profile">The profile object to delete</param>
+        public Task DeleteProfileAsync(CandidateProfile profile);
 
         /// <summary>
         /// Search profiles by experience level or desired job titles

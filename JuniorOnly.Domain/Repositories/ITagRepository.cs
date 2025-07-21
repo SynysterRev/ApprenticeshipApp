@@ -1,13 +1,8 @@
 ﻿using JuniorOnly.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface ITagRepository
+    public interface ITagRepository : IBaseRepository
     {
         /// <summary>
         /// Get all tags in the database.
@@ -37,17 +32,9 @@ namespace JuniorOnly.Domain.Repositories
         public Task<Tag> AddTagAsync(Tag newTag);
 
         /// <summary>
-        /// Update the tag with the same ID.
-        /// </summary>
-        /// <param name="updatedTag">The tag to update.</param>
-        /// <returns>The updated tag or null if not found.</returns>
-        public Task<Tag?> UpdateTagAsync(Tag updatedTag);
-
-        /// <summary>
         /// Delete the tag with the matching ID.
         /// </summary>
-        /// <param name="tagId">The ID of the tag to delete.</param>
-        /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteTagAsync(Guid tagId);
+        /// <param name="tagId">The tag object to delete.</param>
+        public Task DeleteTagAsync(Tag tag);
     }
 }

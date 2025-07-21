@@ -1,5 +1,5 @@
-using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Enums;
+using JuniorOnly.Domain.IdentityEntities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

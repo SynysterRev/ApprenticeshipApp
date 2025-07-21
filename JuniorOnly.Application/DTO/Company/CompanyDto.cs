@@ -1,5 +1,3 @@
-using System;
-
 namespace JuniorOnly.Application.DTO.Company
 {
     public class CompanyDto

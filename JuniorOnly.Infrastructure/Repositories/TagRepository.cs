@@ -2,51 +2,34 @@
 using JuniorOnly.Domain.Repositories;
 using JuniorOnly.Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class TagRepository : ITagRepository
+    public class TagRepository : BaseRepository, ITagRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public TagRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public TagRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
         public async Task<Tag> AddTagAsync(Tag newTag)
         {
-            _context.Tags.Add(newTag);
-            await _context.SaveChangesAsync();
+            _dbContext.Tags.Add(newTag);
+            await _dbContext.SaveChangesAsync();
             return newTag;
         }
 
-        public async Task<bool> DeleteTagAsync(Guid tagId)
+        public async Task DeleteTagAsync(Tag tag)
         {
-            var foundTag = await _context.Tags.FindAsync(tagId);
-
-            if (foundTag == null)
-            {
-                return false;
-            }
-            _context.Tags.Remove(foundTag);
-            await _context.SaveChangesAsync();
-            return true;
+            _dbContext.Tags.Remove(tag);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Tag>> GetAllTagsAsync()
         {
-            return await _context.Tags.ToListAsync();
+            return await _dbContext.Tags.ToListAsync();
         }
 
         public async Task<Tag?> GetTagByIdAsync(Guid tagId)
         {
-            return await _context.Tags.Where(t => t.Id == tagId).FirstOrDefaultAsync();
+            return await _dbContext.Tags.Where(t => t.Id == tagId).FirstOrDefaultAsync();
         }
 
         public async Task<List<Tag>> GetTagsByIdsAsync(IEnumerable<Guid> tagIds)
@@ -56,22 +39,9 @@ namespace JuniorOnly.Infrastructure.Repositories
                 return new List<Tag>();
             }
 
-            return await _context.Tags
+            return await _dbContext.Tags
                 .Where(t => tagIds.Contains(t.Id))
                 .ToListAsync();
-        }
-
-        public async Task<Tag?> UpdateTagAsync(Tag updatedTag)
-        {
-            var foundTag = await _context.Tags.FindAsync(updatedTag.Id);
-            if(foundTag == null)
-            {
-                return null;
-            }
-            _context.Entry(foundTag).CurrentValues.SetValues(updatedTag);
-            await _context.SaveChangesAsync();
-
-            return foundTag;
         }
     }
 }

@@ -1,7 +1,4 @@
 using JuniorOnly.Application.DTO.Company;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Application.Interfaces
 {
@@ -18,7 +15,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the company.</param>
         /// <returns>CompanyDto if found, otherwise null.</returns>
-        public Task<CompanyDto?> GetCompanyByIdAsync(Guid id);
+        public Task<CompanyDto?> GetCompanyByIdAsync(Guid companyId);
 
         /// <summary>
         /// Creates a new company.
@@ -33,14 +30,13 @@ namespace JuniorOnly.Application.Interfaces
         /// <param name="id">Guid of the company to update.</param>
         /// <param name="companyDto">CompanyUpdateDto with updated data.</param>
         /// <returns>The updated CompanyDto if found, otherwise null.</returns>
-        public Task<CompanyDto?> UpdateCompanyAsync(Guid id, CompanyUpdateDto companyDto);
+        public Task<CompanyDto?> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto);
 
         /// <summary>
         /// Deletes a company.
         /// </summary>
         /// <param name="id">Guid of the company to delete.</param>
-        /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteCompanyAsync(Guid id);
+        public Task DeleteCompanyAsync(Guid companyId);
 
         /// <summary>
         /// Gets all companies that are reconversion friendly.

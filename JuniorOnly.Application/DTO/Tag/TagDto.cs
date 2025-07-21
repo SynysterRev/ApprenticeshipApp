@@ -1,6 +1,3 @@
-using System;
-using JuniorOnly.Domain.Entities;
-
 namespace JuniorOnly.Application.DTO.Tag
 {
     public class TagDto

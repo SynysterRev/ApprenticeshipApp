@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using JuniorOnly.Domain.Enums;
 
 namespace JuniorOnly.Application.DTO.Offer

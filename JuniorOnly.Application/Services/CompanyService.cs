@@ -35,16 +35,16 @@ namespace JuniorOnly.Application.Services
             return company.ToDto();
         }
 
-        public async Task<bool> DeleteCompanyAsync(Guid id)
+        public async Task DeleteCompanyAsync(Guid companyId)
         {
-            var company = await _companyRepository.GetCompanyByIdAsync(id);
+            var company = await _companyRepository.GetCompanyByIdAsync(companyId);
 
             if (company == null)
             {
-                throw new NotFoundException($"Company with ID {id} not found.");
+                throw new NotFoundException($"Company with ID {companyId} not found.");
             }
 
-            return await _companyRepository.DeleteCompanyAsync(id);
+            await _companyRepository.DeleteCompanyAsync(company);
         }
 
         public async Task<List<CompanyDto>> GetAllCompaniesAsync()
@@ -53,13 +53,13 @@ namespace JuniorOnly.Application.Services
             return companies.Select(company => company.ToDto()).ToList();
         }
 
-        public async Task<CompanyDto?> GetCompanyByIdAsync(Guid id)
+        public async Task<CompanyDto?> GetCompanyByIdAsync(Guid companyId)
         {
-            var company = await _companyRepository.GetCompanyByIdAsync(id);
+            var company = await _companyRepository.GetCompanyByIdAsync(companyId);
 
             if (company == null)
             {
-                throw new NotFoundException($"Company with ID {id} was not found.");
+                throw new NotFoundException($"Company with ID {companyId} was not found.");
             }
 
             return company.ToDto();
@@ -72,18 +72,18 @@ namespace JuniorOnly.Application.Services
             return friendlyCompanies.Select(c => c.ToDto()).ToList();
         }
 
-        public async Task<CompanyDto?> UpdateCompanyAsync(Guid id, CompanyUpdateDto companyDto)
+        public async Task<CompanyDto?> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto)
         {
-            var company = await _companyRepository.GetCompanyByIdAsync(id);
+            var company = await _companyRepository.GetCompanyByIdAsync(companyId);
 
             if (company == null)
             {
-                throw new NotFoundException($"Company with ID {id} was not found.");
+                throw new NotFoundException($"Company with ID {companyId} was not found.");
             }
 
             company.UpdateFrom(companyDto);
 
-            await _companyRepository.UpdateCompanyAsync(company);
+            await _companyRepository.SaveChangesAsync();
 
             return company.ToDto();
         }

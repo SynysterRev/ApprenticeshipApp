@@ -1,9 +1,7 @@
 ﻿using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JuniorOnly.Domain.IdentityEntities
 {

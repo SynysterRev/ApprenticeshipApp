@@ -2,7 +2,7 @@ using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface ICompanyRepository
+    public interface ICompanyRepository : IBaseRepository
     {
         /// <summary>
         /// Get all companies.
@@ -25,18 +25,10 @@ namespace JuniorOnly.Domain.Repositories
         public Task<Company> AddCompanyAsync(Company company);
 
         /// <summary>
-        /// Update an existing company.
-        /// </summary>
-        /// <param name="updatedCompany">The updated company data.</param>
-        /// <returns>The updated company if successful; otherwise, null.</returns>
-        public Task<Company?> UpdateCompanyAsync(Company updatedCompany);
-
-        /// <summary>
         /// Delete a company by its ID.
         /// </summary>
-        /// <param name="companyId">The ID of the company to delete.</param>
-        /// <returns>True if the deletion was successful; otherwise, false.</returns>
-        public Task<bool> DeleteCompanyAsync(Guid companyId);
+        /// <param name="company">The company object to delete.</param>
+        public Task DeleteCompanyAsync(Company company);
 
         /// <summary>
         /// Get all job offers for a specific company.

@@ -5,13 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class ApplicationRepository : IApplicationRepository
+    public class ApplicationRepository : BaseRepository, IApplicationRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public ApplicationRepository(ApplicationDbContext dbContext)
+        public ApplicationRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<List<Application>> GetAllApplicationsAsync()
@@ -41,28 +38,10 @@ namespace JuniorOnly.Infrastructure.Repositories
             return application;
         }
 
-        public async Task<Application?> UpdateApplicationAsync(Application updatedApplication)
+        public async Task DeleteApplicationAsync(Application application)
         {
-            var foundApplication = await _dbContext.Applications.FindAsync(updatedApplication.Id);
-            if (foundApplication == null)
-            {
-                return null;
-            }
-            _dbContext.Entry(foundApplication).CurrentValues.SetValues(updatedApplication);
+            _dbContext.Applications.Remove(application);
             await _dbContext.SaveChangesAsync();
-            return foundApplication;
-        }
-
-        public async Task<bool> DeleteApplicationAsync(Guid applicationId)
-        {
-            var foundApplication = await _dbContext.Applications.FindAsync(applicationId);
-            if (foundApplication == null)
-            {
-                return false;
-            }
-            _dbContext.Applications.Remove(foundApplication);
-            await _dbContext.SaveChangesAsync();           
-            return true;
         }
     }
 }

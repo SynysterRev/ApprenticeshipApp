@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class CompanyRepository : ICompanyRepository
+    public class CompanyRepository : BaseRepository, ICompanyRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public CompanyRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public CompanyRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
         public async Task<List<Company>> GetAllCompaniesAsync()
         {
@@ -31,28 +26,10 @@ namespace JuniorOnly.Infrastructure.Repositories
             return company;
         }
 
-        public async Task<Company?> UpdateCompanyAsync(Company updatedCompany)
+        public async Task DeleteCompanyAsync(Company company)
         {
-            var foundCompany = await _dbContext.Companies.FindAsync(updatedCompany.Id);
-            if (foundCompany == null)
-            {
-                return null;
-            }
-            _dbContext.Entry(foundCompany).CurrentValues.SetValues(updatedCompany);
+            _dbContext.Companies.Remove(company);
             await _dbContext.SaveChangesAsync();
-            return foundCompany;
-        }
-
-        public async Task<bool> DeleteCompanyAsync(Guid companyId)
-        {
-            var foundCompany = await _dbContext.Companies.FindAsync(companyId);
-            if (foundCompany == null)
-            {
-                return false;
-            }
-            _dbContext.Companies.Remove(foundCompany);
-            await _dbContext.SaveChangesAsync();
-            return true;
         }
 
         public async Task<List<Offer>> GetJobOffersByCompanyAsync(Guid companyId)

@@ -1,5 +1,3 @@
-using JuniorOnly.Domain.Entities;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace JuniorOnly.Application.DTO.Company

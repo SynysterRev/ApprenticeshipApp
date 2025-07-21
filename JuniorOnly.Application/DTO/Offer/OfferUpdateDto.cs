@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace JuniorOnly.Application.DTO.Offer
 {
@@ -28,5 +25,5 @@ namespace JuniorOnly.Application.DTO.Offer
         public List<Guid>? TagIds { get; set; }
     }
 
-    
+
 }

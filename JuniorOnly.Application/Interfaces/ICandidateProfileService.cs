@@ -1,8 +1,5 @@
 using JuniorOnly.Application.DTO.CandidateProfile;
 using JuniorOnly.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Application.Interfaces
 {
@@ -47,8 +44,7 @@ namespace JuniorOnly.Application.Interfaces
         /// Deletes a candidate profile.
         /// </summary>
         /// <param name="id">Guid of the profile to delete.</param>
-        /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteProfileAsync(Guid profileId);
+        public Task DeleteProfileAsync(Guid profileId);
 
         /// <summary>
         /// Searches candidate profiles by location or experience level.

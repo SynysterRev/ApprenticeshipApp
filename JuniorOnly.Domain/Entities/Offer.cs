@@ -1,5 +1,4 @@
-﻿using JuniorOnly.Domain.IdentityEntities;
-using JuniorOnly.Domain.Enums;
+﻿using JuniorOnly.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,7 +30,7 @@ namespace JuniorOnly.Domain.Entities
 
         [Required]
         [Range(0, int.MaxValue)]
-        public int SalaryMin {  get; set; }
+        public int SalaryMin { get; set; }
 
         [Required]
         [Range(0, int.MaxValue)]

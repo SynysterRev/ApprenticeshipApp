@@ -6,11 +6,6 @@ using JuniorOnly.Domain.Enums;
 using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Application.Services
 {
@@ -35,7 +30,7 @@ namespace JuniorOnly.Application.Services
             return profile.ToDto();
         }
 
-        public async Task<bool> DeleteProfileAsync(Guid profileId)
+        public async Task DeleteProfileAsync(Guid profileId)
         {
             var profile = await _profileRepository.GetProfileByIdAsync(profileId);
             if (profile == null)
@@ -43,7 +38,7 @@ namespace JuniorOnly.Application.Services
                 throw new NotFoundException($"Profile with ID {profileId} not found");
             }
 
-            return await _profileRepository.DeleteProfileAsync(profileId);
+            await _profileRepository.DeleteProfileAsync(profile);
         }
 
         public async Task<List<CandidateProfileDto>> GetAllProfilesAsync()
@@ -97,7 +92,7 @@ namespace JuniorOnly.Application.Services
 
             profile.UpdateFrom(profileDto);
 
-            await _profileRepository.UpdateProfileAsync(profile);
+            await _profileRepository.SaveChangesAsync();
 
             return profile.ToDto();
         }

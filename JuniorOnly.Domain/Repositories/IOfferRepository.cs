@@ -2,7 +2,7 @@ using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface IOfferRepository
+    public interface IOfferRepository : IBaseRepository
     {
         /// <summary>
         /// Get all job offers in the database
@@ -39,25 +39,16 @@ namespace JuniorOnly.Domain.Repositories
         public Task<Favorite> AddFavoriteAsync(Favorite favorite);
 
         /// <summary>
-        /// Update the job offer with the same ID
-        /// </summary>
-        /// <param name="updatedOffer">The job offer to update</param>
-        /// <returns>The updated job offer or null if not found</returns>
-        public Task<Offer?> UpdateOfferAsync(Offer updatedOffer);
-
-        /// <summary>
         /// Delete the job offer with the matching ID
         /// </summary>
-        /// <param name="offerId">The ID of the job offer to delete</param>
-        /// <returns>True if deleted, false otherwise</returns>
-        public Task<bool> DeleteOfferAsync(Guid offerId);
+        /// <param name="offerId">The job offer object to delete</param>
+        public Task DeleteOfferAsync(Offer offer);
 
         /// <summary>
         /// Remove a favorite from an offer
         /// </summary>
-        /// <param name="favoriteId">The ID of the favorite to remove</param>
-        /// <returns>True if deleted, false otherwise</returns>
-        public Task<bool> RemoveFavoriteAsync(Guid favoriteId);
+        /// <param name="favoriteId">The favorite object to remove</param>
+        public Task RemoveFavoriteAsync(Favorite favorite);
 
         /// <summary>
         /// Search job offers by a search term in the title or description,

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 

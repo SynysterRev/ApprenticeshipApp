@@ -1,5 +1,3 @@
-using System;
-
 namespace JuniorOnly.Application.DTO.Favorite
 {
     public class FavoriteDto

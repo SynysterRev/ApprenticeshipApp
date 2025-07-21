@@ -1,7 +1,4 @@
-using JuniorOnly.Infrastructure.DatabaseContext;
 using JuniorOnly.WebAPI.StartupExtensions;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 

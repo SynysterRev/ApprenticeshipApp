@@ -1,7 +1,4 @@
 using JuniorOnly.Application.DTO.Offer;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Application.Interfaces
 {
@@ -46,8 +43,7 @@ namespace JuniorOnly.Application.Interfaces
         /// Deletes a job offer.
         /// </summary>
         /// <param name="id">Guid of the offer to delete.</param>
-        /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteOfferAsync(Guid offerId);
+        public Task DeleteOfferAsync(Guid offerId);
 
         /// <summary>
         /// Searches job offers by keyword and maximum experience.

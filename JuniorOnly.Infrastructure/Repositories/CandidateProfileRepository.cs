@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class CandidateProfileRepository : ICandidateProfileRepository
+    public class CandidateProfileRepository : BaseRepository, ICandidateProfileRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public CandidateProfileRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public CandidateProfileRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
         public async Task<List<CandidateProfile>> GetAllProfilesAsync()
         {
@@ -41,22 +36,10 @@ namespace JuniorOnly.Infrastructure.Repositories
             return profile;
         }
 
-        public async Task UpdateProfileAsync(CandidateProfile updatedProfile)
+        public async Task DeleteProfileAsync(CandidateProfile profile)
         {
-            _dbContext.Entry(updatedProfile).CurrentValues.SetValues(updatedProfile);
+            _dbContext.CandidateProfiles.Remove(profile);
             await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteProfileAsync(Guid profileId)
-        {
-            var foundProfile = await _dbContext.CandidateProfiles.FindAsync(profileId);
-            if (foundProfile == null)
-            {
-                return false;
-            }
-            _dbContext.CandidateProfiles.Remove(foundProfile);
-            await _dbContext.SaveChangesAsync();
-            return true;
         }
 
         public async Task<List<CandidateProfile>> SearchProfilesAsync(string searchTerm)

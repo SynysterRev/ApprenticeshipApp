@@ -1,6 +1,5 @@
 ﻿using JuniorOnly.Application.DTO.CandidateProfile;
 using JuniorOnly.Domain.Entities;
-using JuniorOnly.Domain.Enums;
 
 namespace JuniorOnly.Application.Extensions
 {

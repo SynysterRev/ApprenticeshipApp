@@ -2,7 +2,7 @@ using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Domain.Repositories
 {
-    public interface IApplicationRepository
+    public interface IApplicationRepository : IBaseRepository
     {
         /// <summary>
         /// Get all applications in the database
@@ -39,17 +39,9 @@ namespace JuniorOnly.Domain.Repositories
         public Task<Application> AddApplicationAsync(Application application);
 
         /// <summary>
-        /// Update the application status or details
-        /// </summary>
-        /// <param name="updatedApplication">The application to update</param>
-        /// <returns>The updated application or null if not found</returns>
-        public Task<Application?> UpdateApplicationAsync(Application updatedApplication);
-
-        /// <summary>
         /// Delete an application
         /// </summary>
-        /// <param name="applicationId">The ID of the application to delete</param>
-        /// <returns>True if deleted, false otherwise</returns>
-        public Task<bool> DeleteApplicationAsync(Guid applicationId);
+        /// <param name="application">The application object to delete</param>
+        public Task DeleteApplicationAsync(Application application);
     }
 }

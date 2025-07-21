@@ -48,7 +48,7 @@ namespace JuniorOnly.Application.Services
             return offer.ToDto();
         }
 
-        public async Task<bool> DeleteOfferAsync(Guid offerId)
+        public async Task DeleteOfferAsync(Guid offerId)
         {
             var offer = await _offerRepository.GetOfferByIdAsync(offerId);
 
@@ -57,7 +57,7 @@ namespace JuniorOnly.Application.Services
                 throw new NotFoundException($"Offer with ID {offerId} not found");
             }
 
-            return await _offerRepository.DeleteOfferAsync(offerId);
+            await _offerRepository.DeleteOfferAsync(offer);
         }
 
         public async Task<List<OfferDto>> GetAllOffersAsync()
@@ -109,7 +109,7 @@ namespace JuniorOnly.Application.Services
 
             offer.UpdateFrom(offerDto);
 
-            await _offerRepository.UpdateOfferAsync(offer);
+            await _offerRepository.SaveChangesAsync();
             return offer.ToDto();
         }
     }

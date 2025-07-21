@@ -1,14 +1,8 @@
 ﻿using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.IdentityEntities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Infrastructure.DatabaseContext
 {

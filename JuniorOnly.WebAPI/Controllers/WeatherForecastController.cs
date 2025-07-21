@@ -1,6 +1,5 @@
 using JuniorOnly.Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace JuniorOnly.Controllers
 {

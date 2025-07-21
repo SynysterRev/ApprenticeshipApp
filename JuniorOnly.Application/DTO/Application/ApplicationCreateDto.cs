@@ -1,7 +1,3 @@
-using System;
-using JuniorOnly.Domain.Enums;
-using JuniorOnly.Domain.Entities;
-
 namespace JuniorOnly.Application.DTO.Application
 {
     public class ApplicationCreateDto

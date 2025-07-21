@@ -1,7 +1,4 @@
 using JuniorOnly.Application.DTO.Application;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JuniorOnly.Application.Interfaces
 {

@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JuniorOnly.Infrastructure.Repositories
 {
-    public class OfferRepository : IOfferRepository
+    public class OfferRepository : BaseRepository, IOfferRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public OfferRepository(ApplicationDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public OfferRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
         public async Task<List<Offer>> GetAllOffersAsync()
         {
@@ -43,40 +38,16 @@ namespace JuniorOnly.Infrastructure.Repositories
             return favorite;
         }
 
-        public async Task<Offer?> UpdateOfferAsync(Offer updatedOffer)
+        public async Task DeleteOfferAsync(Offer offer)
         {
-            var foundOffer = await _dbContext.Offers.FindAsync(updatedOffer.Id);
-            if (foundOffer == null)
-            {
-                return null;
-            }
-            _dbContext.Entry(foundOffer).CurrentValues.SetValues(updatedOffer);
+            _dbContext.Offers.Remove(offer);
             await _dbContext.SaveChangesAsync();
-            return foundOffer;
         }
 
-        public async Task<bool> DeleteOfferAsync(Guid offerId)
+        public async Task RemoveFavoriteAsync(Favorite favorite)
         {
-            var foundOffer = await _dbContext.Offers.FindAsync(offerId);
-            if (foundOffer == null)
-            {
-                return false;
-            }
-            _dbContext.Offers.Remove(foundOffer);
-            await _dbContext.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> RemoveFavoriteAsync(Guid favoriteId)
-        {
-            var favorite = await _dbContext.Favorites.FindAsync(favoriteId);
-            if (favorite == null)
-            {
-                return false;
-            }
             _dbContext.Favorites.Remove(favorite);
             await _dbContext.SaveChangesAsync();
-            return true;
         }
 
         public async Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
