@@ -1,3 +1,4 @@
+using JuniorOnly.WebAPI.Middlewares;
 using JuniorOnly.WebAPI.StartupExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandlingMiddleware();
 }
 
 app.UseHttpsRedirection();
