@@ -41,16 +41,10 @@ namespace JuniorOnly.Infrastructure.Repositories
             return profile;
         }
 
-        public async Task<CandidateProfile?> UpdateProfileAsync(CandidateProfile updatedProfile)
+        public async Task UpdateProfileAsync(CandidateProfile updatedProfile)
         {
-            var foundProfile = await _dbContext.CandidateProfiles.FindAsync(updatedProfile.Id);
-            if (foundProfile == null)
-            {
-                return null;
-            }
-            _dbContext.Entry(foundProfile).CurrentValues.SetValues(updatedProfile);
+            _dbContext.Entry(updatedProfile).CurrentValues.SetValues(updatedProfile);
             await _dbContext.SaveChangesAsync();
-            return foundProfile;
         }
 
         public async Task<bool> DeleteProfileAsync(Guid profileId)

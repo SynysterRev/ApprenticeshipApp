@@ -19,7 +19,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the candidate profile.</param>
         /// <returns>CandidateProfileDto if found, otherwise null.</returns>
-        public Task<CandidateProfileDto?> GetProfileByIdAsync(Guid id);
+        public Task<CandidateProfileDto?> GetProfileByIdAsync(Guid profileId);
 
         /// <summary>
         /// Gets a candidate profile by the user's unique identifier.
@@ -48,7 +48,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the profile to delete.</param>
         /// <returns>True if deleted, false otherwise.</returns>
-        public Task<bool> DeleteProfileAsync(Guid id);
+        public Task<bool> DeleteProfileAsync(Guid profileId);
 
         /// <summary>
         /// Searches candidate profiles by location or experience level.
