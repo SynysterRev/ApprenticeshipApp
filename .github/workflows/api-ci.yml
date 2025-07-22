@@ -46,6 +46,9 @@ jobs:
         id: commit
         uses: prompt/actions-commit-hash@v3
 
+      - name: List files
+        run: ls -R
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
