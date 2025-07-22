@@ -12,19 +12,28 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["JuniorOnly/JuniorOnly.csproj", "JuniorOnly/"]
-RUN dotnet restore "./JuniorOnly/JuniorOnly.csproj"
+
+
+COPY ["JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj", "JuniorOnly.WebAPI/"]
+COPY ["JuniorOnly.Application/JuniorOnly.Application.csproj", "JuniorOnly.Application/"]
+COPY ["JuniorOnly.Domain/JuniorOnly.Domain.csproj", "JuniorOnly.Domain/"]
+COPY ["JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "JuniorOnly.Infrastructure/"]
+COPY ["JuniorOnly.UnitTests/JuniorOnly.UnitTests.csproj", "JuniorOnly.UnitTests/"]
+
+RUN dotnet restore "JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
+
 COPY . .
-WORKDIR "/src/JuniorOnly"
-RUN dotnet build "./JuniorOnly.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+WORKDIR "/src/JuniorOnly.WebAPI"
+RUN dotnet build "JuniorOnly.WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./JuniorOnly.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "JuniorOnly.WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "JuniorOnly.dll"]
+ENTRYPOINT ["dotnet", "JuniorOnly.WebAPI.dll"]

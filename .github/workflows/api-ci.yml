@@ -52,7 +52,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: JuniorOnly.WebAPI
+          context: .
           file: JuniorOnly.WebAPI/Dockerfile
           push: true
           tags: |
