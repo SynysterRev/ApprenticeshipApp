@@ -16,7 +16,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the sector.</param>
         /// <returns>SectorDto if found, otherwise throw a not found exception.</returns>
-        public Task<JobSectorDto?> GetSectorByIdAsync(Guid sectorId);
+        public Task<JobSectorDto> GetSectorByIdAsync(Guid sectorId);
 
         /// <summary>
         /// Creates a new sector.

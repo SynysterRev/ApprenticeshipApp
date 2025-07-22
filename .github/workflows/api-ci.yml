@@ -52,8 +52,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ApprenticeshipApp/JuniorOnly.WebAPI
-          file: ApprenticeshipApp/JuniorOnly.WebAPI/Dockerfile
+          context: JuniorOnly.WebAPI
+          file: JuniorOnly.WebAPI/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/junioronly:${{ steps.commit.outputs.short }}

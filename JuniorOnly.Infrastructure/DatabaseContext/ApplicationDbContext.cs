@@ -86,10 +86,12 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
 
             // Configure DesiredJobTitles as JSON column
             var stringArrayComparer = new ValueComparer<string[]>(
-                (c1, c2) => c1.SequenceEqual(c2),
-                c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
-                c => c.ToArray()
-            );
+                (c1, c2) =>
+        ReferenceEquals(c1, c2) ||
+        (c1 != null && c2 != null && c1.SequenceEqual(c2)),
+    c => c == null ? 0 : c.Aggregate(0, (a, v) => HashCode.Combine(a, v?.GetHashCode() ?? 0)),
+    c => c == null ? null : c.ToArray()
+);
 
             modelBuilder.Entity<CandidateProfile>()
                 .Property(cp => cp.DesiredJobTitles)
