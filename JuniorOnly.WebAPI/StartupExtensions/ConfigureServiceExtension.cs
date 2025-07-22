@@ -46,6 +46,21 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             services.AddScoped<ICandidateProfileService, CandidateProfileService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobSectorService, JobSectorService>();
+
+            var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>();
+            var defaultOrigins = new string[] { "http://localhost:4200" };
+            // CORS
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    // Add angular address
+                    builder
+                    .WithOrigins(allowedOrigins ?? defaultOrigins)
+                    .WithHeaders("Authorization", "origin", "accept", "content-type")
+                    .WithMethods("GET", "POST", "PUT", "DELETE");
+                });
+            });
         }
     }
 }
