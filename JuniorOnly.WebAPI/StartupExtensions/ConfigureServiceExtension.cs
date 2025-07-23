@@ -14,6 +14,7 @@ namespace JuniorOnly.WebAPI.StartupExtensions
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("Default");
+
             var password = configuration["DB_PASSWORD"];
             connectionString = connectionString?.Replace("{DB_PASSWORD}", password);
 

@@ -5,12 +5,15 @@ services:
     build:
       context: .
       dockerfile: JuniorOnly.WebAPI/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080;https://+:8081
     depends_on:
       - dev-db
     networks:
       - backend
-    environment:
-      - ConnectionStrings__Default=Server=dev-db,1433;Database=JuniorOnlyDB;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;
     volumes:
       - ./JuniorOnly:/app
 
