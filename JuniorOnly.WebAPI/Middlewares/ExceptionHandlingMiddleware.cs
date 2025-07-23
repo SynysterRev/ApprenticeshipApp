@@ -1,4 +1,6 @@
 ﻿using JuniorOnly.Application.Exceptions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
@@ -41,6 +43,10 @@ namespace JuniorOnly.WebAPI.Middlewares
                         statusCode = StatusCodes.Status401Unauthorized;
                         errorMessage = e.Message;
                         break;
+                    case InvalidOperationException:
+                        statusCode = StatusCodes.Status500InternalServerError;
+                        errorMessage = "A configuration error occurred: " + e.Message;
+                        break;
                     default:
                         statusCode = StatusCodes.Status500InternalServerError;
                         errorMessage = "An unexpected error occurred.";
@@ -49,9 +55,16 @@ namespace JuniorOnly.WebAPI.Middlewares
 
                 _logger.LogError(e, "An exception occurred: {Message}", e.Message);
 
+                var problemDetails = new ProblemDetails
+                {
+                    Status = statusCode,
+                    Title = errorMessage,
+                    Detail = e.StackTrace,
+                    Instance = httpContext.Request.Path
+                };
+
                 httpContext.Response.StatusCode = statusCode;
-                var response = new { error = errorMessage };
-                await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
+                await httpContext.Response.WriteAsJsonAsync(problemDetails);
             }
         }
     }

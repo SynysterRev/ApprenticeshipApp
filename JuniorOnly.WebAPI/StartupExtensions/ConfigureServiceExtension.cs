@@ -62,6 +62,8 @@ namespace JuniorOnly.WebAPI.StartupExtensions
                     .WithMethods("GET", "POST", "PUT", "DELETE");
                 });
             });
+
+            services.AddTransient<IJwtService, JwtService>();
         }
     }
 }

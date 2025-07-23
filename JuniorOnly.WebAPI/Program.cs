@@ -1,4 +1,6 @@
 using Asp.Versioning;
+using JuniorOnly.WebAPI.Data;
+using JuniorOnly.WebAPI.Filters;
 using JuniorOnly.WebAPI.Middlewares;
 using JuniorOnly.WebAPI.StartupExtensions;
 
@@ -6,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ValidateModelAttribute());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var apiVersioningBuilder = builder.Services.AddApiVersioning(options =>
 {
@@ -41,11 +47,19 @@ else
     app.UseExceptionHandlingMiddleware();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    await SeedData.InitializeAsync(scope.ServiceProvider);
+}
+
 app.UseHttpsRedirection();
 
 app.UseCors();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+DatabaseManagementService.MigrationInitialisation(app);
 
 app.MapControllers();
 

@@ -8,7 +8,12 @@ namespace JuniorOnly.Domain.IdentityEntities
     public class ApplicationUser : IdentityUser<Guid>
     {
         [Required]
-        public UserRole Role { get; set; }
+        [StringLength(100)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100)]
+        public string LastName {  get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

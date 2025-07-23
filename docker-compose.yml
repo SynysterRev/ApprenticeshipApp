@@ -14,8 +14,6 @@ services:
       - dev-db
     networks:
       - backend
-    volumes:
-      - ./JuniorOnly:/app
 
   dev-db:
     container_name: dev-db

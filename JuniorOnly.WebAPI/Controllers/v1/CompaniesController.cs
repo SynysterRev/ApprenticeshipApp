@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using JuniorOnly.Domain.Entities;
-using JuniorOnly.Infrastructure.DatabaseContext;
+﻿using Microsoft.AspNetCore.Mvc;
 using JuniorOnly.Controllers;
 using Asp.Versioning;
 using JuniorOnly.Application.Interfaces;
