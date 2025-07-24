@@ -19,10 +19,18 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OfferDto>>> GetAll()
+        public async Task<ActionResult<List<OfferDto>>> GetAll([FromQuery]Guid? companyId)
         {
-            var offers = await _offerService.GetAllOffersAsync();
-            return Ok(offers);
+            if (companyId.HasValue)
+            {
+                var offers = await _offerService.GetOffersByCompanyAsync(companyId.Value);
+                return Ok(offers);
+            }
+            else
+            {
+                var offers = await _offerService.GetAllOffersAsync();
+                return Ok(offers);
+            }
         }
 
         [HttpGet("{id}")]
@@ -30,6 +38,13 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         {
             var offer = await _offerService.GetOfferByIdAsync(id);
             return Ok(offer);
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<OfferDto>>> Search([FromQuery] OfferSearchQuery query)
+        {
+            var offers = await _offerService.SearchOffersAsync(query);
+            return Ok(offers);
         }
 
         [HttpPost]

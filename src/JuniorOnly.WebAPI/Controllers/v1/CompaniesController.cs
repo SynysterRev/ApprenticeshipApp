@@ -3,6 +3,7 @@ using JuniorOnly.Controllers;
 using Asp.Versioning;
 using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Application.DTO.Company;
+using JuniorOnly.Application.DTO.Offer;
 
 namespace JuniorOnly.WebAPI.Controllers.v1
 {
@@ -10,12 +11,14 @@ namespace JuniorOnly.WebAPI.Controllers.v1
     public class CompaniesController : CustomControllerBase
     {
         private readonly ICompanyService _companyService;
+        private readonly IOfferService _offerService;
         private readonly ILogger<CompaniesController> _logger;
 
-        public CompaniesController(ICompanyService companyService, ILogger<CompaniesController> logger)
+        public CompaniesController(ICompanyService companyService, ILogger<CompaniesController> logger, IOfferService offerService)
         {
             _companyService = companyService;
             _logger = logger;
+            _offerService = offerService;
         }
 
         // GET: api/v1/Companies
@@ -32,6 +35,13 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         {
             var company = await _companyService.GetCompanyByIdAsync(id);
             return Ok(company);
+        }
+
+        [HttpGet("{companyId}/offers")]
+        public async Task<ActionResult<List<OfferDto>>> GetOffers(Guid companyId)
+        {
+            var offers = await _offerService.GetOffersByCompanyAsync(companyId);
+            return Ok(offers);
         }
 
         // PUT: api/v1/Companies/5

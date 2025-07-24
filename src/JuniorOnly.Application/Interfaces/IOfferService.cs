@@ -49,10 +49,9 @@ namespace JuniorOnly.Application.Interfaces
         /// <summary>
         /// Searches job offers by keyword and maximum experience.
         /// </summary>
-        /// <param name="searchTerm">Keyword to search for.</param>
-        /// <param name="experienceMax">Optional maximum experience filter.</param>
+        /// <param name="query">Filters to apply.</param>
         /// <returns>List of matching OfferDto.</returns>
-        public Task<List<OfferDto>> SearchOffersAsync(string searchTerm, int? experienceMax = null);
+        public Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery query);
 
         /// <summary>
         /// Get all favorite job offers for a specific candidate

@@ -85,9 +85,10 @@ namespace JuniorOnly.Application.Services
             return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public async Task<List<OfferDto>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
+        // To modified 
+        public async Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery  query)
         {
-            var offers = await _offerRepository.SearchOffersAsync(searchTerm, experienceMax);
+            var offers = await _offerRepository.SearchOffersAsync(query.SearchTerm!, query.ExperienceMax);
 
             return offers.Select(o => o.ToDto()).ToList();
         }
