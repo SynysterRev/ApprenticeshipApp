@@ -21,7 +21,6 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             _offerService = offerService;
         }
 
-        // GET: api/v1/Companies
         [HttpGet]
         public async Task<ActionResult<List<CompanyDto>>> GetAll()
         {
@@ -29,7 +28,6 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(companies);
         }
 
-        // GET: api/v1/Companies/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CompanyDto>> GetById(Guid id)
         {
@@ -44,8 +42,6 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(offers);
         }
 
-        // PUT: api/v1/Companies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<ActionResult<CompanyDto>> Update(Guid id, CompanyUpdateDto updateDto)
         {
@@ -54,8 +50,6 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(company);
         }
 
-        // POST: api/v1/Companies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CompanyDto>> Create(CompanyCreateDto createDto)
         {
@@ -64,7 +58,6 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return CreatedAtAction(nameof(GetById), new { id = newCompany.Id }, newCompany);
         }
 
-        // DELETE: api/v1/Companies/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
