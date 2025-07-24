@@ -10,16 +10,18 @@ namespace JuniorOnly.WebAPI.Controllers.v1
     public class OffersController : CustomControllerBase
     {
         private readonly IOfferService _offerService;
+        private readonly IApplicationService _applicationService;
         private readonly ILogger<OffersController> _logger;
 
-        public OffersController(IOfferService offerService, ILogger<OffersController> logger)
+        public OffersController(IOfferService offerService, ILogger<OffersController> logger, IApplicationService applicationService)
         {
             _offerService = offerService;
             _logger = logger;
+            _applicationService = applicationService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OfferDto>>> GetAll([FromQuery]Guid? companyId)
+        public async Task<ActionResult<List<OfferDto>>> GetAll([FromQuery] Guid? companyId)
         {
             if (companyId.HasValue)
             {
@@ -40,6 +42,13 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(offer);
         }
 
+        [HttpGet("{offerId}/applications")]
+        public async Task<ActionResult<List<Domain.Entities.Application>>> GetApplications(Guid offerId)
+        {
+            var applications = await _applicationService.GetApplicationsByOfferAsync(offerId);
+            return Ok(applications);
+        }
+
         [HttpGet("search")]
         public async Task<ActionResult<List<OfferDto>>> Search([FromQuery] OfferSearchQuery query)
         {
@@ -56,7 +65,7 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<OfferDto>> Update(Guid id, OfferUpdateDto updateDto)
+        public async Task<ActionResult<OfferDto>> Update(Guid id, [FromBody] OfferUpdateDto updateDto)
         {
             var updatedOffer = await _offerService.UpdateOfferAsync(id, updateDto);
             _logger.LogInformation("Offer updated with ID {offerID}", id);
