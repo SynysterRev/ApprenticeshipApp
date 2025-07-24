@@ -109,6 +109,32 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
             modelBuilder.Entity<JobSector>()
                 .HasIndex(js => js.Name)
                 .IsUnique();
+
+            SeedJobSectors(modelBuilder);
+        }
+
+        private void SeedJobSectors(ModelBuilder modelBuilder)
+        {
+            var now = DateTime.UtcNow;
+
+            modelBuilder.Entity<JobSector>().HasData(
+                new JobSector
+                {
+                    Id = Guid.Parse("2338D5AA-1B27-4BFE-85F7-4903E6D3434A"),
+                    Name = "Informatique",
+                    IsActive = true,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                },
+                new JobSector
+                {
+                    Id = Guid.Parse("0353CC9B-8A46-4CB4-BD53-E4204C8C7F0D"),
+                    Name = "Santé",
+                    IsActive = true,
+                    CreatedAt = now,
+                    UpdatedAt = now
+                }
+            );
         }
 
     }
