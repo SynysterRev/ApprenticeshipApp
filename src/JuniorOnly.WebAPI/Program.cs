@@ -3,6 +3,7 @@ using JuniorOnly.WebAPI.Data;
 using JuniorOnly.WebAPI.Filters;
 using JuniorOnly.WebAPI.Middlewares;
 using JuniorOnly.WebAPI.StartupExtensions;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -4,8 +4,12 @@ using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
 using JuniorOnly.Infrastructure.DatabaseContext;
 using JuniorOnly.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace JuniorOnly.WebAPI.StartupExtensions
 {
@@ -64,6 +68,25 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             });
 
             services.AddTransient<IJwtService, JwtService>();
+
+            // Authentication JWT
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateAudience = true,
+                    ValidAudience = configuration["Jwt:Audience"],
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
+                };
+            });
         }
     }
 }

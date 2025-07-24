@@ -13,6 +13,7 @@
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.18" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -31,5 +32,22 @@
     <ProjectReference Include="..\JuniorOnly.Application\JuniorOnly.Application.csproj" />
     <ProjectReference Include="..\JuniorOnly.Infrastructure\JuniorOnly.Infrastructure.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+	<None Include="ClientApp\**" Exclude="ClientApp\node_modules\**" />
+  </ItemGroup>
+
+	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+	  <Exec WorkingDirectory="ClientApp" Command="npm install" />
+	  <Exec WorkingDirectory="ClientApp" Command="npm run build -- --configuration production" />
+	  
+	  <ItemGroup>
+		<DistFiles Include="ClientApp\dist\**" />
+		<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+		  <RelativePath>wwwroot\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</ResolvedFileToPublish>
+	  </ItemGroup>
+	</Target>
 
 </Project>
