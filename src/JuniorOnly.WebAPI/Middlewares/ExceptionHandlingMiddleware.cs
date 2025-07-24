@@ -10,11 +10,13 @@ namespace JuniorOnly.WebAPI.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+        private readonly IWebHostEnvironment _appEnv;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger, IWebHostEnvironment appEnv)
         {
             _next = next;
             _logger = logger;
+            _appEnv = appEnv;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -29,6 +31,7 @@ namespace JuniorOnly.WebAPI.Middlewares
                 int statusCode;
                 string errorMessage;
 
+                // Check to refacto a bit
                 switch (e)
                 {
                     case NotFoundException:
@@ -59,7 +62,7 @@ namespace JuniorOnly.WebAPI.Middlewares
                 {
                     Status = statusCode,
                     Title = errorMessage,
-                    Detail = e.StackTrace,
+                    Detail = _appEnv.IsDevelopment() ? e.StackTrace : null,
                     Instance = httpContext.Request.Path
                 };
 

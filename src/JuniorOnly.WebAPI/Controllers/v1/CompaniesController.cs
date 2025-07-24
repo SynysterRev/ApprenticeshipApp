@@ -20,7 +20,7 @@ namespace JuniorOnly.WebAPI.Controllers.v1
 
         // GET: api/v1/Companies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies()
+        public async Task<ActionResult<List<CompanyDto>>> GetAll()
         {
             var companies = await _companyService.GetAllCompaniesAsync();
             return Ok(companies);
@@ -28,7 +28,7 @@ namespace JuniorOnly.WebAPI.Controllers.v1
 
         // GET: api/v1/Companies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompanyDto>> GetCompany(Guid id)
+        public async Task<ActionResult<CompanyDto>> GetById(Guid id)
         {
             var company = await _companyService.GetCompanyByIdAsync(id);
             return Ok(company);
@@ -37,28 +37,29 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         // PUT: api/v1/Companies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<ActionResult<CompanyDto>> PutCompany(Guid id, CompanyUpdateDto updateDto)
+        public async Task<ActionResult<CompanyDto>> Update(Guid id, CompanyUpdateDto updateDto)
         {
             var company = await _companyService.UpdateCompanyAsync(id, updateDto);
+            _logger.LogInformation("Company updated with ID {CompanyId}", id);
             return Ok(company);
         }
 
         // POST: api/v1/Companies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CompanyDto>> PostCompany(CompanyCreateDto createDto)
+        public async Task<ActionResult<CompanyDto>> Create(CompanyCreateDto createDto)
         {
             var newCompany = await _companyService.CreateCompanyAsync(createDto);
             _logger.LogInformation("Company created with ID {CompanyId}", newCompany.Id);
-            return CreatedAtAction("GetCompany", new { id = newCompany.Id }, newCompany);
+            return CreatedAtAction(nameof(GetById), new { id = newCompany.Id }, newCompany);
         }
 
         // DELETE: api/v1/Companies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCompany(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await _companyService.DeleteCompanyAsync(id);
-
+            _logger.LogInformation("Company delete with ID {CompanyId}", id);
             return NoContent();
         }
     }
