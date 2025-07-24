@@ -123,16 +123,16 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
                     Id = Guid.Parse("2338D5AA-1B27-4BFE-85F7-4903E6D3434A"),
                     Name = "Informatique",
                     IsActive = true,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = new DateTime(2025, 07, 24, 14, 47, 27, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 07, 24, 14, 47, 27, DateTimeKind.Utc),
                 },
                 new JobSector
                 {
                     Id = Guid.Parse("0353CC9B-8A46-4CB4-BD53-E4204C8C7F0D"),
                     Name = "Santé",
                     IsActive = true,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    CreatedAt = new DateTime(2025, 07, 24, 14, 47, 27, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2025, 07, 24, 14, 47, 27, DateTimeKind.Utc),
                 }
             );
         }
