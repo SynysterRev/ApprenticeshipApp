@@ -1,0 +1,42 @@
+<div class="offer-card">
+    <div class="header">
+        <div class="header-logo">
+            <img [src]="imageSrc" alt="company logo">
+        </div>
+        <div class="header-title">
+            <h2>
+                <a [routerLink]="" class="job-title-link"></a>
+                Junior Frontend Developer
+            </h2>
+            <h3>TechStart</h3>
+            <p class="description">Join our team as a Junior Frontend Developer and grow your skills in React and modern web technologies.</p>
+        </div>
+    </div>
+    <div class="badges-list">
+        <div class="badge">React</div>
+        <div class="badge">JavaScript</div>
+    </div>
+    <div class="footer">
+        <div class="meta-list">
+            <div class="meta">
+                <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
+                <span>Remote</span>
+            </div>
+            <div class="meta">
+                <lucide-angular [img]="clockIcon" [size]="18"></lucide-angular>
+                <span>Full-time</span>
+            </div>
+            <div class="meta">
+                <lucide-angular [img]="companyIcon" [size]="18"></lucide-angular>
+                <span>35k - 45k €</span>
+            </div>
+            <div class="meta">
+                <span>• 2 days ago</span>
+            </div>
+        </div>
+        <span class="gradient-link flex">
+            Détails
+            <lucide-angular [img]="arrowRightIcon" [size]="16" class="icon"></lucide-angular>   
+        </span>
+    </div>
+</div>
