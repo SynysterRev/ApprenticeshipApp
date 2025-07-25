@@ -1,0 +1,43 @@
+.nav {
+    display: flex;
+    align-items: center;
+
+    .test{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding-right: 1rem;
+    }
+
+    .title {
+        font-size: x-large;
+        font-weight: 700;
+        background: var(--mat-sys-bg-gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding-bottom: 0.3rem;
+    }
+
+    .sub-title {
+        font-size: small;
+        font-weight: 400;
+        color: rgb(151, 151, 151);
+    }
+
+    .nav-link {
+        font-weight: 500;
+        font-size: large;
+        transition: 0.3s;
+
+        &:hover {
+            color: var(--mat-sys-primary)
+        }
+    }
+}
