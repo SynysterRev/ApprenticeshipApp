@@ -5,6 +5,7 @@ using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace JuniorOnly.Application.Services
@@ -20,6 +21,7 @@ namespace JuniorOnly.Application.Services
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "Recruiter, Admin" )]
         public async Task<CompanyDto> CreateCompanyAsync(CompanyCreateDto companyDto)
         {
             var user = await _userManager.FindByIdAsync(companyDto.CreatedByUserId.ToString());
@@ -35,6 +37,7 @@ namespace JuniorOnly.Application.Services
             return company.ToDto();
         }
 
+        [Authorize(Roles = "Recruiter, Admin")]
         public async Task DeleteCompanyAsync(Guid companyId)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(companyId);
@@ -72,6 +75,7 @@ namespace JuniorOnly.Application.Services
             return friendlyCompanies.Select(c => c.ToDto()).ToList();
         }
 
+        [Authorize(Roles = "Recruiter, Admin")]
         public async Task<CompanyDto> UpdateCompanyAsync(Guid companyId, CompanyUpdateDto companyDto)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(companyId);
