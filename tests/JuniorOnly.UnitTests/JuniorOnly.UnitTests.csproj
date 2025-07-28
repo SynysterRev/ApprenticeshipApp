@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JuniorOnly.Application\JuniorOnly.Application.csproj" />
+    <ProjectReference Include="..\..\src\JuniorOnly.Application\JuniorOnly.Application.csproj" />
   </ItemGroup>
 
 </Project>

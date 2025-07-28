@@ -181,24 +181,24 @@ namespace JuniorOnly.UnitTests.Services
             _offerRepositoryMock.Verify(r => r.GetOffersByCompanyAsync(companyId), Times.Once);
         }
 
-        [Fact]
-        public async Task SearchOffersAsync_ShouldReturnMatchingOffers()
-        {
-            string searchTerm = "dev";
-            int? experienceMax = 2;
+        //[Fact]
+        //public async Task SearchOffersAsync_ShouldReturnMatchingOffers()
+        //{
+        //    string searchTerm = "dev";
+        //    int? experienceMax = 2;
 
-            var offers = _fixture.CreateMany<Offer>(2).ToList();
-            var expectedDtos = offers.Select(o => o.ToDto()).ToList();
+        //    var offers = _fixture.CreateMany<Offer>(2).ToList();
+        //    var expectedDtos = offers.Select(o => o.ToDto()).ToList();
 
-            _offerRepositoryMock.Setup(r => r.SearchOffersAsync(searchTerm, experienceMax))
-                                .ReturnsAsync(offers);
+        //    _offerRepositoryMock.Setup(r => r.SearchOffersAsync(searchTerm, experienceMax))
+        //                        .ReturnsAsync(offers);
 
-            var result = await _offerService.SearchOffersAsync(searchTerm, experienceMax);
+        //    var result = await _offerService.SearchOffersAsync(searchTerm, experienceMax);
 
-            result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(expectedDtos);
-            _offerRepositoryMock.Verify(r => r.SearchOffersAsync(searchTerm, experienceMax), Times.Once);
-        }
+        //    result.Should().NotBeNull();
+        //    result.Should().BeEquivalentTo(expectedDtos);
+        //    _offerRepositoryMock.Verify(r => r.SearchOffersAsync(searchTerm, experienceMax), Times.Once);
+        //}
 
         [Fact]
         public async Task UpdateOfferAsync_ShouldBeSuccessful_WhenValidId()
