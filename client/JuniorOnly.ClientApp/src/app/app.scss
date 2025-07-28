@@ -1,6 +1,12 @@
   main {
-    height: 100dvh;
+    min-height: 100dvh;
+    padding-top: 0;
+  }
+
+  .content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 6rem;
   }
