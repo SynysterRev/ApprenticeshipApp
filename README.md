@@ -34,7 +34,7 @@ Current Progress
 
     Initial unit tests
 
-    One controller
+    Base CRUD controllers for every entity
 
     Preparing user authentication (login/signup)
 
