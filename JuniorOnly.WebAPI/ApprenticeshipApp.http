@@ -1,6 +1,0 @@
-@JuniorOnly_HostAddress = http://localhost:5003
-
-GET {{JuniorOnly_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

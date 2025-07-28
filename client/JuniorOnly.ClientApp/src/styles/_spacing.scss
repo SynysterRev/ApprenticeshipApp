@@ -1,0 +1,17 @@
+$spacing-unit: 1rem;
+
+.mt-1 { margin-top: $spacing-unit; }
+.mr-1 { margin-right: $spacing-unit; }
+.ml-1 { margin-left: $spacing-unit; }
+.mb-1 { margin-bottom: $spacing-unit !important; }
+
+.mt-2 { margin-top: $spacing-unit * 2; }
+.mr-2 { margin-right: $spacing-unit * 2; }
+.ml-2 { margin-left: $spacing-unit * 2; }
+.mb-2 { margin-bottom: $spacing-unit * 2 !important; }
+
+.p-1  { padding: $spacing-unit; }
+.pt-1  { padding-top: $spacing-unit; }
+.pr-1  { padding-right: $spacing-unit; }
+.pl-1  { padding-left: $spacing-unit; }
+.pb-1  { padding-bottom: $spacing-unit; }
