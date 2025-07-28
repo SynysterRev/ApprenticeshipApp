@@ -70,23 +70,23 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             services.AddTransient<IJwtService, JwtService>();
 
             // Authentication JWT
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateAudience = true,
-                    ValidAudience = configuration["Jwt:Audience"],
-                    ValidateIssuer = true,
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
-                };
-            });
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(options =>
+            //{
+            //    options.TokenValidationParameters = new TokenValidationParameters()
+            //    {
+            //        ValidateAudience = true,
+            //        ValidAudience = configuration["Jwt:Audience"],
+            //        ValidateIssuer = true,
+            //        ValidIssuer = configuration["Jwt:Issuer"],
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
+            //    };
+            //});
         }
     }
 }

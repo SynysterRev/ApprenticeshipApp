@@ -14,16 +14,13 @@ namespace JuniorOnly.Application.Services
         private readonly IOfferRepository _offerRepository;
         private readonly ICandidateProfileRepository _profileRepository;
         private readonly ICompanyRepository _companyRepository;
-        private readonly IJobSectorRepository _tagRepository;
 
         public OfferService(IOfferRepository offersRepository,
             ICompanyRepository companyRepository,
-            IJobSectorRepository tagRepository,
             ICandidateProfileRepository profileRepository)
         {
             _offerRepository = offersRepository;
             _companyRepository = companyRepository;
-            _tagRepository = tagRepository;
             _profileRepository = profileRepository;
         }
 

@@ -6,20 +6,31 @@ using JuniorOnly.Domain.Enums;
 using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace JuniorOnly.Application.Services
 {
     public class CandidateProfileService : ICandidateProfileService
     {
         private readonly ICandidateProfileRepository _profileRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CandidateProfileService(ICandidateProfileRepository profileRepository)
+        public CandidateProfileService(ICandidateProfileRepository profileRepository, UserManager<ApplicationUser> userManager)
         {
             _profileRepository = profileRepository;
+            _userManager = userManager;
         }
 
         public async Task<CandidateProfileDto> CreateProfileAsync(CandidateProfileCreateDto profileDto)
         {
+            var user = await _userManager.FindByIdAsync(profileDto.UserId.ToString());
+            if (user == null)
+                throw new NotFoundException($"User with ID {profileDto.UserId} not found");
+
+            var existingProfile = await _profileRepository.GetProfileByUserIdAsync(profileDto.UserId);
+            if (existingProfile != null)
+                throw new ValidationException("Profile already exists for this user");
+
             var profile = profileDto.ToEntity();
             profile.Id = Guid.NewGuid();
 

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuniorOnly.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuniorOnly.Domain", "src\JuniorOnly.Domain\JuniorOnly.Domain.csproj", "{3505E65D-FDCB-E73A-339E-4567EA14D498}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JuniorOnly.UnitTests", "tests\JuniorOnly.UnitTests\JuniorOnly.UnitTests.csproj", "{1A168C5B-14E6-3789-B06D-98C1F6F095F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{3505E65D-FDCB-E73A-339E-4567EA14D498}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3505E65D-FDCB-E73A-339E-4567EA14D498}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3505E65D-FDCB-E73A-339E-4567EA14D498}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A168C5B-14E6-3789-B06D-98C1F6F095F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A168C5B-14E6-3789-B06D-98C1F6F095F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A168C5B-14E6-3789-B06D-98C1F6F095F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A168C5B-14E6-3789-B06D-98C1F6F095F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{7A93A00A-C099-ACDE-3553-E6A37FB05EA2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{954444D5-1B03-0178-857D-26DCC9528F0A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3505E65D-FDCB-E73A-339E-4567EA14D498} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1A168C5B-14E6-3789-B06D-98C1F6F095F4} = {B330F643-AC90-4C6A-860E-C01436F8390D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3264E472-E019-417F-B2D7-F01AE4ECC252}
