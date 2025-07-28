@@ -51,3 +51,35 @@ $spacing-unit: 1rem;
 .pb-1 {
     padding-bottom: $spacing-unit;
 }
+
+@for $i from 0 through 20 {
+    .py-#{$i} {
+        padding-top: #{$i * 0.25}rem;
+        padding-bottom: #{$i * 0.25}rem;
+    }
+
+    .px-#{$i} {
+        padding-left: #{$i * 0.25}rem;
+        padding-right: #{$i * 0.25}rem;
+    }
+
+    .p-#{$i} {
+        padding: #{$i * 0.25}rem;
+    }
+}
+
+@for $i from 0 through 20 {
+    .my-#{$i} {
+        margin-top: #{$i * 0.25}rem;
+        margin-bottom: #{$i * 0.25}rem;
+    }
+
+    .mx-#{$i} {
+        margin-left: #{$i * 0.25}rem;
+        margin-right: #{$i * 0.25}rem;
+    }
+
+    .m-#{$i} {
+        margin: #{$i * 0.25}rem;
+    }
+}

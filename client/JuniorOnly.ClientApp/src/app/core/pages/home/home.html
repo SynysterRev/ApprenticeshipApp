@@ -1,0 +1,35 @@
+<section class="py-16 px-6">
+    <div class="container">
+        <div class="title">
+            <h1>Find Your Next Job Opportunity</h1>
+            <p>Discover thousands of job opportunities designed for junior talent and career changers</p>
+        </div>
+        <div class="card">
+            <div class="search-card">
+                <div class="input-box flex-6">
+                    <lucide-angular [img]="searchIcon" [size]="18"></lucide-angular>
+                    <input placeholder="Job title, keywords, or company">
+                </div>
+                <div class="custom-location-select flex-4">
+                    <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom-location"
+                        clearable="false">
+                        <ng-option value="">All locations</ng-option>
+                        <ng-option value="remote">Remote</ng-option>
+                        <ng-option value="paris">Paris</ng-option>
+                        <ng-option value="lyon">Lyon</ng-option>
+                        <ng-option value="marseille">Marseille</ng-option>
+                    </ng-select>
+                </div>
+                <!-- <div class="select-box flex-4">
+                    <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
+                    <select>
+                        <option>Location</option>
+                        <option><span class="option-label">Paris</span></option>
+                        <option>Lyon</option>
+                    </select>
+                </div> -->
+                <button type="submit" class="gradient-button flex-3">Search jobs</button>
+            </div>
+        </div>
+    </div>
+</section>

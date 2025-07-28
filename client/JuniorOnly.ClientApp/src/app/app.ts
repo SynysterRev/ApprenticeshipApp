@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { Company } from './services/company';
 import { OfferCard } from './domains/offer/components/offer-card/offer-card';
 import { Header } from './core/layout/header/header';
+import { Home } from './core/pages/home/home';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OfferCard, Header],
+  imports: [RouterOutlet, OfferCard, Header, Home],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
