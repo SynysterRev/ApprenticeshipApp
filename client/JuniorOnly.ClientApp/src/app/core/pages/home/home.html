@@ -12,8 +12,8 @@
                 </div>
                 <div class="select-box flex-4">
                     <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
-                    <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom"
-                        clearable="false" [searchable]="false">
+                    <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom" clearable="false"
+                        [searchable]="false">
                         <ng-option value="">All locations</ng-option>
                         <ng-option value="remote">Remote</ng-option>
                         <ng-option value="paris">Paris</ng-option>
@@ -29,14 +29,28 @@
                 <div class="ball blue"></div>
                 <span>2,500+ active jobs</span>
             </div>
-             <div class="flex">
+            <div class="flex">
                 <div class="ball green"></div>
                 <span>500+ companies</span>
             </div>
-             <div class="flex">
+            <div class="flex">
                 <div class="ball purple"></div>
                 <span>Junior-friendly positions</span>
             </div>
+        </div>
+    </div>
+</section>
+<section class="py-16 px-6 category-section">
+    <div class="container">
+        <div class="title">
+            <h2>Popular Job Categories</h2>
+            <p>Explore opportunities in high-demand fields</p>
+        </div>
+        <div class="category-grid">
+            @for (sector of jobSectors; track sector.name) {
+            <app-stat-card [title]="sector.name" [count]="sector.jobCount" [unit]="'jobs'" (onCardClick)="cardClick($event)">
+            </app-stat-card>
+            }
         </div>
     </div>
 </section>

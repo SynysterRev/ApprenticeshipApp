@@ -8,6 +8,11 @@
     line-height: 1;
   }
 
+  h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+  }
+
   p {
     color: rgb(98, 98, 98);
     font-size: 1.5rem;
@@ -91,4 +96,26 @@
 
 .purple {
   background-color: rgb(123, 12, 174);
+}
+
+.category-section {
+  background-color: oklch(97.858% 0.01105 243.923);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+
+@media (width >= 48rem) {
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 64rem) {
+  .category-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

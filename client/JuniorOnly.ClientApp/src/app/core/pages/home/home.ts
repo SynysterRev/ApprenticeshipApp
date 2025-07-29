@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, Search, MapPin, ChevronDown, Check  } from 'lucide-angular';
+import { LucideAngularModule, Search, MapPin, ChevronDown, Check } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
-import { NgSelectComponent, NgSelectModule  } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { StatCard } from '../../../shared/components/stat-card/stat-card';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +11,8 @@ interface Food {
     FormsModule,
     NgSelectComponent,
     NgSelectModule,
-    CommonModule
+    CommonModule,
+    StatCard
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
@@ -31,4 +28,20 @@ export class Home {
     { name: 'Marseille' },
     { name: 'Remote' }
   ];
+
+  jobSectors = [
+    { name: 'Frontend Development', jobCount: 245 },
+    { name: 'Marketing', jobCount: 189 },
+    { name: 'Data Analysis', jobCount: 156 },
+    { name: 'UX/UI Design', jobCount: 134 },
+    { name: 'Customer Success', jobCount: 98 },
+    { name: 'Sales', jobCount: 87 },
+    { name: 'Content Creation', jobCount: 76 },
+    { name: 'Project Management', jobCount: 65 }
+  ];
+
+  cardClick(title: string)
+  {
+    
+  }
 }
