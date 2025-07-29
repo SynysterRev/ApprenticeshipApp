@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, Search, MapPin, ChevronDown  } from 'lucide-angular';
+import { LucideAngularModule, Search, MapPin, ChevronDown, Check  } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
-import { NgLabelTemplateDirective, NgOptionTemplateDirective, NgSelectComponent, NgSelectModule  } from '@ng-select/ng-select';
+import { NgSelectComponent, NgSelectModule  } from '@ng-select/ng-select';
+import { CommonModule } from '@angular/common';
 
 interface Food {
   value: string;
@@ -12,10 +13,9 @@ interface Food {
   selector: 'app-home',
   imports: [LucideAngularModule,
     FormsModule,
-    NgLabelTemplateDirective,
-    NgOptionTemplateDirective,
     NgSelectComponent,
-    NgSelectModule 
+    NgSelectModule,
+    CommonModule
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
@@ -25,9 +25,10 @@ export class Home {
   readonly mapIcon = MapPin;
   readonly chevronDownIcon = ChevronDown;
   selectedLocation?: string;
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
+  items = [
+    { name: 'Paris' },
+    { name: 'Lyon' },
+    { name: 'Marseille' },
+    { name: 'Remote' }
   ];
 }

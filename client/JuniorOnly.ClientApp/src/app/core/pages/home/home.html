@@ -10,9 +10,10 @@
                     <lucide-angular [img]="searchIcon" [size]="18"></lucide-angular>
                     <input placeholder="Job title, keywords, or company">
                 </div>
-                <div class="custom-location-select flex-4">
-                    <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom-location"
-                        clearable="false">
+                <div class="select-box flex-4">
+                    <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
+                    <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom"
+                        clearable="false" [searchable]="false">
                         <ng-option value="">All locations</ng-option>
                         <ng-option value="remote">Remote</ng-option>
                         <ng-option value="paris">Paris</ng-option>
@@ -20,14 +21,6 @@
                         <ng-option value="marseille">Marseille</ng-option>
                     </ng-select>
                 </div>
-                <!-- <div class="select-box flex-4">
-                    <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
-                    <select>
-                        <option>Location</option>
-                        <option><span class="option-label">Paris</span></option>
-                        <option>Lyon</option>
-                    </select>
-                </div> -->
                 <button type="submit" class="gradient-button flex-3">Search jobs</button>
             </div>
         </div>
