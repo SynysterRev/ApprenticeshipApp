@@ -36,6 +36,10 @@ html {
 :root {
   --mat-sys-background: #eff6ff;
   --mat-sys-surface: oklch(93.2% 0.032 255.585);
+  --mat-sys-surface-green: rgb(220 252 231);
+  --mat-sys-surface-purple: rgb(243 232 255);
+  --mat-sys-on-surface-green: rgb(19, 138, 63);
+  --mat-sys-on-surface-purple: rgb(126, 44, 202);
   --mat-sys-bg-gradient: linear-gradient(to right, oklch(54.6% 0.245 262.881), oklch(71.5% 0.143 215.221));
   --mat-sys-bg-gradient-hover: linear-gradient(to right, oklch(48.8% 0.243 264.376), oklch(60.9% 0.126 221.723));
 }

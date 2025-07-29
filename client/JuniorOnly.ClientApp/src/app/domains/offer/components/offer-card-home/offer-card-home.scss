@@ -1,13 +1,14 @@
-.offer-card {
+.offer-card-home {
     padding: 2rem;
     border-radius: 8px;
     background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(219, 219, 219);
     display: flex;
-    flex-direction: column;
     transition: box-shadow 0.3s ease;
     cursor: pointer;
     position: relative;
+    justify-content: space-between;
+    align-items: start;
     
     &:hover {
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -19,7 +20,7 @@
 
     .header {
         display: flex;
-        margin-bottom: 2.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .header-logo {
@@ -54,6 +55,7 @@
         font-size: 1.25rem;
         margin: 0;
         line-height: 1.75rem;
+        padding-right: 1rem;
 
         a {
             text-decoration: none;
@@ -72,8 +74,8 @@
     }
 
     h3 {
-        font-size: 1rem;
-        color: rgb(103, 117, 136);
+        font-size: 1.1rem;
+        color: rgb(42, 130, 253);
     }
 
     .description {
@@ -84,13 +86,7 @@
     .badges-list {
         display: flex;
         gap: 0.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        margin-top: 1rem;
     }
 
     .meta-list {
@@ -113,12 +109,4 @@
         z-index: 2;
         gap: 1rem;
     }
-}
-
-.icon {
-    line-height: 1;
-    display: inline-block;
-    vertical-align: middle;
-    transition: transform 0.3s ease;
-    padding-top: 0.01rem;
 }

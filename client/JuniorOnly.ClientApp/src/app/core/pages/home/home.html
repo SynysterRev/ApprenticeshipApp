@@ -48,9 +48,22 @@
         </div>
         <div class="category-grid">
             @for (sector of jobSectors; track sector.name) {
-            <app-stat-card [title]="sector.name" [count]="sector.jobCount" [unit]="'jobs'" (onCardClick)="cardClick($event)">
+            <app-stat-card [title]="sector.name" [count]="sector.jobCount" [unit]="'jobs'"
+                (onCardClick)="cardClick($event)">
             </app-stat-card>
             }
+        </div>
+    </div>
+</section>
+<section class="py-16 px-6 job-section">
+    <div class="container">
+        <div class="title">
+            <h2>Latest Job Opportunities</h2>
+            <p>Fresh opportunities posted today</p>
+        </div>
+        <div class="job-list">
+            <app-offer-card-home></app-offer-card-home>
+            <app-offer-card-home></app-offer-card-home>
         </div>
     </div>
 </section>

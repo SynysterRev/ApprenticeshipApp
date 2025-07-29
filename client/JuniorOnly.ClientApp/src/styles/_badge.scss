@@ -5,3 +5,13 @@
   font-weight: 500;
   padding: 0.4rem 0.9rem;
 }
+
+.light-green {
+  background-color: var(--mat-sys-surface-green);
+  color: var(--mat-sys-on-surface-green);
+}
+
+.light-purple {
+  background-color: var(--mat-sys-surface-purple);
+  color: var(--mat-sys-on-surface-purple);
+}

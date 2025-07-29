@@ -22,6 +22,7 @@
   color: var(--mat-sys-primary);
   font-weight: 500;
   cursor: pointer;
+  z-index: 10;
   transition:
     background-color 0.3s,
     color 0.3s;

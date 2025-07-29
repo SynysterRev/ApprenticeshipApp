@@ -108,13 +108,31 @@
   gap: 2.5rem;
 }
 
-@media (width >= 48rem) {
+.job-section {
+  background-color: white;
+
+  .title {
+    text-align: start;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (width >=48rem) {
   .category-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (width >= 64rem) {
+@media (width >=64rem) {
   .category-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, Search, MapPin, ChevronDown, Check } from 'lucide-angular';
+import { LucideAngularModule, Search, MapPin, ChevronDown } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
 import { StatCard } from '../../../shared/components/stat-card/stat-card';
+import { OfferCardHome } from '../../../domains/offer/components/offer-card-home/offer-card-home';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import { StatCard } from '../../../shared/components/stat-card/stat-card';
     NgSelectComponent,
     NgSelectModule,
     CommonModule,
-    StatCard
+    StatCard,
+    OfferCardHome
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
