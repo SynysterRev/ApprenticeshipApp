@@ -1,0 +1,82 @@
+footer {
+    background-color: oklch(19.874% 0.08902 263.7);
+
+    .footer-list {
+        display: flex;
+        padding: 3rem 0;
+        gap: 2rem;
+    }
+
+    h3 {
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .footer-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        color: white;
+
+        .flex {
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        p {
+            color: rgb(165, 165, 165);
+        }
+
+        .gradient-bg {
+            background: var(--mat-sys-bg-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            width: 2.25rem;
+            height: 2.25rem;
+
+            lucide-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        color: rgb(165, 165, 165);
+        margin: 0;
+    }
+
+    li {
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+
+        a {
+            transition: color 0.3s;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    .rights {
+        border-top: 1px solid rgba(156, 163, 175, 0.336);
+        text-align: center;
+        color: rgb(165, 165, 165);
+        padding-top: 2rem;
+    }
+}

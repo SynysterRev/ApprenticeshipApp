@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LucideAngularModule, Search, MapPin, ChevronDown } from 'lucide-angular';
+import { LucideAngularModule, Search, MapPin, ChevronDown, Users, CircleCheckBig, TrendingUp } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,10 @@ export class Home {
   readonly searchIcon = Search;
   readonly mapIcon = MapPin;
   readonly chevronDownIcon = ChevronDown;
+  readonly usersIcon = Users;
+  readonly circleCheckIcon = CircleCheckBig;
+  readonly trendUpIcon = TrendingUp;
+
   selectedLocation?: string;
   items = [
     { name: 'Paris' },

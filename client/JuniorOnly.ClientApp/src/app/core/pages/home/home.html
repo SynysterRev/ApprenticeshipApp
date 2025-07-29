@@ -7,11 +7,11 @@
         <div class="card">
             <div class="search-card">
                 <div class="input-box flex-6">
-                    <lucide-angular [img]="searchIcon" [size]="18"></lucide-angular>
+                    <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
                     <input placeholder="Job title, keywords, or company">
                 </div>
                 <div class="select-box flex-4">
-                    <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
+                    <lucide-icon [img]="mapIcon" [size]="18"></lucide-icon>
                     <ng-select [(ngModel)]="selectedLocation" placeholder="Location" class="custom" clearable="false"
                         [searchable]="false">
                         <ng-option value="">All locations</ng-option>
@@ -64,6 +64,37 @@
         <div class="job-list">
             <app-offer-card-home></app-offer-card-home>
             <app-offer-card-home></app-offer-card-home>
+        </div>
+    </div>
+</section>
+<section class="py-16 px-6 presentation-section">
+    <div class="container">
+        <div class="title">
+            <h2>Why Choose JuniorStart?</h2>
+            <p>We're dedicated to helping you launch your career</p>
+        </div>
+        <div class="presentation-container">
+            <div class="presentation">
+                <div class="badge mid-blue">
+                    <lucide-icon [img]="usersIcon" [size]="30" class="icon"></lucide-icon>
+                </div>
+                <h3>Junior-First Approach</h3>
+                <p>Every opportunity is curated specifically for entry-level professionals and career changers.</p>
+            </div>
+            <div class="presentation">
+                <div class="badge mid-green">
+                    <lucide-icon [img]="circleCheckIcon" [size]="30" class="icon"></lucide-icon>
+                </div>
+                <h3>Quality Companies</h3>
+                <p>We partner with companies committed to mentorship, training, and inclusive work environments.</p>
+            </div>
+            <div class="presentation">
+                <div class="badge mid-purple">
+                    <lucide-icon [img]="trendUpIcon" [size]="30" class="icon"></lucide-icon>
+                </div>
+                <h3>Career Growth</h3>
+                <p>Find positions that offer clear growth paths and opportunities to develop your skills.</p>
+            </div>
         </div>
     </div>
 </section>

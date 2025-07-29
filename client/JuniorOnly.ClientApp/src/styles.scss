@@ -34,7 +34,7 @@ html {
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --mat-sys-background: #eff6ff;
+  --mat-sys-background: #f6f9fc;
   --mat-sys-surface: oklch(93.2% 0.032 255.585);
   --mat-sys-surface-green: rgb(220 252 231);
   --mat-sys-surface-purple: rgb(243 232 255);
@@ -57,7 +57,6 @@ html {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  max-width: 72rem;
 }
 
 html,
@@ -100,6 +99,12 @@ input {
 
   &:hover {
     background: var(--mat-sys-bg-gradient-hover);
+  }
+}
+
+@for $i from 0 through 10 {
+  .flex-#{$i} {
+    flex: $i;
   }
 }
 
@@ -171,5 +176,12 @@ input {
         background-color: var(--mat-sys-surface);
       }
     }
+  }
+}
+
+@media (min-width: 1400px)
+{
+  .container {
+    max-width: 1400px;
   }
 }

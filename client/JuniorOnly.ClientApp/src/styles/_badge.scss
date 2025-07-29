@@ -4,6 +4,23 @@
   color: var(--mat-sys-primary);
   font-weight: 500;
   padding: 0.4rem 0.9rem;
+  .icon {
+    vertical-align: middle;
+  }
+}
+
+.mid-blue {
+    background-color: rgb(204, 224, 252);
+}
+
+.mid-green {
+    background-color: rgb(201, 250, 201);
+    color: var(--mat-sys-on-surface-green);
+}
+
+.mid-purple {
+    background-color: rgb(235, 213, 252);
+     color: var(--mat-sys-on-surface-purple);
 }
 
 .light-green {
