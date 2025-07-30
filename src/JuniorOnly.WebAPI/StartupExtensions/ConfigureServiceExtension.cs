@@ -62,8 +62,8 @@ namespace JuniorOnly.WebAPI.StartupExtensions
                     // Add angular address
                     builder
                     .WithOrigins(allowedOrigins ?? defaultOrigins)
-                    .WithHeaders("Authorization", "origin", "accept", "content-type")
-                    .WithMethods("GET", "POST", "PUT", "DELETE");
+                    .AllowAnyHeader()
+                    .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
                 });
             });
 

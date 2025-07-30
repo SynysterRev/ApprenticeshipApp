@@ -45,6 +45,7 @@ namespace JuniorOnly.Infrastructure.Repositories
         public async Task<List<Offer>> GetLastestOffersAsync(int count)
         {
             var offers = await _dbContext.Offers
+                .Include(o => o.Company)
                 .OrderByDescending(o => o.PublishedAt)
                 .Take(count)
                 .ToListAsync();
