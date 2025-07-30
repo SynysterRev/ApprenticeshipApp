@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Offer, SalaryPeriod } from '../../domains/offer/models/offer.model';
+import { Offer, SalaryPeriod } from '../models/offer.model';
 
 @Pipe({
   name: 'salaryFormat'

@@ -1,0 +1,7 @@
+<div class="offer-list">
+    @if (offers){
+        @for (offer of offers; track offer.id) {
+        <app-offer-card [offer]="offer"></app-offer-card>
+        }
+    }
+</div>

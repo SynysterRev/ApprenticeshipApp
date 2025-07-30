@@ -8,7 +8,7 @@ import { Offer, OfferCreate, OfferUpdate } from '../models/offer.model';
   providedIn: 'root'
 })
 export class OfferService {
-  private offerUrl = `${environment.apiURL}/offers`;
+  private offerUrl = `${environment.apiUrl}/offers`;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     // withCredentials: true

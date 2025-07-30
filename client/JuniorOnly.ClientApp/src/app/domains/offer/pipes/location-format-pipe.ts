@@ -11,10 +11,7 @@ export class LocationFormatPipe implements PipeTransform {
     if (!offer) {
       return '';
     }
-    if (offer.remoteType === 2) {
-      return getRemoteTypeLabel(offer.remoteType);
-    }
-    return offer.location;
+    return `${offer.location} • ${getRemoteTypeLabel(offer.remoteType)}`;
   }
 
 }

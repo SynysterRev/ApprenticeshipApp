@@ -1,16 +1,15 @@
 <div class="offer-card">
     <div class="header">
         <div class="header-logo">
-            <img [src]="imageSrc" alt="company logo">
+            <img [src]="offer().companyLogo ? offer().companyLogo : '/images/no-logo.png'" alt="company logo">
         </div>
         <div class="header-title">
             <h2>
                 <a [routerLink]="" class="job-title-link"></a>
-                Junior Frontend Developer
+                {{offer().title}}
             </h2>
-            <h3>TechStart</h3>
-            <p class="description">Join our team as a Junior Frontend Developer and grow your skills in React and modern
-                web technologies.</p>
+            <h3>{{offer().companyName}}</h3>
+            <p class="description">{{offer().description}}</p>
         </div>
     </div>
     <div class="badges-list">
@@ -21,18 +20,18 @@
         <div class="meta-list">
             <div class="meta">
                 <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
-                <span>Remote</span>
+                <span>{{offer().location}} • <span class="remote">{{offer().remoteType | remoteFormat}}</span></span>
             </div>
             <div class="meta">
                 <lucide-angular [img]="clockIcon" [size]="18"></lucide-angular>
-                <span>Full-time</span>
+                <span>{{offer().contractType | contractFormat}}</span>
             </div>
             <div class="meta">
                 <lucide-angular [img]="companyIcon" [size]="18"></lucide-angular>
-                <span>35k - 45k €</span>
+                <span>{{offer() | salaryFormat}}</span>
             </div>
             <div class="meta">
-                <span>• 2 days ago</span>
+                <span>{{offer().publishedAt | publishedDateFormat}}</span>
             </div>
         </div>
         <span class="button-gradient-link flex">

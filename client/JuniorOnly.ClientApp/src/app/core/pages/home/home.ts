@@ -16,7 +16,7 @@ import { Offer } from '../../../domains/offer/models/offer.model';
     NgSelectModule,
     CommonModule,
     StatCard,
-    OfferCardHome
+    OfferCardHome,
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'

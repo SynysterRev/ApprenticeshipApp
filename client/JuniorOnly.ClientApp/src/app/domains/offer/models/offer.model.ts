@@ -34,6 +34,8 @@ export interface BaseOffer {
 
 export interface Offer extends BaseOffer {
     id: string;
+    companyName: string;
+    companyLogo: string;
     publishedAt: Date;
     updatedAt: Date;
 }
