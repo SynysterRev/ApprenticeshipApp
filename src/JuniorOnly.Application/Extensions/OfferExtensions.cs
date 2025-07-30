@@ -22,7 +22,9 @@ namespace JuniorOnly.Application.Extensions
                 RemoteType = offer.RemoteType,
                 SalaryPeriod = offer.SalaryPeriod,
                 UpdatedAt = offer.UpdatedAt,
-                JobSectorId = offer.JobSectorId
+                JobSectorId = offer.JobSectorId,
+                CompanyName = offer.Company.Name,
+                CompanyLogo = offer.Company.LogoUrl
             };
         }
 

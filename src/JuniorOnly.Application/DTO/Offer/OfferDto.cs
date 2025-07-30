@@ -18,5 +18,7 @@ namespace JuniorOnly.Application.DTO.Offer
         public DateTime UpdatedAt { get; set; }
         public Guid CompanyId { get; set; }
         public Guid JobSectorId { get; set; }
+        public string CompanyName { get; set; } = string.Empty;
+        public string? CompanyLogo { get; set; }
     }
 }
