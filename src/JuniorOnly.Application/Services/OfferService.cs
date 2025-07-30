@@ -40,7 +40,7 @@ namespace JuniorOnly.Application.Services
 
             Offer offer = offerDto.ToEntity();
             offer.Id = Guid.NewGuid();
-
+            offer.Company = company;
             await _offerRepository.AddOfferAsync(offer);
 
             return offer.ToDto();

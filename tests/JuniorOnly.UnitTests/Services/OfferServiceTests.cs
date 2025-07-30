@@ -89,9 +89,12 @@ namespace JuniorOnly.UnitTests.Services
                 .Create();
 
             var company = _fixture.Create<Company>();
-            var expectedOffer = offerCreate.ToEntity().ToDto();
 
             _companyRepositoryMock.Setup(r => r.GetCompanyByIdAsync(It.IsAny<Guid>())).ReturnsAsync(company);
+
+            var entityOffer = offerCreate.ToEntity();
+            entityOffer.Company = company;
+            var expectedOffer = entityOffer.ToDto();
 
             var offerDto = await _offerService.CreateOfferAsync(offerCreate);
             expectedOffer.Id = offerDto.Id;
