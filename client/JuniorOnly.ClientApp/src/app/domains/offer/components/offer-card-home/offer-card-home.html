@@ -5,7 +5,7 @@
                 <div class="flex">
                     <h2>
                         <a [routerLink]="" class="job-title-link"></a>
-                        Junior Frontend Developer
+                        {{offer().title}}
                     </h2>
                     <div class="badge light-green">Career Change Friendly</div>
                 </div>
@@ -15,18 +15,18 @@
         <div class="meta-list">
             <div class="meta">
                 <lucide-icon [img]="mapIcon" [size]="18" class="icon"></lucide-icon>
-                <span>Remote</span>
+                <span>{{offer() | locationFormat}}</span>
             </div>
             <div class="meta">
                 <lucide-icon [img]="clockIcon" [size]="18"></lucide-icon>
-                <span>Full-time</span>
+                <span>{{offer().contractType | contractFormat}}</span>
             </div>
             <div class="meta">
                 <lucide-icon [img]="companyIcon" [size]="18"></lucide-icon>
-                <span>35k - 45k €</span>
+                <span>{{offer() | salaryFormat}}</span>
             </div>
             <div class="meta">
-                <span>• 2 days ago</span>
+                <span>{{offer().publishedAt | publishedDateFormat}}</span>
             </div>
         </div>
         <div class="badges-list">

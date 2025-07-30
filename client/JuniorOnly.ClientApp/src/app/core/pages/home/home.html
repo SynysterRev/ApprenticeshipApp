@@ -27,7 +27,7 @@
         <div class="info">
             <div class="flex">
                 <div class="ball blue"></div>
-                <span>2,500+ active jobs</span>
+                <span>{{totalOffers}} active jobs</span>
             </div>
             <div class="flex">
                 <div class="ball green"></div>
@@ -62,8 +62,11 @@
             <p>Fresh opportunities posted today</p>
         </div>
         <div class="job-list">
-            <app-offer-card-home></app-offer-card-home>
-            <app-offer-card-home></app-offer-card-home>
+            @if (latestOffers){
+                @for (offer of latestOffers; track offer.id) {
+                    <app-offer-card-home [offer]="offer"></app-offer-card-home>
+                }
+            }
         </div>
     </div>
 </section>
