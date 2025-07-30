@@ -63,7 +63,7 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(total);
         }
 
-        [HttpGet("lastest")]
+        [HttpGet("latest")]
         public async Task<ActionResult<List<OfferDto>>> GetLastestOffers([FromQuery] int count)
         {
             var offers = await _offerService.GetLastestOffersAsync(count);
