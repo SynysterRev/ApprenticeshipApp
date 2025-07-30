@@ -53,24 +53,12 @@ namespace JuniorOnly.Domain.Entities
         [Required]
         [ForeignKey("JobSector")]
         public Guid JobSectorId { get; set; }
-       
+
+        public bool IsDeleted { get; set; } = false;
+        public DateTime? DeletedAt { get; set; }
+
         public virtual Company Company { get; set; } = null!;
         public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
         public virtual JobSector JobSector { get; set; } = null!;
-
-        public string SalaryRangeDisplay
-        {
-            get
-            {
-                string period = SalaryPeriod switch
-                {
-                    SalaryPeriod.Year => "/year",
-                    SalaryPeriod.Month => "/month",
-                    SalaryPeriod.Day => "/day",
-                    _ => string.Empty
-                };
-                return $"{SalaryMin:N0} - {SalaryMax:N0} {period}";
-            }
-        }
     }
 }

@@ -83,7 +83,7 @@ namespace JuniorOnly.Application.Services
         }
 
         // To modified 
-        public async Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery  query)
+        public async Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery query)
         {
             var offers = await _offerRepository.SearchOffersAsync(query.SearchTerm!, query.ExperienceMax);
 
@@ -104,6 +104,33 @@ namespace JuniorOnly.Application.Services
             await _offerRepository.SaveChangesAsync();
             return offer.ToDto();
         }
+
+        public async Task SoftDeleteOfferAsync(Guid offerId)
+        {
+            var offer = await _offerRepository.GetOfferByIdAsync(offerId);
+
+            if (offer == null)
+            {
+                throw new NotFoundException($"Offer with ID {offerId} not found");
+            }
+
+            offer.DeletedAt = DateTime.UtcNow;
+            offer.IsDeleted = true;
+
+            await _offerRepository.SaveChangesAsync();
+        }
+
+        public async Task<int> GetOffersCountAsync()
+        {
+            return await _offerRepository.GetOffersCountAsync();
+        }
+
+        public async Task<List<OfferDto>> GetLastestOffersAsync(int count)
+        {
+            var offers = await _offerRepository.GetLastestOffersAsync(count);
+            return offers.Select(o => o.ToDto()).ToList();
+        }
+
         public async Task<List<OfferDto>> GetFavoriteOffersAsync(Guid candidateId)
         {
             var favorites = await _offerRepository.GetFavoriteOffersByCandidateAsync(candidateId);
@@ -141,6 +168,5 @@ namespace JuniorOnly.Application.Services
         {
             await _offerRepository.RemoveFavoriteAsync(candidateId, offerId);
         }
-
     }
 }

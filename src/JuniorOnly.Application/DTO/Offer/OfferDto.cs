@@ -18,20 +18,5 @@ namespace JuniorOnly.Application.DTO.Offer
         public DateTime UpdatedAt { get; set; }
         public Guid CompanyId { get; set; }
         public Guid JobSectorId { get; set; }
-
-        public string SalaryRangeDisplay
-        {
-            get
-            {
-                string period = SalaryPeriod switch
-                {
-                    SalaryPeriod.Year => "/year",
-                    SalaryPeriod.Month => "/month",
-                    SalaryPeriod.Day => "/day",
-                    _ => string.Empty
-                };
-                return $"{SalaryMin:N0} - {SalaryMax:N0} {period}";
-            }
-        }
     }
 }

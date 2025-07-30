@@ -37,6 +37,20 @@ namespace JuniorOnly.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<int> GetOffersCountAsync()
+        {
+            return await _dbContext.Offers.CountAsync();
+        }
+
+        public async Task<List<Offer>> GetLastestOffersAsync(int count)
+        {
+            var offers = await _dbContext.Offers
+                .OrderByDescending(o => o.PublishedAt)
+                .Take(count)
+                .ToListAsync();
+            return offers;
+        }
+
         public async Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
         {
             var query = _dbContext.Offers.AsQueryable();

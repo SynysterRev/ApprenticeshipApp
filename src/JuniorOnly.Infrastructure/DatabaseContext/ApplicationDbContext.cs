@@ -102,6 +102,16 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
             modelBuilder.Entity<Offer>()
                 .ToTable(t => t.HasCheckConstraint("CK_Offer_SalaryRange", "[SalaryMax] > [SalaryMin]"));
 
+            // avoid to display "delete" offers
+            modelBuilder.Entity<Offer>()
+                .HasQueryFilter(o => !o.IsDeleted);
+
+            modelBuilder.Entity<Application>()
+                .HasQueryFilter(a => !a.Offer.IsDeleted);
+ 
+            modelBuilder.Entity<Favorite>()
+                .HasQueryFilter(f => !f.JobOffer.IsDeleted);
+
             modelBuilder.Entity<JobSector>()
                 .Property(js => js.Name)
                 .UseCollation("SQL_Latin1_General_CP1_CI_AS");

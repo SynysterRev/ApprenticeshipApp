@@ -56,6 +56,20 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(offers);
         }
 
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetOffersCount()
+        {
+            int total = await _offerService.GetOffersCountAsync();
+            return Ok(total);
+        }
+
+        [HttpGet("lastest")]
+        public async Task<ActionResult<List<OfferDto>>> GetLastestOffers([FromQuery] int count)
+        {
+            var offers = await _offerService.GetLastestOffersAsync(count);
+            return Ok(offers);
+        }
+
         [HttpPost]
         public async Task<ActionResult<OfferDto>> Create(OfferCreateDto createDto)
         {
@@ -72,11 +86,20 @@ namespace JuniorOnly.WebAPI.Controllers.v1
             return Ok(updatedOffer);
         }
 
+        // Avoid to use it accidently
+        //[HttpDelete("{id}/permanent")]
+        //public async Task<IActionResult> Delete(Guid id)
+        //{
+        //    await _offerService.DeleteOfferAsync(id);
+        //    _logger.LogInformation("Offer deleted with ID {offerID}", id);
+        //    return NoContent();
+        //}
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> SoftDelete(Guid id)
         {
-            await _offerService.DeleteOfferAsync(id);
-            _logger.LogInformation("Offer deleted with ID {offerID}", id);
+            await _offerService.SoftDeleteOfferAsync(id);
+            _logger.LogInformation("Offer soft deleted with ID {offerID}", id);
             return NoContent();
         }
     }

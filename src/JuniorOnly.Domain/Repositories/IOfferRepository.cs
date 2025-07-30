@@ -38,6 +38,19 @@ namespace JuniorOnly.Domain.Repositories
         public Task DeleteOfferAsync(Offer offer);
 
         /// <summary>
+        /// Get the number total of offers
+        /// </summary>
+        /// <returns>The total of offers</returns>
+        public Task<int> GetOffersCountAsync();
+
+        /// <summary>
+        /// Get the xth last published offers
+        /// </summary>
+        /// <param name="count">Number of offers to returns</param>
+        /// <returns>A list of offers</returns>
+        public Task<List<Offer>> GetLastestOffersAsync(int count);
+
+        /// <summary>
         /// Search job offers by a search term in the title or description,
         /// and optionally filter by maximum required experience.
         /// </summary>

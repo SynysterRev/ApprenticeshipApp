@@ -119,6 +119,34 @@ namespace JuniorOnly.UnitTests.Services
         }
 
         [Fact]
+        public async Task SoftDeleteOfferAsync_ShouldBeSuccessful_OfferValidId()
+        {
+            var offer = _fixture.Create<Offer>();
+
+            _offerRepositoryMock.Setup(r => r.GetOfferByIdAsync(offer.Id)).ReturnsAsync(offer);
+
+            await _offerService.SoftDeleteOfferAsync(offer.Id);
+
+            _offerRepositoryMock.Verify(r => r.SaveChangesAsync(), Times.Once);
+            offer.IsDeleted.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task SoftDeleteOfferAsync_ShouldThrowNotFoundException_OfferInvalidId()
+        {
+            var invalidId = Guid.NewGuid();
+
+            _offerRepositoryMock.Setup(r => r.GetOfferByIdAsync(invalidId)).ReturnsAsync(null as Offer);
+
+            Func<Task> action = async () =>
+            {
+                await _offerService.DeleteOfferAsync(invalidId);
+            };
+
+            await action.Should().ThrowAsync<NotFoundException>();
+        }
+
+        [Fact]
         public async Task DeleteOfferAsync_ShouldBeSuccessful_OfferValidId()
         {
             var offer = _fixture.Create<Offer>();

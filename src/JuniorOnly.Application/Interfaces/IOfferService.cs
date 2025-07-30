@@ -1,5 +1,6 @@
 using JuniorOnly.Application.DTO.Favorite;
 using JuniorOnly.Application.DTO.Offer;
+using JuniorOnly.Domain.Entities;
 
 namespace JuniorOnly.Application.Interfaces
 {
@@ -45,6 +46,25 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="id">Guid of the offer to delete.</param>
         public Task DeleteOfferAsync(Guid offerId);
+
+        /// <summary>
+        /// Deactivate the job offer with the matching ID
+        /// </summary>
+        /// <param name="offerId">Guid of the offer to deactivate</param>
+        public Task SoftDeleteOfferAsync(Guid offerId);
+
+        /// <summary>
+        /// Get the number total of offers
+        /// </summary>
+        /// <returns>The number total of offers</returns>
+        public Task<int> GetOffersCountAsync();
+
+        /// <summary>
+        /// Get the xth last published offers
+        /// </summary>
+        /// <param name="count">Number of offers to returns</param>
+        /// <returns>List of the last xth OfferDto</returns>
+        public Task<List<OfferDto>> GetLastestOffersAsync(int count);
 
         /// <summary>
         /// Searches job offers by keyword and maximum experience.
