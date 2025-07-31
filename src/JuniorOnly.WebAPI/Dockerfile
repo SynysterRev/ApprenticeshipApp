@@ -1,30 +1,31 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
+# Copier le fichier solution d'abord
+COPY ["JuniorOnly.sln", "./"]
 
-COPY ["src/JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj", "JuniorOnly.WebAPI/"]
-COPY ["src/JuniorOnly.Application/JuniorOnly.Application.csproj", "JuniorOnly.Application/"]
-COPY ["src/JuniorOnly.Domain/JuniorOnly.Domain.csproj", "JuniorOnly.Domain/"]
-COPY ["src/JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "JuniorOnly.Infrastructure/"]
-#COPY ["JuniorOnly.UnitTests/JuniorOnly.UnitTests.csproj", "JuniorOnly.UnitTests/"]
+# Copier tous les fichiers .csproj
+COPY ["src/JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj", "src/JuniorOnly.WebAPI/"]
+COPY ["src/JuniorOnly.Application/JuniorOnly.Application.csproj", "src/JuniorOnly.Application/"]
+COPY ["src/JuniorOnly.Domain/JuniorOnly.Domain.csproj", "src/JuniorOnly.Domain/"]
+COPY ["src/JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "src/JuniorOnly.Infrastructure/"]
 
-RUN dotnet restore "JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
+# Restaurer les dépendances (utilise la solution pour restaurer tous les projets)
+RUN dotnet restore "JuniorOnly.sln"
 
+# Copier tout le code source
 COPY . .
 
-WORKDIR "/src/JuniorOnly.WebAPI"
+# Build du projet WebAPI
+WORKDIR "/src/src/JuniorOnly.WebAPI"
 RUN dotnet build "JuniorOnly.WebAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
