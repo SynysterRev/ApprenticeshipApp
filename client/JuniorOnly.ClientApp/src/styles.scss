@@ -9,6 +9,7 @@
 @use 'styles/link';
 @use 'styles/spacing';
 @use 'styles/input';
+@use 'styles/button';
 @import "@ng-select/ng-select/themes/default.theme.css";
 
 html {
@@ -37,6 +38,7 @@ html {
 :root {
   --mat-sys-background: #f6f9fc;
   --mat-sys-surface: oklch(93.2% 0.032 255.585);
+  --mat-sys-primary-light: oklch(74.208% 0.11659 255.739);
   --mat-sys-surface-green: rgb(220 252 231);
   --mat-sys-surface-purple: rgb(243 232 255);
   --mat-sys-on-surface-green: rgb(19, 138, 63);
@@ -70,7 +72,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-home, app-offer-list-page {
+app-home, app-offer-list-page,
+app-offer-detail-page {
   display: block;
   width: 100%;
 }

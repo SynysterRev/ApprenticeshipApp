@@ -2,7 +2,7 @@
     <div class="flex-column">
         <div class="header">
             <div class="header-title">
-                <div class="flex">
+                <div class="flex gap-4">
                     <h2>
                         <a [routerLink]="" class="job-title-link"></a>
                         {{offer().title}}
@@ -14,7 +14,7 @@
         </div>
         <div class="meta-list">
             <div class="meta">
-                <lucide-icon [img]="mapIcon" [size]="18" class="icon"></lucide-icon>
+                <lucide-icon [img]="mapIcon" [size]="18"></lucide-icon>
                 <span>{{offer().location}} • <span class="remote">{{offer().remoteType | remoteFormat}}</span></span>
             </div>
             <div class="meta">

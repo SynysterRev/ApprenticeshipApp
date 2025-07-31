@@ -1,0 +1,17 @@
+<section class="py-10 px-6">
+    <div class="container">
+        <a routerLink="/offers" class="back-link"><lucide-icon [name]="leftArrow" size="18"></lucide-icon>Back to Job
+            Search</a>
+        <div class="flex gap-8">
+            <div class="flex-3">
+                <app-offer-card-detail [offer]="offer"></app-offer-card-detail>
+            </div>
+            <div class="flex-1">
+                <div class="card gap-4">
+                    <button class="button-gradient">Apply Now</button>
+                    <button class="button">Save Job</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

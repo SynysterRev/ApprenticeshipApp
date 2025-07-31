@@ -1,40 +1,30 @@
-.button-gradient-link {
-  border-radius: 8px;
-  background: var(--mat-sys-bg-gradient);
-  padding: 0.75rem 2rem;
-  color: white;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+@use 'button';
 
-  &:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
+.button-gradient-link {
+  @include button.button-gradient-base;
 }
 
 .button-link {
-  border-radius: 8px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--mat-sys-primary);
-  padding: 0.75rem 2rem;
-  color: var(--mat-sys-primary);
-  font-weight: 500;
-  cursor: pointer;
-  z-index: 10;
-  transition:
-    background-color 0.3s,
-    color 0.3s;
-
-  &:hover {
-    background-color: var(--mat-sys-primary-container);
-    color: black;
-  }
+  @include button.button-base();
 }
 
 a {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+}
+
+.back-link {
+  color: oklch(64.075% 0.17731 256.418);
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+
+  lucide-icon {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    color: var(--mat-sys-primary);
+  }
 }
