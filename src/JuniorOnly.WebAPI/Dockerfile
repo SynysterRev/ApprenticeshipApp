@@ -20,7 +20,7 @@ COPY ["src/JuniorOnly.Domain/JuniorOnly.Domain.csproj", "JuniorOnly.Domain/"]
 COPY ["src/JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "JuniorOnly.Infrastructure/"]
 #COPY ["JuniorOnly.UnitTests/JuniorOnly.UnitTests.csproj", "JuniorOnly.UnitTests/"]
 
-RUN dotnet restore "src/JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
+RUN dotnet restore "JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
 
 COPY . .
 
