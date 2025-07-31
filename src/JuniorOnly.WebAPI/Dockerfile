@@ -14,13 +14,13 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 
-COPY ["JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj", "JuniorOnly.WebAPI/"]
-COPY ["JuniorOnly.Application/JuniorOnly.Application.csproj", "JuniorOnly.Application/"]
-COPY ["JuniorOnly.Domain/JuniorOnly.Domain.csproj", "JuniorOnly.Domain/"]
-COPY ["JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "JuniorOnly.Infrastructure/"]
+COPY ["src/JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj", "JuniorOnly.WebAPI/"]
+COPY ["src/JuniorOnly.Application/JuniorOnly.Application.csproj", "JuniorOnly.Application/"]
+COPY ["src/JuniorOnly.Domain/JuniorOnly.Domain.csproj", "JuniorOnly.Domain/"]
+COPY ["src/JuniorOnly.Infrastructure/JuniorOnly.Infrastructure.csproj", "JuniorOnly.Infrastructure/"]
 #COPY ["JuniorOnly.UnitTests/JuniorOnly.UnitTests.csproj", "JuniorOnly.UnitTests/"]
 
-RUN dotnet restore "JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
+RUN dotnet restore "src/JuniorOnly.WebAPI/JuniorOnly.WebAPI.csproj"
 
 COPY . .
 
