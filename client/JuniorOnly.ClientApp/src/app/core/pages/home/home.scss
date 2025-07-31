@@ -36,30 +36,6 @@
   gap: 1rem;
 }
 
-.input-box {
-  position: relative;
-  height: 100%;
-
-  lucide-icon {
-    position: absolute;
-    left: 1rem;
-    top: 0.75rem;
-    color: gray;
-  }
-}
-
-.select-box {
-  position: relative;
-
-  lucide-icon {
-    position: absolute;
-    left: 1rem;
-    top: 0.75rem;
-    color: gray;
-    z-index: 26;
-  }
-}
-
 .info {
   display: flex;
   justify-content: center;

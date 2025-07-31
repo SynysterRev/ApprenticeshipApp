@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { OfferCard } from '../offer-card/offer-card';
 import { Offer } from '../../models/offer.model';
 
@@ -9,5 +9,5 @@ import { Offer } from '../../models/offer.model';
   styleUrl: './offer-list.scss'
 })
 export class OfferList {
-  offers: Offer[] = [];
+  offers = input.required<Offer[]>();
 }

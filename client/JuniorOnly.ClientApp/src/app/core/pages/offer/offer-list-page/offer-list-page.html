@@ -1,0 +1,55 @@
+<div class="py-16 px-6">
+    <div class="flex container">
+        <div class="card flex-1">
+            <div class="filter-title">
+                <lucide-icon [name]="filterIcon" size="20" class="icon"></lucide-icon>
+                <h3>Filter Jobs</h3>
+            </div>
+            <div class="filter-fields">
+                <div>
+                    <label>Search Keywords</label>
+                    <div class="input-box">
+                        <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
+                        <input placeholder="Job title, keywords, or company">
+                    </div>
+                </div>
+                <div>
+                    <label>Location</label>
+                    <div class="select-box">
+                        <ng-select [(ngModel)]="selectedLocation" class="custom-filter"
+                            clearable="false" [searchable]="false">
+                            <ng-option value="">All locations</ng-option>
+                            <ng-option value="remote">Remote</ng-option>
+                            <ng-option value="paris">Paris</ng-option>
+                            <ng-option value="lyon">Lyon</ng-option>
+                            <ng-option value="marseille">Marseille</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div>
+                    <label>Contract Type</label>
+                    <div class="select-box">
+                        <ng-select [(ngModel)]="selectedContract" class="custom-filter"
+                            clearable="false" [searchable]="false">
+                            <ng-option value="">All types</ng-option>
+                            <ng-option value="cdi">CDI</ng-option>
+                            <ng-option value="cdd">CDD</ng-option>
+                            <ng-option value="freelance">Freelance</ng-option>
+                            <ng-option value="alternance">Alternance</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="button-truc">
+                    <a class="button-link">Clear All Filters</a>
+                </div>
+            </div>
+        </div>
+        <div class="flex-4">
+            <div class="title">
+                <h1>Discover Your Next Opportunity</h1>
+                <p>Curated for junior talent and career changers</p>
+            </div>
+            <app-offer-list [offers]="offers"></app-offer-list>
+        </div>
+    </div>
+</div>
