@@ -49,10 +49,10 @@
     .input-box {
         margin-top: 1rem;
         height: auto;
+    }
 
-        input {
-            border-radius: 12px;
-        }
+    input {
+        border-radius: 12px;
     }
 
     .select-box {
@@ -65,8 +65,19 @@
         }
     }
 
-    .button-link {
+    .button-link,
+    .button-gradient-link {
         display: block;
         text-align: center;
+    }
+
+    .salary-field {
+        display: flex;
+        margin-top: 1rem;
+        gap:0.5rem;
+
+        input {
+            padding-left: 1rem;
+        }
     }
 }

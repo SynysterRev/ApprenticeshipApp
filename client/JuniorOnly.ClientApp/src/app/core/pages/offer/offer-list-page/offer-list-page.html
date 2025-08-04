@@ -39,7 +39,29 @@
                         </ng-select>
                     </div>
                 </div>
-                <div class="button-truc">
+                <div>
+                    <label>Work Mode</label>
+                    <div class="select-box">
+                        <ng-select [(ngModel)]="selectedContract" class="custom-filter"
+                            clearable="false" [searchable]="false">
+                            <ng-option value="">All modes</ng-option>
+                            <ng-option value="remote">Remote</ng-option>
+                            <ng-option value="hybrid">Hybrid</ng-option>
+                            <ng-option value="site">On site</ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div>
+                    <label>Salary Range</label>
+                    <div class="salary-field">
+                        <input placeholder="Min" class="flex-1"/>
+                        <input placeholder="Max" class="flex-1"/>
+                    </div>
+                </div>
+                <div>
+                    <a class="button-gradient-link">Apply filters</a>
+                </div>
+                <div>
                     <a class="button-link">Clear All Filters</a>
                 </div>
             </div>
