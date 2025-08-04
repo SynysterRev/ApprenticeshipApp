@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
+using JuniorOnly.Application.DTO.Application;
 using JuniorOnly.Application.DTO.Offer;
+using JuniorOnly.Application.DTO.Pagination;
 using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,16 +23,16 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OfferDto>>> GetAll([FromQuery] Guid? companyId)
+        public async Task<ActionResult<PaginatedResponse<OfferDto>>> GetAll([FromQuery] Guid? companyId, [FromQuery] int pageNumber)
         {
             if (companyId.HasValue)
             {
-                var offers = await _offerService.GetOffersByCompanyAsync(companyId.Value);
+                var offers = await _offerService.GetOffersByCompanyAsync(companyId.Value, pageNumber);
                 return Ok(offers);
             }
             else
             {
-                var offers = await _offerService.GetAllOffersAsync();
+                var offers = await _offerService.GetAllOffersAsync(pageNumber);
                 return Ok(offers);
             }
         }
@@ -43,16 +45,16 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         }
 
         [HttpGet("{offerId}/applications")]
-        public async Task<ActionResult<List<Domain.Entities.Application>>> GetApplications(Guid offerId)
+        public async Task<ActionResult<List<ApplicationDto>>> GetApplications(Guid offerId)
         {
             var applications = await _applicationService.GetApplicationsByOfferAsync(offerId);
             return Ok(applications);
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<List<OfferDto>>> Search([FromQuery] OfferSearchQuery query)
+        public async Task<ActionResult<PaginatedResponse<OfferDto>>> Search([FromQuery] OfferSearchQuery query, [FromQuery] int pageNumber)
         {
-            var offers = await _offerService.SearchOffersAsync(query);
+            var offers = await _offerService.SearchOffersAsync(query, pageNumber);
             return Ok(offers);
         }
 

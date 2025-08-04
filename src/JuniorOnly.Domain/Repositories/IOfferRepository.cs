@@ -8,14 +8,14 @@ namespace JuniorOnly.Domain.Repositories
         /// Get all job offers in the database
         /// </summary>
         /// <returns>A list of all job offers</returns>
-        public Task<List<Offer>> GetAllOffersAsync();
+        public IQueryable<Offer> GetAllOffers();
 
         /// <summary>
         /// Get all job offers for a specific company
         /// </summary>
         /// <param name="companyId">The ID of the company</param>
         /// <returns>A list of all job offers for the company</returns>
-        public Task<List<Offer>> GetOffersByCompanyAsync(Guid companyId);
+        public IQueryable<Offer> GetOffersByCompany(Guid companyId);
 
         /// <summary>
         /// Get the job offer matching the ID if any
@@ -57,14 +57,14 @@ namespace JuniorOnly.Domain.Repositories
         /// <param name="searchTerm">The term to search for in the title or description.</param>
         /// <param name="experienceMax">Optional maximum years of experience required.</param>
         /// <returns>A list of job offers matching the criteria.</returns>
-        public Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null);
+        public IQueryable<Offer> SearchOffers(string searchTerm, int? experienceMax = null);
 
         /// <summary>
         /// Get all favorite job offers for a specific candidate
         /// </summary>
         /// <param name="candidateId">The ID of the candidate</param>
         /// <returns>A list of favorite job offers</returns>
-        public Task<List<Offer>> GetFavoriteOffersByCandidateAsync(Guid candidateId);
+        public IQueryable<Offer> GetFavoriteOffersByCandidate(Guid candidateId);
 
         /// <summary>
         /// Check if a job offer is marked as favorite by a candidate

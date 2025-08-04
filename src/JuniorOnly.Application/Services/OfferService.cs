@@ -1,10 +1,13 @@
-﻿using JuniorOnly.Application.DTO.Favorite;
+﻿using JuniorOnly.Application.Commons;
+using JuniorOnly.Application.DTO.Favorite;
 using JuniorOnly.Application.DTO.Offer;
+using JuniorOnly.Application.DTO.Pagination;
 using JuniorOnly.Application.Exceptions;
 using JuniorOnly.Application.Extensions;
 using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Repositories;
+using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
 namespace JuniorOnly.Application.Services
@@ -14,14 +17,17 @@ namespace JuniorOnly.Application.Services
         private readonly IOfferRepository _offerRepository;
         private readonly ICandidateProfileRepository _profileRepository;
         private readonly ICompanyRepository _companyRepository;
+        private readonly PaginationOptions _paginationOptions;
 
         public OfferService(IOfferRepository offersRepository,
             ICompanyRepository companyRepository,
-            ICandidateProfileRepository profileRepository)
+            ICandidateProfileRepository profileRepository,
+            IOptions<PaginationOptions> paginationOptions)
         {
             _offerRepository = offersRepository;
             _companyRepository = companyRepository;
             _profileRepository = profileRepository;
+            _paginationOptions = paginationOptions.Value;
         }
 
         public async Task<OfferDto> CreateOfferAsync(OfferCreateDto offerDto)
@@ -58,10 +64,13 @@ namespace JuniorOnly.Application.Services
             await _offerRepository.DeleteOfferAsync(offer);
         }
 
-        public async Task<List<OfferDto>> GetAllOffersAsync()
+        public async Task<PaginatedResponse<OfferDto>> GetAllOffersAsync(int pageNumber)
         {
-            var offers = await _offerRepository.GetAllOffersAsync();
-            return offers.Select(o => o.ToDto()).ToList();
+            var offers = await PaginatedList<Offer>.CreateAsync(
+                _offerRepository.GetAllOffers(),
+                pageNumber,
+                _paginationOptions.DefaultPageSize);
+            return offers.ToResponse(offers.Select(o => o.ToDto()));
         }
 
         public async Task<OfferDto> GetOfferByIdAsync(Guid offerId)
@@ -76,18 +85,25 @@ namespace JuniorOnly.Application.Services
             return offer.ToDto();
         }
 
-        public async Task<List<OfferDto>> GetOffersByCompanyAsync(Guid companyId)
+        public async Task<PaginatedResponse<OfferDto>> GetOffersByCompanyAsync(Guid companyId, int pageNumber)
         {
-            var offers = await _offerRepository.GetOffersByCompanyAsync(companyId);
-            return offers.Select(o => o.ToDto()).ToList();
+            var offers = await PaginatedList<Offer>.CreateAsync(
+                _offerRepository.GetOffersByCompany(companyId),
+                pageNumber,
+                _paginationOptions.DefaultPageSize);
+            return offers.ToResponse(offers.Select(o => o.ToDto()));
         }
 
         // To modified 
-        public async Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery query)
+        public async Task<PaginatedResponse<OfferDto>> SearchOffersAsync(OfferSearchQuery query, int pageNumber)
         {
-            var offers = await _offerRepository.SearchOffersAsync(query.SearchTerm!, query.ExperienceMax);
+            var offersQuery = _offerRepository.SearchOffers(query.SearchTerm!, query.ExperienceMax);
+            var offers = await PaginatedList<Offer>.CreateAsync(
+                offersQuery,
+                pageNumber,
+                _paginationOptions.DefaultPageSize);
 
-            return offers.Select(o => o.ToDto()).ToList();
+            return offers.ToResponse(offers.Select(o => o.ToDto()));
         }
 
         public async Task<OfferDto> UpdateOfferAsync(Guid offerId, OfferUpdateDto offerDto)
@@ -131,10 +147,14 @@ namespace JuniorOnly.Application.Services
             return offers.Select(o => o.ToDto()).ToList();
         }
 
-        public async Task<List<OfferDto>> GetFavoriteOffersAsync(Guid candidateId)
+        public async Task<PaginatedResponse<OfferDto>> GetFavoriteOffersAsync(Guid candidateId, int pageNumber)
         {
-            var favorites = await _offerRepository.GetFavoriteOffersByCandidateAsync(candidateId);
-            return favorites.Select(f => f.ToDto()).ToList();
+            var favoritesQuery = _offerRepository.GetFavoriteOffersByCandidate(candidateId);
+            var favorites = await PaginatedList<Offer>.CreateAsync(
+                favoritesQuery,
+                pageNumber,
+                _paginationOptions.DefaultPageSize);
+            return favorites.ToResponse(favorites.Select(f => f.ToDto()));
         }
 
         public async Task<FavoriteDto?> AddToFavoritesAsync(FavoriteCreateDto createDto)

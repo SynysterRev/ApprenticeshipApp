@@ -1,6 +1,6 @@
 using JuniorOnly.Application.DTO.Favorite;
 using JuniorOnly.Application.DTO.Offer;
-using JuniorOnly.Domain.Entities;
+using JuniorOnly.Application.DTO.Pagination;
 
 namespace JuniorOnly.Application.Interfaces
 {
@@ -10,7 +10,7 @@ namespace JuniorOnly.Application.Interfaces
         /// Gets all job offers.
         /// </summary>
         /// <returns>List of OfferDto representing all offers.</returns>
-        public Task<List<OfferDto>> GetAllOffersAsync();
+        public Task<PaginatedResponse<OfferDto>> GetAllOffersAsync(int pageNumber);
 
         /// <summary>
         /// Gets a job offer by its unique identifier.
@@ -24,7 +24,7 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="companyId">Guid of the company.</param>
         /// <returns>List of OfferDto for the company.</returns>
-        public Task<List<OfferDto>> GetOffersByCompanyAsync(Guid companyId);
+        public Task<PaginatedResponse<OfferDto>> GetOffersByCompanyAsync(Guid companyId, int pageNumber);
 
         /// <summary>
         /// Creates a new job offer.
@@ -71,14 +71,14 @@ namespace JuniorOnly.Application.Interfaces
         /// </summary>
         /// <param name="query">Filters to apply.</param>
         /// <returns>List of matching OfferDto.</returns>
-        public Task<List<OfferDto>> SearchOffersAsync(OfferSearchQuery query);
+        public Task<PaginatedResponse<OfferDto>> SearchOffersAsync(OfferSearchQuery query, int pageNumber);
 
         /// <summary>
         /// Get all favorite job offers for a specific candidate
         /// </summary>
         /// <param name="candidateId">The ID of the candidate</param>
         /// <returns>A list of favorite job offers as DTOs</returns>
-        public Task<List<OfferDto>> GetFavoriteOffersAsync(Guid candidateId);
+        public Task<PaginatedResponse<OfferDto>> GetFavoriteOffersAsync(Guid candidateId, int pageNumber);
 
         /// <summary>
         /// Check if a job offer is marked as favorite by a candidate
