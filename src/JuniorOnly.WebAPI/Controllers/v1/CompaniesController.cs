@@ -38,7 +38,7 @@ namespace JuniorOnly.WebAPI.Controllers.v1
         [HttpGet("{companyId}/offers")]
         public async Task<ActionResult<List<OfferDto>>> GetOffers(Guid companyId)
         {
-            var offers = await _offerService.GetOffersByCompanyAsync(companyId);
+            var offers = await _offerService.GetOffersByCompanyAsync(companyId, 1);
             return Ok(offers);
         }
 

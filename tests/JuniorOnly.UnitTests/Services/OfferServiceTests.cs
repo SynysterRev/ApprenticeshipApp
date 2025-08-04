@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+using JuniorOnly.Application.Commons;
 using JuniorOnly.Application.DTO.Favorite;
 using JuniorOnly.Application.DTO.Offer;
 using JuniorOnly.Application.Exceptions;
@@ -8,15 +9,12 @@ using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Application.Services;
 using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Repositories;
+using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Collections.Generic;
+using MockQueryable.Moq;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using MockQueryable;
 
 namespace JuniorOnly.UnitTests.Services
 {
@@ -43,7 +41,10 @@ namespace JuniorOnly.UnitTests.Services
             _candidateProfileRepositoryMock = new Mock<ICandidateProfileRepository>();
             _companyRepositoryMock = new Mock<ICompanyRepository>();
 
-            _offerService = new OfferService(_offerRepositoryMock.Object, _companyRepositoryMock.Object, _candidateProfileRepositoryMock.Object);
+            var paginationOptions = new PaginationOptions { DefaultPageSize = 30 };
+            IOptions<PaginationOptions> options = Options.Create(paginationOptions);
+
+            _offerService = new OfferService(_offerRepositoryMock.Object, _companyRepositoryMock.Object, _candidateProfileRepositoryMock.Object, options);
         }
 
         [Fact]
@@ -164,35 +165,38 @@ namespace JuniorOnly.UnitTests.Services
         [Fact]
         public async Task GetAllOffersAsync_ShouldBeSuccessful_EmptyList()
         {
-            _offerRepositoryMock.Setup(r => r.GetAllOffersAsync()).ReturnsAsync(new List<Offer>());
+            var offersList = new List<Offer>();
+            IQueryable<Offer> offersQueryable = offersList.BuildMock();
+            _offerRepositoryMock.Setup(r => r.GetAllOffers()).Returns(offersQueryable);
 
-            var offers = await _offerService.GetAllOffersAsync();
+            var offers = await _offerService.GetAllOffersAsync(1);
 
-            _offerRepositoryMock.Verify(r => r.GetAllOffersAsync(), Times.Once);
+            _offerRepositoryMock.Verify(r => r.GetAllOffers(), Times.Once);
 
-            offers.Should().BeEmpty();
+            offers.Items.Should().BeEmpty();
         }
 
         [Fact]
         public async Task GetAllOffersAsync_ShouldBeSuccessful_FewOffers()
         {
-            List<Offer> offers = new List<Offer>
+            List<Offer> offersList = new List<Offer>
             {
                 _fixture.Build<Offer>().With(o => o.Title, "test").Create(),
                 _fixture.Build<Offer>().With(o => o.Title, "test2").Create(),
                 _fixture.Build<Offer>().With(o => o.Title, "test3").Create()
             };
+            IQueryable<Offer> offersQueryable = offersList.BuildMock();
 
-            _offerRepositoryMock.Setup(r => r.GetAllOffersAsync()).ReturnsAsync(offers);
+            _offerRepositoryMock.Setup(r => r.GetAllOffers()).Returns(offersQueryable);
 
-            var allOffers = await _offerService.GetAllOffersAsync();
+            var allOffers = await _offerService.GetAllOffersAsync(1);
 
-            _offerRepositoryMock.Verify(r => r.GetAllOffersAsync(), Times.Once);
+            _offerRepositoryMock.Verify(r => r.GetAllOffers(), Times.Once);
 
-            var expectedOffers = offers.Select(o => o.ToDto()).ToList();
+            var expectedOffers = offersList.Select(o => o.ToDto()).ToList();
 
-            allOffers.Should().NotBeEmpty();
-            allOffers.Should().BeEquivalentTo(expectedOffers);
+            allOffers.Items.Should().NotBeEmpty();
+            allOffers.Items.Should().BeEquivalentTo(expectedOffers);
         }
 
         [Fact]
@@ -201,15 +205,16 @@ namespace JuniorOnly.UnitTests.Services
             var companyId = Guid.NewGuid();
             var offers = _fixture.CreateMany<Offer>(3).ToList();
             var expectedDtos = offers.Select(o => o.ToDto()).ToList();
+            IQueryable<Offer> offersQueryable = offers.BuildMock();
 
-            _offerRepositoryMock.Setup(r => r.GetOffersByCompanyAsync(companyId))
-                                .ReturnsAsync(offers);
+            _offerRepositoryMock.Setup(r => r.GetOffersByCompany(companyId))
+                                .Returns(offersQueryable);
 
-            var result = await _offerService.GetOffersByCompanyAsync(companyId);
+            var result = await _offerService.GetOffersByCompanyAsync(companyId, 1);
 
-            result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(expectedDtos);
-            _offerRepositoryMock.Verify(r => r.GetOffersByCompanyAsync(companyId), Times.Once);
+            result.Items.Should().NotBeNull();
+            result.Items.Should().BeEquivalentTo(expectedDtos);
+            _offerRepositoryMock.Verify(r => r.GetOffersByCompany(companyId), Times.Once);
         }
 
         //[Fact]
@@ -267,15 +272,16 @@ namespace JuniorOnly.UnitTests.Services
             var candidateId = Guid.NewGuid();
             var favorites = _fixture.CreateMany<Offer>(2).ToList();
             var expectedDtos = favorites.Select(f => f.ToDto()).ToList();
+            IQueryable<Offer> offersQueryable = favorites.BuildMock();
 
-            _offerRepositoryMock.Setup(r => r.GetFavoriteOffersByCandidateAsync(candidateId))
-                                .ReturnsAsync(favorites);
+            _offerRepositoryMock.Setup(r => r.GetFavoriteOffersByCandidate(candidateId))
+                                .Returns(offersQueryable);
 
-            var result = await _offerService.GetFavoriteOffersAsync(candidateId);
+            var result = await _offerService.GetFavoriteOffersAsync(candidateId, 1);
 
-            result.Should().NotBeNull();
-            result.Should().BeEquivalentTo(expectedDtos);
-            _offerRepositoryMock.Verify(r => r.GetFavoriteOffersByCandidateAsync(candidateId), Times.Once);
+            result.Items.Should().NotBeNull();
+            result.Items.Should().BeEquivalentTo(expectedDtos);
+            _offerRepositoryMock.Verify(r => r.GetFavoriteOffersByCandidate(candidateId), Times.Once);
         }
 
         [Fact]

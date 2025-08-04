@@ -1,4 +1,5 @@
-﻿using JuniorOnly.Application.Interfaces;
+﻿using JuniorOnly.Application.Commons;
+using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Application.Services;
 using JuniorOnly.Domain.IdentityEntities;
 using JuniorOnly.Domain.Repositories;
@@ -51,6 +52,8 @@ namespace JuniorOnly.WebAPI.StartupExtensions
             services.AddScoped<ICandidateProfileService, CandidateProfileService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobSectorService, JobSectorService>();
+
+            services.Configure<PaginationOptions>(configuration.GetSection(PaginationOptions.SectionName));
 
             var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>();
             var defaultOrigins = new string[] { "http://localhost:4200" };

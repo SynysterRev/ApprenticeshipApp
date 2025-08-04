@@ -9,14 +9,14 @@ namespace JuniorOnly.Infrastructure.Repositories
     {
         public OfferRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
-        public async Task<List<Offer>> GetAllOffersAsync()
+        public IQueryable<Offer> GetAllOffers()
         {
-            return await _dbContext.Offers.Include(o => o.Company).ToListAsync();
+            return _dbContext.Offers.Include(o => o.Company);
         }
 
-        public async Task<List<Offer>> GetOffersByCompanyAsync(Guid companyId)
+        public IQueryable<Offer> GetOffersByCompany(Guid companyId)
         {
-            return await _dbContext.Offers.Where(o => o.CompanyId == companyId).ToListAsync();
+            return _dbContext.Offers.Where(o => o.CompanyId == companyId);
         }
 
         public async Task<Offer?> GetOfferByIdAsync(Guid offerId)
@@ -52,7 +52,7 @@ namespace JuniorOnly.Infrastructure.Repositories
             return offers;
         }
 
-        public async Task<List<Offer>> SearchOffersAsync(string searchTerm, int? experienceMax = null)
+        public IQueryable<Offer> SearchOffers(string searchTerm, int? experienceMax = null)
         {
             var query = _dbContext.Offers.AsQueryable();
 
@@ -67,16 +67,15 @@ namespace JuniorOnly.Infrastructure.Repositories
                 query = query.Where(o => o.ExperienceRequired <= experienceMax.Value);
             }
 
-            return await query.ToListAsync();
+            return query;
         }
 
-        public async Task<List<Offer>> GetFavoriteOffersByCandidateAsync(Guid candidateId)
+        public IQueryable<Offer> GetFavoriteOffersByCandidate(Guid candidateId)
         {
-            return await _dbContext.Favorites
+            return _dbContext.Favorites
                 .Where(f => f.CandidateProfileId == candidateId)
                 .Select(f => f.JobOffer)
-                .Include(o => o.Company)
-                .ToListAsync();
+                .Include(o => o.Company);
         }
 
         public async Task<bool> IsFavoriteAsync(Guid candidateId, Guid offerId)
