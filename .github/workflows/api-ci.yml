@@ -53,7 +53,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: JuniorOnly.WebAPI/Dockerfile
+          file: src/JuniorOnly.WebAPI/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/junioronly:${{ steps.commit.outputs.short }}

@@ -1,7 +1,8 @@
 header {
-    position: sticky;
+    position: fixed;
+    width: 100%;
     z-index: 50;
-    top: 0px;
+    top: 0;
 }
 
 .nav {
