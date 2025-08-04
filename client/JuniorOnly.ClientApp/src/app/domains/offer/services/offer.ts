@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Offer, OfferCreate, OfferUpdate } from '../models/offer.model';
+import { PaginatedResponse } from '../../../shared/components/stat-card/models/paginated-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class OfferService {
 
   constructor(private http: HttpClient) { }
 
-  getOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.offerUrl, this.httpOptions);
+  getOffers(pageNumber: number): Observable<PaginatedResponse<Offer>> {
+    return this.http.get<PaginatedResponse<Offer>>(`${this.offerUrl}?pageNumber=${pageNumber}`, this.httpOptions);
   }
 
   getOffer(offerId: number): Observable<Offer> {
