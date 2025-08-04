@@ -1,4 +1,5 @@
 ﻿using JuniorOnly.Domain.Entities;
+using JuniorOnly.Domain.Enums;
 using JuniorOnly.Domain.IdentityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -108,7 +109,7 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
 
             modelBuilder.Entity<Application>()
                 .HasQueryFilter(a => !a.Offer.IsDeleted);
- 
+
             modelBuilder.Entity<Favorite>()
                 .HasQueryFilter(f => !f.JobOffer.IsDeleted);
 
@@ -121,6 +122,10 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
                 .IsUnique();
 
             SeedJobSectors(modelBuilder);
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                SeedFakeOffers(modelBuilder);
+            }
         }
 
         private void SeedJobSectors(ModelBuilder modelBuilder)
@@ -145,6 +150,43 @@ namespace JuniorOnly.Infrastructure.DatabaseContext
                     UpdatedAt = new DateTime(2025, 07, 24, 14, 47, 27, DateTimeKind.Utc),
                 }
             );
+        }
+
+        private void SeedFakeOffers(ModelBuilder modelBuilder)
+        {
+            var companyId = Guid.Parse("badc08ad-c99b-406d-8ea4-7f0585be6a5f");
+            var jobSectorId1 = Guid.Parse("2338d5aa-1b27-4bfe-85f7-4903e6d3434a");
+            var jobSectorId2 = Guid.Parse("0353cc9b-8a46-4cb4-bd53-e4204c8c7f0d");
+
+            var offers = new List<Offer>();
+            var baseDate = new DateTime(2025, 8, 4);
+
+            for (int i = 0; i < 100; i++)
+            {
+                var offer = new Offer
+                {
+                    Id = Guid.Parse($"00000000-0000-0000-0000-{i+1:D12}"),
+                    Title = $"Title {i}",
+                    Description = $"Description {i}",
+                    Location = $"Location {i}",
+                    ContractType = (ContractType)(i % 5),
+                    ExperienceRequired = i % 3,
+                    SalaryMin = 20000 + i * 1000,
+                    SalaryMax = 50000 + i * 1000,
+                    SalaryPeriod = (SalaryPeriod)(i % 3),
+                    RemoteType = (RemoteType)(i % 3),
+                    PublishedAt = baseDate.AddDays(i),
+                    UpdatedAt = baseDate.AddDays(i),
+                    CompanyId = companyId,
+                    JobSectorId = i % 2 == 0 ? jobSectorId1 : jobSectorId2,
+                    IsDeleted = false,
+                    DeletedAt = null
+                };
+
+                offers.Add(offer);
+            }
+
+            modelBuilder.Entity<Offer>().HasData(offers);
         }
 
     }
