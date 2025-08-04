@@ -1,0 +1,23 @@
+@use 'button';
+
+.container {
+    justify-content: start;
+    align-items: start;
+}
+
+.back-link {
+    margin-bottom: 2rem;
+}
+
+.button-gradient {
+    @include button.button-gradient-base();
+    height: 3rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.button {
+    @include button.button-base();
+    font-weight: 500;
+    font-size: 1rem;
+}

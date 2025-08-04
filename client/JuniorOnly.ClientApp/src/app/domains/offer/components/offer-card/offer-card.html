@@ -5,7 +5,7 @@
         </div>
         <div class="header-title">
             <h2>
-                <a [routerLink]="" class="job-title-link"></a>
+                <a [routerLink]="['/offers', offer().id]" class="job-title-link"></a>
                 {{offer().title}}
             </h2>
             <h3>{{offer().companyName}}</h3>

@@ -1,0 +1,25 @@
+@mixin button-base {
+    border: 1px solid var(--mat-sys-primary-light);
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    color: var(--mat-sys-primary);
+    background-color: transparent;
+    font-weight: 500;
+    z-index: 10;
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+
+    &:hover {
+        background-color: var(--mat-sys-primary-container);
+        color: black;
+    }
+}
+
+@mixin button-gradient-base {
+    @include button-base();
+    border-width: 0px;
+    background: var(--mat-sys-bg-gradient);
+    color: white;
+}

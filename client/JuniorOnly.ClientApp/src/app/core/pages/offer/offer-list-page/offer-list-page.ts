@@ -5,10 +5,11 @@ import { Offer } from '../../../../domains/offer/models/offer.model';
 import { LucideAngularModule, SlidersHorizontalIcon, SearchIcon } from 'lucide-angular';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer-list-page',
-  imports: [OfferList, 
+  imports: [OfferList,
     LucideAngularModule,
     FormsModule,
     NgSelectComponent,
@@ -23,9 +24,14 @@ export class OfferListPage implements OnInit {
   selectedLocation: string = '';
   selectedContract: string = '';
 
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // add filter directly
+    //   this.route.queryParams.subscribe(params => {
+    // });
     this.offerService.getOffers().subscribe({
       next: ((offers: Offer[]) => {
         this.offers = offers;
@@ -33,6 +39,17 @@ export class OfferListPage implements OnInit {
       error: ((error: any) => {
         console.log(error);
       })
+    });
+  }
+
+  updateQueryParams() {
+    const params: any = {};
+    // add query param filter here
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      queryParamsHandling: 'merge'
     });
   }
 

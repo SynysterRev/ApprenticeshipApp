@@ -1,0 +1,40 @@
+<div class="offer-card">
+    <div class="flex">
+        <div class="header-logo">
+            <img [src]="offer().companyLogo ? offer().companyLogo : '/images/no-logo.png'" alt="company logo">
+        </div>
+        <div>
+            <div class="header">
+                <div class="header-title">
+                    <h2>
+                        <a [routerLink]="['/offers', offer().id]" class="job-title-link"></a>
+                        {{offer().title}}
+                    </h2>
+                    <h3>{{offer().companyName}}</h3>
+                </div>
+            </div>
+            <div class="meta-list">
+                <div class="meta">
+                    <lucide-angular [img]="mapIcon" [size]="18"></lucide-angular>
+                    <span>{{offer().location}} • <span class="remote">{{offer().remoteType |
+                            remoteFormat}}</span></span>
+                </div>
+                <div class="meta">
+                    <lucide-angular [img]="clockIcon" [size]="18"></lucide-angular>
+                    <span>{{offer().contractType | contractFormat}}</span>
+                </div>
+                <div class="meta">
+                    <lucide-angular [img]="companyIcon" [size]="18"></lucide-angular>
+                    <span>{{offer() | salaryFormat}}</span>
+                </div>
+                <div class="meta">
+                    <span>{{offer().publishedAt | publishedDateFormat}}</span>
+                </div>
+            </div>
+            <div class="badges-list">
+                <div class="badge">React</div>
+                <div class="badge">JavaScript</div>
+            </div>
+        </div>
+    </div>
+</div>
