@@ -101,9 +101,14 @@
         .button-link {
             font-weight: 600;
             font-size: 1rem;
+
+            &.active {
+                background: var(--mat-sys-bg-gradient);
+                color: white;
+            }
         }
 
-        a {
+        .page-number {
             padding: 0.75rem 0.75rem;
         }
     }

@@ -73,16 +73,26 @@
             </div>
             @if (paginationData$ | async; as data) {
             <app-offer-list [offers]="data.response.items"></app-offer-list>
+            <!-- need to create a component to be reusable -->
             <div class="pagination" aria-label="Pagination">
                 <ul>
-                    <li><button [disabled]=" !data.response.hasPreviousPage" class="button-link"><lucide-angular
-                                [img]="arrowLeftIcon" [size]="16" class="icon pr-1"></lucide-angular>Previous</button>
+                    <li><button [disabled]="!data.response.hasPreviousPage" class="button-link"
+                            (click)="previousPage()"><lucide-angular [img]="arrowLeftIcon" [size]="16"
+                                class="icon pr-1"></lucide-angular>Previous</button>
                     </li>
-                    @for(page of data.pages; track page) {
-                    <li><a class="button-link">{{page}}</a></li>
+                    @if (currentPage$ | async; as currentPage) {
+                        @for(page of data.pages; track page) {
+                            @if (typeof page === 'number'){
+                            <li><button class="button-link page-number" [class.active]="page === currentPage"
+                                    (click)="goToPage(page)">{{page}}</button></li>
+                            } @else {
+                                <span>...</span>
+                            }
+                        }
                     }
-                    <li><button [disabled]="!data.response.hasNextPage" class="button-link">Next <lucide-angular
-                                [img]="arrowRightIcon" [size]="16" class="icon pl-1"></lucide-angular></button></li>
+                    <li><button [disabled]="!data.response.hasNextPage" class="button-link" (click)="nextPage()">Next
+                            <lucide-angular [img]="arrowRightIcon" [size]="16"
+                                class="icon pl-1"></lucide-angular></button></li>
                 </ul>
             </div>
             }

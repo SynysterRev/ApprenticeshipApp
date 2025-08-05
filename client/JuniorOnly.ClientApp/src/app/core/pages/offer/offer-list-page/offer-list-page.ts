@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginatedResponse } from '../../../../shared/components/stat-card/models/paginated-response.model';
 import { AsyncPipe } from '@angular/common';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-offer-list-page',
@@ -17,7 +17,7 @@ import { map, Observable } from 'rxjs';
     FormsModule,
     NgSelectComponent,
     NgSelectModule,
-    AsyncPipe],
+    AsyncPipe,],
   templateUrl: './offer-list-page.html',
   styleUrl: './offer-list-page.scss'
 })
@@ -27,14 +27,15 @@ export class OfferListPage implements OnInit {
   readonly arrowRightIcon = ArrowRightIcon;
   readonly arrowLeftIcon = ArrowLeftIcon;
 
-  currentPage: number = 1;
-  totalPages: number = 0;
   offersResponse$!: Observable<PaginatedResponse<Offer>>;
   paginationData$!: Observable<{
     response: PaginatedResponse<Offer>,
-    pages: number[]
+    pages: (string | number)[]
   }>;
-  offers: Offer[] = [];
+  // create a subject, the value can be modified by calling next
+  private currentPageSubject = new BehaviorSubject<number>(1);
+  // listen when the value when (with next)
+  currentPage$ = this.currentPageSubject.asObservable();
   selectedLocation: string = '';
   selectedContract: string = '';
 
@@ -44,16 +45,53 @@ export class OfferListPage implements OnInit {
 
   ngOnInit(): void {
     // add filter directly
-    //   this.route.queryParams.subscribe(params => {
-    // });
-    this.offersResponse$ = this.offerService.getOffers(this.currentPage);
+    this.route.queryParams.subscribe(params => {
+      const page = +params['page'] || 1;
+      this.currentPageSubject.next(page);
+    });
 
-    this.paginationData$ = this.offersResponse$.pipe(
-      map(response => ({
-        response: response,
-        pages: Array.from({ length: response.totalPages }, (_, i) => i + 1)
-      }))
+    // when currentPage change (next on the subject) reexecute to get the new offers
+    // and cancel last request if a new one is asked (thanks to switchMap)
+    this.paginationData$ = this.currentPage$.pipe(
+      switchMap((page) =>
+        this.offerService.getOffers(page).pipe(
+          map((response) => ({
+            response,
+            pages: this.getPages(response)
+          }))
+        )
+      )
     );
+  }
+
+  getPages(response: PaginatedResponse<Offer>): (string | number)[] {
+    const currentPage = response.pageIndex;
+    const totalPages = response.totalPages;
+    const delta = 2;
+    const range = [];
+    const rangeWithDots: (string | number)[] = [];
+
+    for (let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++) {
+      range.push(i);
+    }
+
+    if (currentPage - delta > 2) {
+      rangeWithDots.push(1, '...');
+    } else {
+      rangeWithDots.push(1);
+    }
+
+    rangeWithDots.push(...range);
+
+    if (currentPage + delta < totalPages - 1) {
+      rangeWithDots.push('...', totalPages);
+    } else {
+      rangeWithDots.push(totalPages);
+    }
+
+    return rangeWithDots;
   }
 
   updateQueryParams() {
@@ -67,36 +105,39 @@ export class OfferListPage implements OnInit {
     });
   }
 
-  // nextPage() {
-  //   if (!this.offersResponse$.hasNextPage) {
-  //     return;
-  //   }
-  //   this.currentPage++;
-  //   this.offerService.getOffers(this.currentPage).subscribe({
-  //     next: ((offers: PaginatedResponse<Offer>) => {
-  //       this.offersResponse$ = offers;
-  //       this.offers = offers.items;
-  //     }),
-  //     error: ((error: any) => {
-  //       console.log(error);
-  //     })
-  //   });
-  // }
+  nextPage() {
+    // take(1) listen to only one result than unsubscribe automaticaly
+    this.paginationData$.pipe(take(1)).subscribe(data => {
+      if (data.response.hasNextPage) {
+        const next = this.currentPageSubject.value + 1;
+        this.goToPage(next);
 
-  // previousPage() {
-  //   if (!this.offersResponse$.hasPreviousPage) {
-  //     return;
-  //   }
-  //   this.currentPage--;
-  //   this.offerService.getOffers(this.currentPage).subscribe({
-  //     next: ((offers: PaginatedResponse<Offer>) => {
-  //       this.offersResponse$ = offers;
-  //       this.offers = offers.items;
-  //     }),
-  //     error: ((error: any) => {
-  //       console.log(error);
-  //     })
-  //   });
-  // }
+      }
+    });
+  }
+
+  previousPage() {
+    this.paginationData$.pipe(take(1)).subscribe(data => {
+      if (data.response.hasPreviousPage) {
+        const prev = this.currentPageSubject.value - 1;
+        this.goToPage(prev);
+      }
+    });
+  }
+
+  goToPage(pageNumber: number) {
+    this.scrollToTop();
+    this.currentPageSubject.next(pageNumber);
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: pageNumber },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  private scrollToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
 
 }
