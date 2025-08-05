@@ -11,9 +11,14 @@
         background-color 0.3s,
         color 0.3s;
 
-    &:hover {
+    &:not(:disabled):hover {
         background-color: var(--mat-sys-primary-container);
         color: black;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: default;
     }
 }
 

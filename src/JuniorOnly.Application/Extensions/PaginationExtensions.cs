@@ -17,7 +17,7 @@ namespace JuniorOnly.Application.Extensions
             return new PaginatedResponse<TResult>
             {
                 PageIndex = list.PageIndex,
-                TotalPage = list.TotalPages,
+                TotalPages = list.TotalPages,
                 TotalCount = list.TotalCount,
                 HasNextPage = list.HasNextPage,
                 HasPreviousPage = list.HasPreviousPage,

@@ -16,8 +16,8 @@
                 <div>
                     <label>Location</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedLocation" class="custom-filter"
-                            clearable="false" [searchable]="false">
+                        <ng-select [(ngModel)]="selectedLocation" class="custom-filter" clearable="false"
+                            [searchable]="false">
                             <ng-option value="">All locations</ng-option>
                             <ng-option value="remote">Remote</ng-option>
                             <ng-option value="paris">Paris</ng-option>
@@ -29,8 +29,8 @@
                 <div>
                     <label>Contract Type</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedContract" class="custom-filter"
-                            clearable="false" [searchable]="false">
+                        <ng-select [(ngModel)]="selectedContract" class="custom-filter" clearable="false"
+                            [searchable]="false">
                             <ng-option value="">All types</ng-option>
                             <ng-option value="cdi">CDI</ng-option>
                             <ng-option value="cdd">CDD</ng-option>
@@ -42,8 +42,8 @@
                 <div>
                     <label>Work Mode</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedContract" class="custom-filter"
-                            clearable="false" [searchable]="false">
+                        <ng-select [(ngModel)]="selectedContract" class="custom-filter" clearable="false"
+                            [searchable]="false">
                             <ng-option value="">All modes</ng-option>
                             <ng-option value="remote">Remote</ng-option>
                             <ng-option value="hybrid">Hybrid</ng-option>
@@ -54,8 +54,8 @@
                 <div>
                     <label>Salary Range</label>
                     <div class="salary-field">
-                        <input placeholder="Min" class="flex-1"/>
-                        <input placeholder="Max" class="flex-1"/>
+                        <input placeholder="Min" class="flex-1" />
+                        <input placeholder="Max" class="flex-1" />
                     </div>
                 </div>
                 <div>
@@ -66,12 +66,36 @@
                 </div>
             </div>
         </div>
-        <div class="flex-4">
+        <div class="flex-4 offer-list">
             <div class="title">
                 <h1>Discover Your Next Opportunity</h1>
                 <p>Curated for junior talent and career changers</p>
             </div>
-            <app-offer-list [offers]="offers"></app-offer-list>
+            @if (paginationData$ | async; as data) {
+            <app-offer-list [offers]="data.response.items"></app-offer-list>
+            <!-- need to create a component to be reusable -->
+            <div class="pagination" aria-label="Pagination">
+                <ul>
+                    <li><button [disabled]="!data.response.hasPreviousPage" class="button-link"
+                            (click)="previousPage()"><lucide-angular [img]="arrowLeftIcon" [size]="16"
+                                class="icon pr-1"></lucide-angular>Previous</button>
+                    </li>
+                    @if (currentPage$ | async; as currentPage) {
+                        @for(page of data.pages; track page) {
+                            @if (typeof page === 'number'){
+                            <li><button class="button-link page-number" [class.active]="page === currentPage"
+                                    (click)="goToPage(page)">{{page}}</button></li>
+                            } @else {
+                                <span>...</span>
+                            }
+                        }
+                    }
+                    <li><button [disabled]="!data.response.hasNextPage" class="button-link" (click)="nextPage()">Next
+                            <lucide-angular [img]="arrowRightIcon" [size]="16"
+                                class="icon pl-1"></lucide-angular></button></li>
+                </ul>
+            </div>
+            }
         </div>
     </div>
 </div>
