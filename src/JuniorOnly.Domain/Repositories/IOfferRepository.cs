@@ -1,4 +1,5 @@
 using JuniorOnly.Domain.Entities;
+using JuniorOnly.Domain.Search;
 
 namespace JuniorOnly.Domain.Repositories
 {
@@ -52,12 +53,11 @@ namespace JuniorOnly.Domain.Repositories
 
         /// <summary>
         /// Search job offers by a search term in the title or description,
-        /// and optionally filter by maximum required experience.
+        /// and optionally filter by others criteria.
         /// </summary>
-        /// <param name="searchTerm">The term to search for in the title or description.</param>
-        /// <param name="experienceMax">Optional maximum years of experience required.</param>
-        /// <returns>A list of job offers matching the criteria.</returns>
-        public IQueryable<Offer> SearchOffers(string searchTerm, int? experienceMax = null);
+        /// <param name="searchCriteria">Optional criterias for the search.</param>
+        /// <returns>A list of job offers matching the criterias.</returns>
+        public IQueryable<Offer> SearchOffers(OfferSearchCriteria searchCriteria);
 
         /// <summary>
         /// Get all favorite job offers for a specific candidate

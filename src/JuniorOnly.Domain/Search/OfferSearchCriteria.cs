@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JuniorOnly.Application.DTO.Offer
+namespace JuniorOnly.Domain.Search
 {
-    public class OfferSearchQuery
+    public class OfferSearchCriteria
     {
         /// <summary>
         /// Keyword to search for.

@@ -7,6 +7,7 @@ using JuniorOnly.Application.Extensions;
 using JuniorOnly.Application.Interfaces;
 using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Repositories;
+using JuniorOnly.Domain.Search;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 
@@ -94,10 +95,17 @@ namespace JuniorOnly.Application.Services
             return offers.ToResponse(offers.Select(o => o.ToDto()));
         }
 
-        // To modified 
         public async Task<PaginatedResponse<OfferDto>> SearchOffersAsync(OfferSearchQuery query, int pageNumber)
         {
-            var offersQuery = _offerRepository.SearchOffers(query.SearchTerm!, query.ExperienceMax);
+            var criteria = new OfferSearchCriteria
+            {
+                SearchTerm = query.SearchTerm,
+                RemoteType = query.RemoteType,
+                ContractType = query.ContractType,
+                MaxSalary = query.MaxSalary,
+                MinSalary = query.MinSalary,
+            };
+            var offersQuery = _offerRepository.SearchOffers(criteria);
             var offers = await PaginatedList<Offer>.CreateAsync(
                 offersQuery,
                 pageNumber,

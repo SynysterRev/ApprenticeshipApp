@@ -1,5 +1,6 @@
 using JuniorOnly.Domain.Entities;
 using JuniorOnly.Domain.Repositories;
+using JuniorOnly.Domain.Search;
 using JuniorOnly.Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,19 +53,34 @@ namespace JuniorOnly.Infrastructure.Repositories
             return offers;
         }
 
-        public IQueryable<Offer> SearchOffers(string searchTerm, int? experienceMax = null)
+        public IQueryable<Offer> SearchOffers(OfferSearchCriteria searchCriteria)
         {
             var query = _dbContext.Offers.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchCriteria.SearchTerm))
             {
-                searchTerm = searchTerm.Trim().ToLower();
-                query = query.Where(o => o.Title.ToLower().Contains(searchTerm) || o.Description.ToLower().Contains(searchTerm));
+                searchCriteria.SearchTerm = searchCriteria.SearchTerm.Trim().ToLower();
+                query = query.Where(o => o.Title.ToLower().Contains(searchCriteria.SearchTerm) || o.Description.ToLower().Contains(searchCriteria.SearchTerm));
             }
 
-            if (experienceMax.HasValue && experienceMax >= 0)
+            if (searchCriteria.RemoteType.HasValue)
             {
-                query = query.Where(o => o.ExperienceRequired <= experienceMax.Value);
+                query = query.Where(o => o.RemoteType == searchCriteria.RemoteType.Value);
+            }
+
+            if (searchCriteria.ContractType.HasValue)
+            {
+                query = query.Where(o => o.ContractType == searchCriteria.ContractType.Value);
+            }
+
+            if (searchCriteria.MinSalary.HasValue)
+            {
+                query = query.Where(o => o.SalaryMin >= searchCriteria.MinSalary.Value);
+            }
+
+            if (searchCriteria.MaxSalary.HasValue)
+            {
+                query = query.Where(o => o.SalaryMax <= searchCriteria.MaxSalary.Value);
             }
 
             return query;
