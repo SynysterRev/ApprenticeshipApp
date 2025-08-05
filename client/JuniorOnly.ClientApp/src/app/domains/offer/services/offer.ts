@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Offer, OfferCreate, OfferUpdate } from '../models/offer.model';
-import { PaginatedResponse } from '../../../shared/components/stat-card/models/paginated-response.model';
+import { Offer, OfferCreate, OfferUpdate, SearchCriteria } from '../models/offer.model';
+import { PaginatedResponse } from '../../../shared/models/paginated-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,12 @@ export class OfferService {
 
   getLatestOffers(count: number = 4): Observable<Offer[]> {
     return this.http.get<Offer[]>(`${this.offerUrl}/latest?count=${count}`, this.httpOptions);
+  }
+
+  search(search: SearchCriteria): Observable<PaginatedResponse<Offer>> {
+    return this.http.get<PaginatedResponse<Offer>>(`${this.offerUrl}/search`, {
+      params: search as any,
+      ...this.httpOptions
+    });
   }
 }

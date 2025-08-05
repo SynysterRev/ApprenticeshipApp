@@ -58,3 +58,13 @@ export interface OfferUpdate {
     jobSectorId?: string;
 }
 
+export interface SearchCriteria {
+    minSalary?: number;
+    maxSalary?: number;
+    remoteType?: RemoteType;
+    location?: string;
+    contractType?: ContractType;
+    searchTerm? : string;
+    pageNumber?: number;
+}
+

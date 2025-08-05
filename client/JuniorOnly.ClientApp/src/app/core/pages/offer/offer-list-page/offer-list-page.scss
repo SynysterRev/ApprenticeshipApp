@@ -69,10 +69,8 @@
         }
     }
 
-    .button-link,
-    .button-gradient-link {
-        display: block;
-        text-align: center;
+    button {
+        width: 100%;
     }
 
     .salary-field {

@@ -55,7 +55,7 @@ namespace JuniorOnly.Infrastructure.Repositories
 
         public IQueryable<Offer> SearchOffers(OfferSearchCriteria searchCriteria)
         {
-            var query = _dbContext.Offers.AsQueryable();
+            var query = _dbContext.Offers.Include(o => o.Company).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchCriteria.SearchTerm))
             {

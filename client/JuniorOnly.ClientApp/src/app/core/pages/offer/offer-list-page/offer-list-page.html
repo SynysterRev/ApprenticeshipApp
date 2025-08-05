@@ -5,19 +5,19 @@
                 <lucide-icon [name]="filterIcon" size="20" class="icon"></lucide-icon>
                 <h3>Filter Jobs</h3>
             </div>
-            <div class="filter-fields">
+            <form [formGroup]="filterControl" (ngSubmit)="onApplyFilters()" class="filter-fields">
                 <div>
-                    <label>Search Keywords</label>
+                    <label for="search-term">Search Keywords</label>
                     <div class="input-box">
                         <lucide-icon [img]="searchIcon" [size]="18"></lucide-icon>
-                        <input placeholder="Job title, keywords, or company">
+                        <input id="search-term" type="text" formControlName="searchTerm" placeholder="Job title, keywords, or company">
                     </div>
                 </div>
                 <div>
-                    <label>Location</label>
+                    <label for="location">Location</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedLocation" class="custom-filter" clearable="false"
-                            [searchable]="false">
+                        <ng-select class="custom-filter" clearable="false"
+                            [searchable]="false" id="location" formControlName="location">
                             <ng-option value="">All locations</ng-option>
                             <ng-option value="remote">Remote</ng-option>
                             <ng-option value="paris">Paris</ng-option>
@@ -27,44 +27,41 @@
                     </div>
                 </div>
                 <div>
-                    <label>Contract Type</label>
+                    <label for="contract-type">Contract Type</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedContract" class="custom-filter" clearable="false"
-                            [searchable]="false">
-                            <ng-option value="">All types</ng-option>
-                            <ng-option value="cdi">CDI</ng-option>
-                            <ng-option value="cdd">CDD</ng-option>
-                            <ng-option value="freelance">Freelance</ng-option>
-                            <ng-option value="alternance">Alternance</ng-option>
+                        <ng-select class="custom-filter" clearable="false"
+                            [searchable]="false" bindLabel="label" bindValue="key" id="contract-type" formControlName="contractType">
+                            @for (contractType of getAllContractOptions(); track contractType.key) {
+                            <ng-option [value]="contractType.key">{{contractType.label}}</ng-option>
+                            }
                         </ng-select>
                     </div>
                 </div>
                 <div>
-                    <label>Work Mode</label>
+                    <label for="remote-type">Work Mode</label>
                     <div class="select-box">
-                        <ng-select [(ngModel)]="selectedContract" class="custom-filter" clearable="false"
-                            [searchable]="false">
-                            <ng-option value="">All modes</ng-option>
-                            <ng-option value="remote">Remote</ng-option>
-                            <ng-option value="hybrid">Hybrid</ng-option>
-                            <ng-option value="site">On site</ng-option>
+                        <ng-select class="custom-filter" clearable="false"
+                            [searchable]="false" bindLabel="label" bindValue="key" id="remote-type" formControlName="remoteType">
+                            @for (remoteType of getAllRemoteOptions(); track remoteType.key) {
+                            <ng-option [value]="remoteType.key">{{remoteType.label}}</ng-option>
+                            }
                         </ng-select>
                     </div>
                 </div>
                 <div>
                     <label>Salary Range</label>
-                    <div class="salary-field">
-                        <input placeholder="Min" class="flex-1" />
-                        <input placeholder="Max" class="flex-1" />
+                    <div class="salary-field" formGroupName="salary">
+                        <input placeholder="Min" class="flex-1" formControlName="min"/>
+                        <input placeholder="Max" class="flex-1" formControlName="max"/>
                     </div>
                 </div>
                 <div>
-                    <a class="button-gradient-link">Apply filters</a>
+                    <button type="submit" class="button-gradient-link">Apply filters</button>
                 </div>
                 <div>
-                    <a class="button-link">Clear All Filters</a>
+                    <button type="button" class="button-link" (click)="onClearFilters()">Clear All Filters</button>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="flex-4 offer-list">
             <div class="title">
@@ -81,14 +78,14 @@
                                 class="icon pr-1"></lucide-angular>Previous</button>
                     </li>
                     @if (currentPage$ | async; as currentPage) {
-                        @for(page of data.pages; track page) {
-                            @if (typeof page === 'number'){
-                            <li><button class="button-link page-number" [class.active]="page === currentPage"
-                                    (click)="goToPage(page)">{{page}}</button></li>
-                            } @else {
-                                <span>...</span>
-                            }
-                        }
+                    @for(page of data.pages; track page) {
+                    @if (typeof page === 'number'){
+                    <li><button class="button-link page-number" [class.active]="page === currentPage"
+                            (click)="goToPage(page)">{{page}}</button></li>
+                    } @else {
+                    <span>...</span>
+                    }
+                    }
                     }
                     <li><button [disabled]="!data.response.hasNextPage" class="button-link" (click)="nextPage()">Next
                             <lucide-angular [img]="arrowRightIcon" [size]="16"
