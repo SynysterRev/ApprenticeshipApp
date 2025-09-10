@@ -24,7 +24,7 @@ Frontend
 
     Angular 17+
 
-    (Planned) Angular Material for UI components
+    Angular Material for UI components
 
     RxJS for managing data streams and reactive programming
 
@@ -40,14 +40,14 @@ Current Progress
 
     Ongoing work on expanding unit tests and authentication controller
 
+    Build the initial Angular frontend
+
+    Add advanced filtering and search features
+
 Next Steps
 
     Implement authentication endpoints
 
     Extend test coverage
-
-    Build the initial Angular frontend
-
-    Add advanced filtering and search features
 
     Improve error handling and validation
