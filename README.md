@@ -5,7 +5,7 @@ Project Overview
 A job platform designed specifically for entry-level candidates and career changers looking for their first permanent (CDI) or fixed-term (CDD) positions.
 It helps users filter out misleading "junior" offers and makes the job search easier and more relevant, with search options by sector, location, and contract type.
 
-    This project is still under active development. The current focus is on building a solid backend with clean architecture and implementing authentication.
+    This project is unfinished.
 
 Tech Stack
 Backend
@@ -51,3 +51,10 @@ Next Steps
     Extend test coverage
 
     Improve error handling and validation
+
+# Screenshots
+Some visual of the project **this is not a finished and polished project** 
+![MainPage](./public/main-page.png)
+![MainPage](./public/main-page-2.png)
+![JobSearch](./public/job_search.png)
+![Filter](./public/search_job_cdd_filter.png)
