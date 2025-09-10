@@ -90,7 +90,7 @@ export class OfferListPage implements OnInit {
           max: criteria.maxSalary?.toString() || null
         },
       };
-      this.filterControl.setValue(queryParams); // si tu veux pré-remplir le formulaire
+      this.filterControl.patchValue(queryParams);
     });
 
     // when currentPage change (next on the subject) reexecute to get the new offers
@@ -244,6 +244,11 @@ export class OfferListPage implements OnInit {
     const cleanedCriteria = this.removeEmptyFields(criteria);
     this.filterCriteriaSubject.next(cleanedCriteria);
     this.currentPageSubject.next(1);
+    this.filterControl.patchValue({
+      ...formValue,
+      contractType: formValue.contractType,
+      remoteType: formValue.remoteType
+    });
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { ...criteria },

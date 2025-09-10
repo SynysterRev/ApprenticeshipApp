@@ -1,5 +1,7 @@
-﻿using System;
+﻿using JuniorOnly.Domain.IdentityEntities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 #nullable disable
 
@@ -13,6 +15,64 @@ namespace JuniorOnly.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            var userId = new Guid("11111111-1111-1111-1111-111111111111");
+            var passwordHasher = new PasswordHasher<ApplicationUser>();
+            var user = new ApplicationUser
+            {
+                Id = userId,
+                UserName = "admin@example.com",
+                NormalizedUserName = "ADMIN@EXAMPLE.COM",
+                Email = "admin@example.com",
+                NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                FirstName = "Admin",
+                LastName = "User",
+                EmailConfirmed = true,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            var passwordHash = passwordHasher.HashPassword(user, "P@ssw0rd!");
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "FirstName", "LastName", "CreatedAt", "UpdatedAt", "SecurityStamp", "ConcurrencyStamp", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" },
+                values: new object[] {
+            user.Id,
+            user.UserName,
+            user.NormalizedUserName,
+            user.Email,
+            user.NormalizedEmail,
+            user.EmailConfirmed,
+            passwordHash,
+            user.FirstName,
+            user.LastName,
+            user.CreatedAt,
+            user.UpdatedAt,
+            Guid.NewGuid().ToString(),
+            Guid.NewGuid().ToString(),
+            false,
+            false, 
+            false,
+            0 
+                }
+            );
+
+
+            migrationBuilder.InsertData(
+                table: "Companies",
+                columns: new[] { "Id", "Name", "CreatedByUserId", "CreatedAt", "UpdatedAt", "IsReconversionFriendly", "Description", "LogoUrl", "Website" },
+                values: new object[]
+                {
+                    new Guid("badc08ad-c99b-406d-8ea4-7f0585be6a5f"),
+                    "Entreprise",
+                    new Guid("11111111-1111-1111-1111-111111111111"),
+                    DateTime.UtcNow,
+                    DateTime.UtcNow,
+                    false,
+                    "Description",
+                    null,
+                    null
+                }
+            );
+
             migrationBuilder.InsertData(
                 table: "Offers",
                 columns: new[] { "Id", "CompanyId", "ContractType", "DeletedAt", "Description", "ExperienceRequired", "IsDeleted", "JobSectorId", "Location", "PublishedAt", "RemoteType", "SalaryMax", "SalaryMin", "SalaryPeriod", "Title", "UpdatedAt" },
@@ -124,6 +184,17 @@ namespace JuniorOnly.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "ApplicationUser",
+                keyColumn: "Id",
+                keyValue: new Guid("11111111-1111-1111-1111-111111111111"));
+
+            migrationBuilder.DeleteData(
+                table: "Company",
+                keyColumn: "Id",
+                keyValue: new Guid("badc08ad-c99b-406d-8ea4-7f0585be6a5f"));
+
+
             migrationBuilder.DeleteData(
                 table: "Offers",
                 keyColumn: "Id",
